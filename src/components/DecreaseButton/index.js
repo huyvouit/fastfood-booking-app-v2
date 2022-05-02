@@ -1,0 +1,16 @@
+import React from 'react';
+import {TouchableOpacity, Image, Text} from 'react-native';
+import Icons from '../../assets/icons';
+
+import styles from './styles';
+
+const DecreaseButton = props => {
+  const {action} = props;
+  return (
+    <TouchableOpacity style={styles.container} onPress={action}>
+      <Icons.IconMinus color="#FE724C" />
+    </TouchableOpacity>
+  );
+};
+
+export default DecreaseButton;
