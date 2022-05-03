@@ -14,6 +14,8 @@ import pizza from '../../../assets/images/Pizza.png';
 import salad from '../../../assets/images/Greek_salad.png';
 
 import styles from './styles';
+import IncreaseButton from 'components/IncreaseButton';
+import DecreaseButton from 'components/DecreaseButton';
 
 const CartScreen = () => {
   return (
@@ -46,15 +48,10 @@ const CartScreen = () => {
           </View>
 
           <View style={styles.modify}>
-            <TouchableOpacity style={styles.buttonDecrease}>
-              <SvgXml xml={Icons.IconMinus} size={24} color="#FE724C" />
-            </TouchableOpacity>
-
+            <DecreaseButton action={() => {}} />
             <Text style={styles.quantity}>02</Text>
 
-            <TouchableOpacity style={styles.buttonIncrease}>
-              <SvgXml xml={Icons.IconPlus} size={24} color="#FE724C" />
-            </TouchableOpacity>
+            <IncreaseButton action={() => {}} />
           </View>
 
           <View style={styles.foods}>
@@ -83,15 +80,10 @@ const CartScreen = () => {
           </View>
 
           <View style={styles.modify}>
-            <TouchableOpacity style={styles.buttonDecrease}>
-              <SvgXml xml={Icons.IconMinus} size={24} color="#FE724C" />
-            </TouchableOpacity>
-
+            <DecreaseButton action={() => {}} />
             <Text style={styles.quantity}>02</Text>
 
-            <TouchableOpacity style={styles.buttonIncrease}>
-              <SvgXml xml={Icons.IconPlus} size={24} color="#FE724C" />
-            </TouchableOpacity>
+            <IncreaseButton action={() => {}} />
           </View>
         </View>
       </View>

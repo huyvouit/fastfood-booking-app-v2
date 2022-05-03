@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   modify: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     position: 'relative',
     top: -45,
   },
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   quantity: {
     color: '#000',
     fontWeight: 'bold',
-    paddingEnd: 13,
+    paddingHorizontal: 13,
   },
 
   buttonDecrease: {

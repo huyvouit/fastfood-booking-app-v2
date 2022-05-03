@@ -19,7 +19,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
     <DrawerContentScrollView
       scrollEnabled={true}
       contentContainerStyle={{flex: 1}}>
-      <View style={{flex: 1, padding: 12}}>
+      <View style={{flex: 1, padding: 12, paddingTop: 20}}>
         <View
           style={{
             alignItems: 'flex-start',
