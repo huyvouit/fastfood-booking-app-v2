@@ -91,9 +91,9 @@ const DetailScreen = ({navigation}) => {
             }}
           />
         </Swiper>
-        {/* <View style={{position: 'fixed', top: 0}}>
-          <HeaderPage />
-        </View> */}
+        <View style={{position: 'absolute', top: 0}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </View>
         <View style={styles.content}>
           <Text style={styles.nameProduct}>Ground Beef Tacos</Text>
           {/* <View style={styles.iconHeart}>

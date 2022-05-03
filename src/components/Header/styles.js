@@ -3,19 +3,22 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
+    paddingTop: 20,
     paddingBottom: 30,
     paddingHorizontal: 20,
     backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   titlePage: {
     textAlign: 'center',
     fontSize: 25,
-    fontWeight: 600,
+    fontWeight: '600',
     color: 'black',
-    position: 'absolute',
-    left: '50%',
-    transform: [{translateX: '-50%'}],
+    // position: 'absolute',
+    // left: '50%',
+    // transform: [{translateX: -50}],
   },
 });
 export default styles;

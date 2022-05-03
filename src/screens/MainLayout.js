@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {SvgXml} from 'react-native-svg';
-import {LinearGradient} from 'react-native-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 import HeaderTitle from 'components/HeaderTitle';
 import BottomTab from 'components/BottomTab';
@@ -36,7 +36,7 @@ const Mainlayout = props => {
           <TouchableOpacity
             style={styles.iconMenu}
             onPress={() => navigation.openDrawer()}>
-            <SvgXml xml={Icons.IconMenu} color="black" />
+            <SvgXml xml={Icons.IconMenu} color="black" width={20} height={20} />
           </TouchableOpacity>
         }
       />
@@ -66,12 +66,12 @@ const Mainlayout = props => {
 
       {/* Footer bottom tab */}
       <View style={styles.footerBottomTab}>
-        {/* <LinearGradient
+        <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 0, y: 4}}
-          color={'gray'}
+          colors={['#e5e5e5', '#000', '#000']}
           style={styles.linear}
-        /> */}
+        />
         <BottomTab
           selectedTab={selectedTab}
           dispatch={dispatch}

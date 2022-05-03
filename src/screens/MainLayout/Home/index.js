@@ -6,7 +6,9 @@ import styles from './styles';
 const HomeScreen = () => {
   return (
     <View style={styles.root}>
-      <Text>Home</Text>
+      <Text style={{fontFamily: 'Roboto-Bold'}}>
+        What would you like to order
+      </Text>
     </View>
   );
 };
