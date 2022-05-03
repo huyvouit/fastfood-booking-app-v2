@@ -5,6 +5,7 @@ export const COLORS = {
   darkGray: '#B2B2B2',
   lightGray: '#B3B3B3',
   yellow100: '#FFC529',
+  black50: '#323643',
 };
 
 export const FONTS = {
