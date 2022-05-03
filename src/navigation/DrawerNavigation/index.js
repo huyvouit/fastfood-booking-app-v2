@@ -13,6 +13,10 @@ import {setSelectedTab} from '../../redux/actions';
 import MainLayout from 'screens/MainLayout';
 import {COLORS} from '../../constants';
 import Icons from 'assets/icons';
+import MyOrderScreen from 'screens/MainLayout/MyOrder';
+import VoucherScreen from 'screens/MainLayout/Voucher';
+import ContactScreen from 'screens/MainLayout/ContactUs';
+import ProfileScreen from 'screens/Profile';
 
 const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
   return (
@@ -41,6 +45,10 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
               flexDirection: 'row',
               marginTop: 12,
               alignItems: 'center',
+            }}
+            onPress={() => {
+              dispatch(setSelectedTab('Profile'));
+              navigation.navigate('ProfileScreen');
             }}>
             <View
               style={{
@@ -81,6 +89,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
             </View>
           </TouchableOpacity>
         </View>
+
         <View style={{flex: 1, marginTop: 24}}>
           <CustomDrawerItem
             label="Home"
@@ -126,9 +135,33 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
               marginLeft: 12,
               backgroundColor: 'white',
             }}></View>
-          <CustomDrawerItem label="My Order" icon={Icons.IconHome} />
-          <CustomDrawerItem label="Voucher" icon={Icons.IconHome} />
-          <CustomDrawerItem label="Contact Us" icon={Icons.IconContact} />
+          <CustomDrawerItem
+            label="My Order"
+            icon={Icons.IconHome}
+            isFocused={selectedTab == 'MyOrder'}
+            onPress={() => {
+              dispatch(setSelectedTab('MyOrder'));
+              navigation.navigate('MyOrderScreen');
+            }}
+          />
+          <CustomDrawerItem
+            label="Voucher"
+            icon={Icons.IconHome}
+            isFocused={selectedTab == 'Voucher'}
+            onPress={() => {
+              dispatch(setSelectedTab('Voucher'));
+              navigation.navigate('VoucherScreen');
+            }}
+          />
+          <CustomDrawerItem
+            label="Contact Us"
+            icon={Icons.IconContact}
+            isFocused={selectedTab == 'Contact'}
+            onPress={() => {
+              dispatch(setSelectedTab('Contact'));
+              navigation.navigate('ContactScreen');
+            }}
+          />
         </View>
         <View style={{marginBottom: 12}}>
           <CustomDrawerItem label="Logout" icon={Icons.IconLogout} />
@@ -221,6 +254,46 @@ export const DrawerScreen = () => {
         <Drawer.Screen name="MainLayout" options={{headerShown: false}}>
           {props => (
             <MainLayout
+              {...props}
+              drawerAnimationStyle={animatedStyle}
+              selectedTab={selectedTab}
+              dispatch={dispatch}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="MyOrderScreen" options={{headerShown: false}}>
+          {props => (
+            <MyOrderScreen
+              {...props}
+              drawerAnimationStyle={animatedStyle}
+              selectedTab={selectedTab}
+              dispatch={dispatch}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="VoucherScreen" options={{headerShown: false}}>
+          {props => (
+            <VoucherScreen
+              {...props}
+              drawerAnimationStyle={animatedStyle}
+              selectedTab={selectedTab}
+              dispatch={dispatch}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="ContactScreen" options={{headerShown: false}}>
+          {props => (
+            <ContactScreen
+              {...props}
+              drawerAnimationStyle={animatedStyle}
+              selectedTab={selectedTab}
+              dispatch={dispatch}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="ProfileScreen" options={{headerShown: false}}>
+          {props => (
+            <ProfileScreen
               {...props}
               drawerAnimationStyle={animatedStyle}
               selectedTab={selectedTab}
