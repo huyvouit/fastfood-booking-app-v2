@@ -1,4 +1,5 @@
 import Icons from 'assets/icons';
+import ItemCategory from 'components/ItemCategory';
 import React, {useEffect} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import {SvgXml} from 'react-native-svg';
@@ -12,10 +13,13 @@ const HomeScreen = () => {
       <View style={styles.fieldInputSearch}>
         <TextInput
           style={styles.inputSearch}
-          placeholder="Ssearch for food ..."></TextInput>
+          placeholder="Search for food ..."></TextInput>
         <TouchableOpacity style={styles.iconSearch}>
           <SvgXml xml={Icons.IconSearch} color="#767F9D" />
         </TouchableOpacity>
+      </View>
+      <View>
+        <ItemCategory />
       </View>
     </View>
   );

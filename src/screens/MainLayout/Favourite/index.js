@@ -49,7 +49,12 @@ const FavouriteScreen = () => {
               <View style={styles.rateView}>
                 <Text style={styles.numrate}>4.5 </Text>
                 <View style={styles.iconStar}>
-                  <SvgXml xml={Icons.IconStar} />
+                  <SvgXml
+                    xml={Icons.IconStar}
+                    fill="yellow"
+                    width={16}
+                    height={16}
+                  />
                 </View>
                 <Text style={styles.numplus}> (+25)</Text>
               </View>
@@ -73,9 +78,9 @@ const FavouriteScreen = () => {
                 <View style={styles.iconStar}>
                   <SvgXml
                     xml={Icons.IconStar}
+                    fill="yellow"
                     width={16}
                     height={16}
-                    color="#FFFF00"
                   />
                 </View>
                 <Text style={styles.numplus}> (+25)</Text>
