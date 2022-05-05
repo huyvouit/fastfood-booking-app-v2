@@ -21,10 +21,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.root}>
       <Text style={styles.textIntro}>What would you like to order</Text>
-      <TouchableOpacity
-        style={styles.fieldInputSearch}
-        // onPress={() => console.log('click')}
-        activeOpacity={1}>
+      <View style={styles.fieldInputSearch}>
         <TextInput
           // onAccessibilityTap={() => navigation.navigate('Search')}
           style={styles.inputSearch}
@@ -35,7 +32,7 @@ const HomeScreen = ({navigation}) => {
         <TouchableOpacity style={styles.iconSearch}>
           <SvgXml xml={Icons.IconSearch} color="#767F9D" />
         </TouchableOpacity>
-      </TouchableOpacity>
+      </View>
       {/* <View style={styles.listCate}>
         <FlatList
           style={{

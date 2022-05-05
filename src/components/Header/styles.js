@@ -1,5 +1,4 @@
-import {StyleSheet} from 'react-native';
-// import { COLORS } from "..";
+import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,9 +6,14 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingHorizontal: 20,
     backgroundColor: 'transparent',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
+    width: Dimensions.get('screen').width,
+    flex: 1,
+  },
+  back: {
+    marginRight: 20,
   },
   titlePage: {
     textAlign: 'center',

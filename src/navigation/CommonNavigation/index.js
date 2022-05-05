@@ -6,6 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import MainLayout from 'screens/MainLayout';
 import SearchScreen from 'screens/MainLayout/Search';
+import ReviewScreen from 'screens/MainLayout/Review';
+import DetailScreen from 'screens/MainLayout/Detail';
 
 const CommonStack = createNativeStackNavigator();
 
@@ -32,6 +34,8 @@ const CommonStackScreen = props => {
         )}
       </CommonStack.Screen>
       <CommonStack.Screen name="Search" component={SearchScreen} />
+      <CommonStack.Screen name="ReviewScreen" component={ReviewScreen} />
+      <CommonStack.Screen name="DetailScreen" component={DetailScreen} />
     </CommonStack.Navigator>
   );
 };
