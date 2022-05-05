@@ -16,22 +16,33 @@ import {SvgXml} from 'react-native-svg';
 import styles from './styles';
 
 const widthScreen = Dimensions.get('screen').width;
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [listCate, setListCate] = React.useState(CATEGORY);
   return (
     <View style={styles.root}>
       <Text style={styles.textIntro}>What would you like to order</Text>
-      <View style={styles.fieldInputSearch}>
+      <TouchableOpacity
+        style={styles.fieldInputSearch}
+        // onPress={() => console.log('click')}
+        activeOpacity={1}>
         <TextInput
+          // onAccessibilityTap={() => navigation.navigate('Search')}
           style={styles.inputSearch}
+          // editable={false}
+          onTouchStart={() => navigation.navigate('Search')}
+          pointerEvents="none"
           placeholder="Search for food ..."></TextInput>
         <TouchableOpacity style={styles.iconSearch}>
           <SvgXml xml={Icons.IconSearch} color="#767F9D" />
         </TouchableOpacity>
-      </View>
-      <View style={styles.listCate}>
+      </TouchableOpacity>
+      {/* <View style={styles.listCate}>
         <FlatList
-          style={{width: widthScreen + 5, height: '100%'}}
+          style={{
+            width: widthScreen + 5,
+            height: '100%',
+            backgroundColor: 'red',
+          }}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           data={listCate}
@@ -43,18 +54,8 @@ const HomeScreen = () => {
             </View>
           )}
         />
-        {/* <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={CATEGORY}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
-            // <View style={{width: 200, marginHorizontal: 8}}>
-            <ItemCategory image={item.image} category={item.category} />
-            // </View>
-          )}
-        /> */}
-      </View>
+       
+      </View> */}
     </View>
   );
 };

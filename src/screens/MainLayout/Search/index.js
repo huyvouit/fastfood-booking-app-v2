@@ -3,12 +3,12 @@ import {View, Text, Image} from 'react-native';
 
 import styles from './styles';
 
-const ProductScreen = () => {
+const SearchScreen = () => {
   return (
     <View style={styles.root}>
-      <Text>Product</Text>
+      <Text>Search</Text>
     </View>
   );
 };
 
-export default ProductScreen;
+export default SearchScreen;

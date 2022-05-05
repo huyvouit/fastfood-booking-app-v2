@@ -15,8 +15,9 @@ import ProductScreen from './MainLayout/Product';
 import CartScreen from './MainLayout/Cart';
 import FavouriteScreen from './MainLayout/Favourite';
 import DetailScreen from './MainLayout/Detail';
-const Mainlayout = props => {
-  const {drawerAnimationStyle, selectedTab, dispatch, navigation} = props;
+const MainLayout = props => {
+  const {drawerAnimationStyle, selectedTab, dispatch, navigation, commonNav} =
+    props;
   const flatListRef = React.useRef();
   return (
     <Animated.View
@@ -55,10 +56,14 @@ const Mainlayout = props => {
           renderItem={({item, index}) => {
             return (
               <View style={styles.mainContent}>
-                {item.label == 'Cart' && <CartScreen />}
-                {item.label == 'Home' && <HomeScreen />}
-                {item.label == 'Product' && <DetailScreen />}
-                {item.label == 'Favourite' && <FavouriteScreen />}
+                {item.label == 'Cart' && <CartScreen navigation={commonNav} />}
+                {item.label == 'Home' && <HomeScreen navigation={commonNav} />}
+                {item.label == 'Product' && (
+                  <DetailScreen navigation={commonNav} />
+                )}
+                {item.label == 'Favourite' && (
+                  <FavouriteScreen navigation={commonNav} />
+                )}
               </View>
             );
           }}
@@ -82,4 +87,4 @@ const Mainlayout = props => {
     </Animated.View>
   );
 };
-export default Mainlayout;
+export default MainLayout;

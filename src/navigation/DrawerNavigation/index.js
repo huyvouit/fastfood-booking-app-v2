@@ -17,6 +17,7 @@ import MyOrderScreen from 'screens/MainLayout/MyOrder';
 import VoucherScreen from 'screens/MainLayout/Voucher';
 import ContactScreen from 'screens/MainLayout/ContactUs';
 import ProfileScreen from 'screens/Profile';
+import CommonStackScreen from 'navigation/CommonNavigation';
 
 const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
   return (
@@ -261,7 +262,7 @@ export const DrawerScreen = ({redirect}) => {
         }}>
         <Drawer.Screen name="MainLayout" options={{headerShown: false}}>
           {props => (
-            <MainLayout
+            <CommonStackScreen
               {...props}
               drawerAnimationStyle={animatedStyle}
               selectedTab={selectedTab}
