@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
     bottom: 13,
     left: 10,
   },
+  listCate: {
+    marginVertical: 30,
+    width: '100%',
+  },
 });
 
 export default styles;

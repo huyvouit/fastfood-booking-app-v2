@@ -14,6 +14,7 @@ import HomeScreen from './MainLayout/Home';
 import ProductScreen from './MainLayout/Product';
 import CartScreen from './MainLayout/Cart';
 import FavouriteScreen from './MainLayout/Favourite';
+import DetailScreen from './MainLayout/Detail';
 const Mainlayout = props => {
   const {drawerAnimationStyle, selectedTab, dispatch, navigation} = props;
   const flatListRef = React.useRef();
@@ -56,7 +57,7 @@ const Mainlayout = props => {
               <View style={styles.mainContent}>
                 {item.label == 'Cart' && <CartScreen />}
                 {item.label == 'Home' && <HomeScreen />}
-                {item.label == 'Product' && <ProductScreen />}
+                {item.label == 'Product' && <DetailScreen />}
                 {item.label == 'Favourite' && <FavouriteScreen />}
               </View>
             );

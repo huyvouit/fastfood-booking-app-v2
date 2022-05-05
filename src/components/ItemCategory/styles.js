@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     // shadowRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'flex-start',
+    // alignContent: 'flex-start',
     backgroundColor: '#FE724C',
     // padding: 5,
   },
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
+    marginBottom: 10,
   },
   icon: {
     width: 40,
