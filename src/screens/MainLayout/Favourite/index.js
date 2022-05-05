@@ -75,7 +75,7 @@ const FavouriteScreen = () => {
                     xml={Icons.IconStar}
                     width={16}
                     height={16}
-                    color="#FFFF00"
+                    color='#FFD700'
                   />
                 </View>
                 <Text style={styles.numplus}> (+25)</Text>
