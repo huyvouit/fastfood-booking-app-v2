@@ -17,12 +17,13 @@ const styles = StyleSheet.create({
   },
   titlePage: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: '600',
-    color: 'black',
-    // position: 'absolute',
-    // left: '50%',
-    // transform: [{translateX: -50}],
+    fontFamily: 'Roboto-Bold',
+    // color: 'black',
+    position: 'absolute',
+    left: '50%',
+    transform: [{translateX: -15}],
   },
 });
 export default styles;

@@ -46,3 +46,55 @@ export const CATEGORY = [
     image: Images.Chicken,
   },
 ];
+
+export const LIST_PRODUCT = [
+  {
+    id: 1,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 2,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 3,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 4,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 5,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 6,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+  {
+    id: 7,
+    name: 'Ga Xoi Mo',
+    mainImage: Images.Hawai,
+    desc: 'Thom ngon, chat luong, tuyet voi',
+    price: '25000 VND',
+  },
+];

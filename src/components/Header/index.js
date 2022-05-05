@@ -8,7 +8,7 @@ const HeaderPage = ({returnPage, title, children}) => {
       <View style={styles.back}>
         <BackButton action={returnPage} />
       </View>
-      {title && <Text style={styles.titlePage}>{title}</Text>}
+      {title && <Text style={styles.titlePage}>{title.toUpperCase()}</Text>}
       {children}
     </View>
   );
