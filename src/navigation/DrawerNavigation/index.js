@@ -18,7 +18,7 @@ import VoucherScreen from 'screens/MainLayout/Voucher';
 import ContactScreen from 'screens/MainLayout/ContactUs';
 import ProfileScreen from 'screens/Profile';
 
-const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
+const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -164,7 +164,14 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch}) => {
           />
         </View>
         <View style={{marginBottom: 12}}>
-          <CustomDrawerItem label="Logout" icon={Icons.IconLogout} />
+          <CustomDrawerItem
+            label="Logout"
+            icon={Icons.IconLogout}
+            onPress={() => {
+              // dispatch(setSelectedTab('Contact'));
+              redirect.navigate('OnBoarding');
+            }}
+          />
         </View>
       </View>
     </DrawerContentScrollView>
@@ -194,7 +201,7 @@ const CustomDrawerItem = ({label, icon, isFocused, onPress}) => {
 
 const Drawer = createDrawerNavigator();
 
-export const DrawerScreen = () => {
+export const DrawerScreen = ({redirect}) => {
   const selectedTab = useSelector(state => state.selectedTab);
   const dispatch = useDispatch();
 
@@ -248,6 +255,7 @@ export const DrawerScreen = () => {
               navigation={props.navigation}
               selectedTab={selectedTab}
               dispatch={dispatch}
+              redirect={redirect}
             />
           );
         }}>

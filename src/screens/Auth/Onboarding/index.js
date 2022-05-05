@@ -77,7 +77,7 @@ const OnBoardingScreen = ({navigation}) => {
               {index == 2 && (
                 <PrimaryButton
                   title="Get started"
-                  action={() => navigation.navigate('DetailScreen')}
+                  action={() => navigation.navigate('Drawer')}
                 />
               )}
             </View>

@@ -29,7 +29,9 @@ const AuthStackScreen = () => (
     <AuthStack.Screen name="ReviewScreen" component={ReviewScreen} />
     <AuthStack.Screen name="DetailScreen" component={DetailScreen} />
 
-    <AuthStack.Screen name="Drawer" component={DrawerScreen} />
+    <AuthStack.Screen name="Drawer">
+      {props => <DrawerScreen {...props} redirect={props.navigation} />}
+    </AuthStack.Screen>
   </AuthStack.Navigator>
 );
 
