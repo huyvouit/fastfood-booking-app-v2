@@ -39,19 +39,15 @@ const CartScreen = () => {
               <Text style={styles.savour}>Spicy chicken, beef</Text>
               <Text style={styles.cost}>$15.30</Text>
             </View>
-          </View>
-
-          <View style={styles.close}>
-            <TouchableOpacity style={styles.closeButton}>
+            <TouchableOpacity style={styles.close}>
               <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
             </TouchableOpacity>
-          </View>
+            <View style={styles.modify}>
+              <DecreaseButton action={() => {}} />
+              <Text style={styles.quantity}>02</Text>
 
-          <View style={styles.modify}>
-            <DecreaseButton action={() => {}} />
-            <Text style={styles.quantity}>02</Text>
-
-            <IncreaseButton action={() => {}} />
+              <IncreaseButton action={() => {}} />
+            </View>
           </View>
 
           <View style={styles.foods}>
@@ -71,24 +67,21 @@ const CartScreen = () => {
               <Text style={styles.savour}>with baked salmon</Text>
               <Text style={styles.cost}>$12.00</Text>
             </View>
-          </View>
 
-          <View style={styles.close}>
-            <TouchableOpacity style={styles.closeButton}>
+            <TouchableOpacity style={styles.close}>
               <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
             </TouchableOpacity>
-          </View>
+            <View style={styles.modify}>
+              <DecreaseButton action={() => {}} />
+              <Text style={styles.quantity}>02</Text>
 
-          <View style={styles.modify}>
-            <DecreaseButton action={() => {}} />
-            <Text style={styles.quantity}>02</Text>
-
-            <IncreaseButton action={() => {}} />
+              <IncreaseButton action={() => {}} />
+            </View>
           </View>
         </View>
       </View>
 
-      <View style={styles.promoCode}>
+      {/* <View style={styles.promoCode}>
         <TextInput
           style={styles.inputCode}
           placeholder="Promo Code"
@@ -97,10 +90,10 @@ const CartScreen = () => {
         <TouchableOpacity style={styles.buttonApply}>
           <Text style={styles.buttonText}>Apply</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={{backgroundColor: 'white'}}>
-        <View style={styles.textWrapper}>
+        <View style={styles.fees}>
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Subtotal</Text>
             <View style={styles.money}>
@@ -108,8 +101,8 @@ const CartScreen = () => {
               <Text style={styles.unit}>USD</Text>
             </View>
           </View>
-          <View
-            style={{borderWidth: 0.5, borderColor: '#C0C0C0', top: -50}}></View>
+          {/* <View
+            style={{borderWidth: 0.5, borderColor: '#C0C0C0', top: -50}}></View> */}
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Tax and Fees</Text>
             <View style={styles.money}>
@@ -117,8 +110,7 @@ const CartScreen = () => {
               <Text style={styles.unit}>USD</Text>
             </View>
           </View>
-          <View
-            style={{borderWidth: 0.5, borderColor: '#C0C0C0', top: -50}}></View>
+
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Delivery</Text>
             <View style={styles.money}>
@@ -126,8 +118,7 @@ const CartScreen = () => {
               <Text style={styles.unit}>USD</Text>
             </View>
           </View>
-          <View
-            style={{borderWidth: 0.5, borderColor: '#C0C0C0', top: -50}}></View>
+
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Total</Text>
             <View style={styles.money}>

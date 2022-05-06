@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   textWrapper: {
     paddingTop: 20,
     paddingBottom: 0,
+    // backgroundColor: 'red',
   },
 
   title: {
@@ -25,6 +26,8 @@ const styles = StyleSheet.create({
   foods: {
     flexDirection: 'row',
     // justifyContent: "center",
+    // backgroundColor: 'red',
+    marginBottom: 20,
   },
 
   information: {
@@ -53,20 +56,22 @@ const styles = StyleSheet.create({
   close: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    position: 'relative',
-    top: -80,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
 
   closeButton: {
-    paddingRight: 10,
+    // paddingRight: 10,
   },
 
   modify: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    position: 'relative',
-    top: -45,
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 
   buttonIncrease: {
@@ -116,14 +121,19 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
-
+  fees: {
+    marginTop: 30,
+    // backgroundColor: 'green',
+  },
   cost_info: {
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
     paddingTop: 10,
     paddingBottom: 10,
-    top: -50,
+    borderBottomWidth: 1,
+    borderColor: '#c4c4c4',
+    // top: -50,
   },
 
   kind_of_fee: {
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingBottom: 50,
+    paddingTop: 50,
   },
   buttonCheck: {
     backgroundColor: '#FE724C',
