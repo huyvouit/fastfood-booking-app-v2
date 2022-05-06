@@ -14,6 +14,8 @@ import IconEye from './eye.svg';
 import IconClose from './close.svg';
 import IconChevronleft from './chevron-left.svg';
 import IconMenu from './menu.svg';
+import IconFilter from './filter.svg';
+
 
 const Icons = {
   IconChevronleft,
@@ -32,6 +34,7 @@ const Icons = {
   IconTrash,
   IconUser,
   IconMenu,
+  IconFilter,
 };
 
 export default Icons;
