@@ -1,9 +1,16 @@
-import {StyleSheet} from 'react-native';
+import React, {useRef} from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
 import {COLORS} from 'constants/theme';
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    paddingHorizontal: 20,
+    // flex: 1,
+    height: Dimensions.get('screen').height,
+    // paddingHorizontal: 20,
+    // height
+  },
+  scrollview: {
+    flexGrow: 1,
+    height: '100%',
   },
   textIntro: {
     fontSize: 30,
@@ -13,12 +20,14 @@ const styles = StyleSheet.create({
     // lineHeight: 20,
     paddingTop: 20,
     width: '80%',
+    paddingHorizontal: 20,
   },
 
   //search
   fieldInputSearch: {
     position: 'relative',
     marginTop: 20,
+    paddingHorizontal: 20,
   },
   inputSearch: {
     borderColor: '#9AA0B4',
@@ -35,11 +44,30 @@ const styles = StyleSheet.create({
   iconSearch: {
     position: 'absolute',
     bottom: 13,
-    left: 10,
+    left: 30,
   },
   listCate: {
     marginVertical: 30,
     width: '100%',
+  },
+  bestSeller: {
+    paddingTop: 20,
+  },
+  popularFood: {
+    paddingTop: 20,
+    paddingHorizontal: 20,
+  },
+  textMenu: {
+    fontSize: 20,
+    fontFamily: 'Roboto-Bold',
+    fontWeight: '600',
+  },
+  listProduct: {
+    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 20,
   },
 });
 

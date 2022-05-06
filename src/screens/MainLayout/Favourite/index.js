@@ -37,8 +37,8 @@ const FavouriteScreen = () => {
               <Text style={styles.tab_Resturents_Text}>Resturents</Text>
             </TouchableOpacity>
           </View>
-          <ScrollView>
-            <TouchableOpacity style={styles.foodItems}>
+          <ScrollView style={{height: 500}}>
+            <TouchableOpacity style={styles.foodItems} activeOpacity={0.95}>
               <Image source={HawaiianChicken} style={styles.image} />
 
               <View style={styles.costView}>
@@ -65,6 +65,58 @@ const FavouriteScreen = () => {
               </View>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.foodItems}>
+              <Image source={Pizza} style={styles.image} />
+
+              <View style={styles.costView}>
+                <Text style={styles.unit}>$</Text>
+                <Text style={styles.cost}>10.35</Text>
+              </View>
+
+              <View style={styles.rateView}>
+                <Text style={styles.numrate}>4.5 </Text>
+                <View style={styles.iconStar}>
+                  <SvgXml
+                    xml={Icons.IconStar}
+                    fill="yellow"
+                    width={16}
+                    height={16}
+                  />
+                </View>
+                <Text style={styles.numplus}> (+25)</Text>
+              </View>
+
+              <View style={styles.foodInfo}>
+                <Text style={styles.foodNameText}>Red N Hot Pizza</Text>
+                <Text style={styles.savour}>Chicken, Cheese and pineapple</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.foodItems}>
+              <Image source={Pizza} style={styles.image} />
+
+              <View style={styles.costView}>
+                <Text style={styles.unit}>$</Text>
+                <Text style={styles.cost}>10.35</Text>
+              </View>
+
+              <View style={styles.rateView}>
+                <Text style={styles.numrate}>4.5 </Text>
+                <View style={styles.iconStar}>
+                  <SvgXml
+                    xml={Icons.IconStar}
+                    fill="yellow"
+                    width={16}
+                    height={16}
+                  />
+                </View>
+                <Text style={styles.numplus}> (+25)</Text>
+              </View>
+
+              <View style={styles.foodInfo}>
+                <Text style={styles.foodNameText}>Red N Hot Pizza</Text>
+                <Text style={styles.savour}>Chicken, Cheese and pineapple</Text>
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.foodItems}>
               <Image source={Pizza} style={styles.image} />
 

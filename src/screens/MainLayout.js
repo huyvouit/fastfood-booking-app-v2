@@ -59,7 +59,7 @@ const MainLayout = props => {
                 {item.label == 'Cart' && <CartScreen navigation={commonNav} />}
                 {item.label == 'Home' && <HomeScreen navigation={commonNav} />}
                 {item.label == 'Product' && (
-                  <DetailScreen navigation={commonNav} />
+                  <ProductScreen navigation={commonNav} />
                 )}
                 {item.label == 'Favourite' && (
                   <FavouriteScreen navigation={commonNav} />
