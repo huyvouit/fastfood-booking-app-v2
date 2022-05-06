@@ -14,7 +14,7 @@ import IconEye from './eye.svg';
 import IconClose from './close.svg';
 import IconChevronleft from './chevron-left.svg';
 import IconMenu from './menu.svg';
-
+import IconAddress from './address.svg';
 const Icons = {
   IconChevronleft,
   IconPlus,
@@ -32,6 +32,7 @@ const Icons = {
   IconTrash,
   IconUser,
   IconMenu,
+  IconAddress,
 };
 
 export default Icons;
