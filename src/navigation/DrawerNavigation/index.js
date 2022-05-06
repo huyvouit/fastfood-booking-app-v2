@@ -18,6 +18,7 @@ import VoucherScreen from 'screens/MainLayout/Voucher';
 import ContactScreen from 'screens/MainLayout/ContactUs';
 import ProfileScreen from 'screens/Profile';
 import CommonStackScreen from 'navigation/CommonNavigation';
+import AddressBookScreen from 'screens/MainLayout/AddressBook';
 
 const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
   return (
@@ -136,6 +137,15 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
               marginLeft: 12,
               backgroundColor: 'white',
             }}></View>
+          <CustomDrawerItem
+            label="Address Book"
+            icon={Icons.IconAddress}
+            isFocused={selectedTab == 'AddressBook'}
+            onPress={() => {
+              dispatch(setSelectedTab('AddressBook'));
+              navigation.navigate('AddressBookScreen');
+            }}
+          />
           <CustomDrawerItem
             label="My Order"
             icon={Icons.IconHome}
@@ -273,6 +283,16 @@ export const DrawerScreen = ({redirect}) => {
         <Drawer.Screen name="MyOrderScreen" options={{headerShown: false}}>
           {props => (
             <MyOrderScreen
+              {...props}
+              drawerAnimationStyle={animatedStyle}
+              selectedTab={selectedTab}
+              dispatch={dispatch}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="AddressBookScreen" options={{headerShown: false}}>
+          {props => (
+            <AddressBookScreen
               {...props}
               drawerAnimationStyle={animatedStyle}
               selectedTab={selectedTab}
