@@ -9,23 +9,23 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
 
   textWrapper: {
-    paddingTop: 40,
+    paddingTop: 30,
     paddingBottom: 30,
   },
 
   back: {
     paddingStart: 10,
-    paddingTop: 8,
+    paddingTop: 20,
   },
 
   profile: {
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingTop: 40,
+    paddingTop: 30,
   },
 
   avatar: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
 
   edit: {
-    marginBottom: 25,
+    marginBottom: 20,
   },
 
   name: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     },
 
   infoText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     justifyContent: 'center',
     marginLeft: 15,

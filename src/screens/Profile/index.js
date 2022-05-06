@@ -1,7 +1,9 @@
+import BackButton from 'components/BackButton';
 import React from 'react';
 import {
   Text,
   View,
+  ScrollView,
   TouchableOpacity,
   Image,
   SafeAreaView,
@@ -13,7 +15,8 @@ const ProfileScreen = () => {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar style='light' />
-        <View style={styles.content}>
+        <BackButton style={styles.back} />
+        <ScrollView style={styles.content}>
           <View style={styles.textWrapper}>            
             <View style={styles.profile}>
               <View style={styles.avatar}>
@@ -49,7 +52,7 @@ const ProfileScreen = () => {
               </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
 };

@@ -1,23 +1,59 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F5F5F5',
+    paddingTop: StatusBar.height,
+    paddingHorizontal: 20,
   },
-  bg: {
-    width: '100%',
-    height: '100%',
-    opacity: 0.7,
+
+  content: {
+    paddingHorizontal: 15,
   },
-  logo: {
-    position: 'absolute',
-    top: '25%',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+
+  textWrapper: {
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+
+  title: {
     flexDirection: 'row',
+    paddingTop: 30,
+  },
+
+  back: {
+    paddingStart: 10,
+    paddingTop: 8,
+  },
+
+  titleText: {
+    color: '#000',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+
+  address: {
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    height: 100,
+    width: '100%',
+    justifyContent: 'center',
+  },
+
+  info: {
+    paddingLeft: 10,
+  },
+
+  buttonAdd: {
+    borderRadius: 30,
+    width: 50,
+    height: 50,
+    backgroundColor: '#fff',
+    alignSelf: 'flex-end',
+    marginTop: 10,
   },
 });
 
