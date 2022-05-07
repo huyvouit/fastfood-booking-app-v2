@@ -3,10 +3,12 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {COLORS} from 'constants/theme';
 const styles = StyleSheet.create({
   root: {
-    // flex: 1,
-    height: Dimensions.get('screen').height,
+    flex: 1,
+    // height: Dimensions.get('screen').height,
     // paddingHorizontal: 20,
     // height
+    // backgroundColor: 'red',
+    // marginBottom: 200,
   },
   scrollview: {
     flexGrow: 1,
@@ -47,8 +49,8 @@ const styles = StyleSheet.create({
     left: 30,
   },
   listCate: {
-    marginVertical: 30,
-    width: '100%',
+    // marginVertical: 30,
+    // width: '100%',
   },
   bestSeller: {
     paddingTop: 20,

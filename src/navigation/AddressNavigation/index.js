@@ -1,11 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-// import OnBoardingScreen from 'screens/Profile/Onboarding';
-
 import DetailScreen from 'screens/MainLayout/Detail';
-
 import NewAddressScreen from 'screens/MainLayout/NewAddress';
 import AddressBookScreen from 'screens/MainLayout/AddressBook';
 
