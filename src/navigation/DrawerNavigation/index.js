@@ -19,6 +19,7 @@ import ContactScreen from 'screens/MainLayout/ContactUs';
 import ProfileScreen from 'screens/Profile';
 import CommonStackScreen from 'navigation/CommonNavigation';
 import AddressBookScreen from 'screens/MainLayout/AddressBook';
+import AddressStackScreen from 'navigation/AddressNavigation';
 
 const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
   return (
