@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     fontFamily: 'Roboto-Regular',
-    color: 'black',
+    color: '#323643',
   },
   createDate: {
     fontSize: 16,

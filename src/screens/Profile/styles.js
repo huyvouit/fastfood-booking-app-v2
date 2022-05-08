@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    color: '#000',
+    color: '#323643',
     justifyContent: 'center',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    color: '#000',
+    color: '#323643',
     fontWeight: '700',
     fontFamily: 'Roboto-Bold',
     fontSize: 20,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
 
   infoText: {
-    color: '#000',
+    color: '#323643',
     fontSize: 18,
     fontFamily: 'Roboto-Regular',
     justifyContent: 'center',

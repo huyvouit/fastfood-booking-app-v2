@@ -48,7 +48,7 @@ const TwoPointSider = props => {
             <Text
               style={{
                 marginTop: 0,
-                color: 'black',
+                color: '#323643',
                 fontSize: 14,
                 fontFamily: 'Roboto-Regular',
                 fontWeight: '400',

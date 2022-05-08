@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    color: '#000',
+    color: '#323643',
     justifyContent: 'center',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
 
   inputInfo: {
-    color: '#000',
+    color: '#323643',
     fontSize: 18,
     fontFamily: 'Roboto-Regular',
     justifyContent: 'center',

@@ -25,7 +25,7 @@ const Section = ({containerStyle, title, children}) => {
           fontSize: 18,
           fontWeight: '600',
           fontFamily: 'Roboto-Bold',
-          color: 'black',
+          color: '#323643',
         }}>
         {title}
       </Text>
@@ -96,7 +96,7 @@ const FilterModal = ({isVisible, onClose}) => {
                 fontSize: 20,
                 fontWeight: '700',
                 fontFamily: 'Roboto-Bold',
-                color: 'black',
+                color: '#323643',
               }}>
               Filter your search
             </Text>
@@ -157,7 +157,7 @@ const FilterModal = ({isVisible, onClose}) => {
                           fontSize: 18,
                           fontWeight: '700',
                           fontFamily: 'Roboto-Regular',
-                          color: item.active ? 'white' : 'black',
+                          color: item.active ? 'white' : '#323643',
                         }}>
                         {item.size}
                       </Text>
@@ -193,7 +193,7 @@ const FilterModal = ({isVisible, onClose}) => {
                     fontSize: 16,
                     fontWeight: '700',
                     fontFamily: 'Roboto-Regular',
-                    color: 'black',
+                    color: '#323643',
                   }}>
                   CLEAR FILTER
                 </Text>

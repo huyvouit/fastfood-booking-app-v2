@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '600',
     fontFamily: 'Roboto-Bold',
-    // color: 'black',
+    // color: '#323643',
     position: 'absolute',
     left: '50%',
     transform: [{translateX: -15}],

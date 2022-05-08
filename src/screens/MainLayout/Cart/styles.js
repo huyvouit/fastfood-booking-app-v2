@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
 
   name_food: {
-    color: '#000',
+    color: '#323643',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   quantity: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     paddingHorizontal: 13,
   },
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
 
   kind_of_fee: {
-    color: '#000',
+    color: '#323643',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   cost_of_fee: {
-    color: '#000',
+    color: '#323643',
     fontSize: 20,
     fontWeight: 'bold',
     paddingLeft: 120,

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontFamily: 'Roboto-Bold',
     lineHeight: 20,
-    color: 'black',
+    color: '#323643',
   },
   descProduct: {
     paddingTop: 5,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontFamily: 'Roboto-Regular',
     lineHeight: 20,
-    color: 'black',
+    color: '#323643',
   },
 });
 

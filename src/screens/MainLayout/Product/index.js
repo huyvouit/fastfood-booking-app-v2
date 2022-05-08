@@ -137,7 +137,7 @@ const ProductScreen = ({navigation}) => {
 
           <Text
             style={{
-              color: 'black',
+              color: '#323643',
               fontWeight: 'bold',
               fontSize: 20,
               marginTop: 10,
@@ -145,7 +145,7 @@ const ProductScreen = ({navigation}) => {
             }}>
             Chicken greys
           </Text>
-          <Text style={{color: 'black', marginTop: 5, marginLeft: 15}}>
+          <Text style={{color: '#323643', marginTop: 5, marginLeft: 15}}>
             Brown the beef better. Lean ground beef . I like to use 85% lean
             angus. Garlic . use fresh chopped. Spices . chili powder, cumin,
             onion powder.

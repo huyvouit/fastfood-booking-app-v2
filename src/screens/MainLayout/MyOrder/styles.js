@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    color: '#000',
+    color: '#323643',
     justifyContent: 'center',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   brand: {
     top: 5,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#323643',
   },
 
   code: {
@@ -143,21 +143,21 @@ const styles = StyleSheet.create({
   },
 
   timeNumber: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     fontSize: 28,
   },
 
   timeUnit: {
     fontWeight: 'bold',
-    color: '#000',
+    color: '#323643',
     alignSelf: 'flex-end',
     top: -5,
     left: 5,
   },
 
   presentStatus: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     left: 170,
   },
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   buttonActionLeftText: {
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#000',
+    color: '#323643',
   },
 
   buttonActionRight: {
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
 
   lastOrderTitle: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 10,

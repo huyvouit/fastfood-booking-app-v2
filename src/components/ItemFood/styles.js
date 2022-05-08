@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
   cost: {
     fontWeight: 'bold',
-    color: '#000',
+    color: '#323643',
     fontSize: 22,
   },
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   numrate: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     alignSelf: 'center',
   },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   foodNameText: {
-    color: '#000',
+    color: '#323643',
     fontWeight: 'bold',
     fontSize: 20,
   },
