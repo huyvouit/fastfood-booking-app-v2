@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
   },
   linear: {
     position: 'absolute',
-    top: -20,
+    top: -10,
     left: 0,
     right: 0,
-    height: 100,
+    height: 80,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },

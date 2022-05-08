@@ -26,8 +26,8 @@ const AuthStackScreen = () => (
 
     {/* temp */}
     {/* <AuthStack.Screen name="CartScreen" component={CartScreen} /> */}
-    <AuthStack.Screen name="ReviewScreen" component={ReviewScreen} />
-    <AuthStack.Screen name="DetailScreen" component={DetailScreen} />
+    {/* <AuthStack.Screen name="ReviewScreen" component={ReviewScreen} /> */}
+    {/* <AuthStack.Screen name="DetailScreen" component={DetailScreen} /> */}
 
     <AuthStack.Screen name="Drawer">
       {props => <DrawerScreen {...props} redirect={props.navigation} />}

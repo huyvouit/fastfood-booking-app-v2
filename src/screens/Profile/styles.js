@@ -3,18 +3,31 @@ import {StyleSheet, StatusBar} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'white',
     paddingTop: StatusBar.height,
     paddingHorizontal: 20,
   },
 
   content: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 10,
   },
 
   textWrapper: {
-    paddingTop: 40,
+    paddingTop: 30,
     paddingBottom: 30,
+  },
+
+  title: {
+    flexDirection: 'row',
+    paddingTop: 30,
+  },
+
+  titleText: {
+    color: '#000',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 24,
   },
 
   back: {
@@ -25,7 +38,7 @@ const styles = StyleSheet.create({
   profile: {
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingTop: 40,
+    paddingTop: 30,
   },
 
   avatar: {
@@ -34,12 +47,18 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: 100, 
-    width: 100, 
-    borderRadius: 50
+    height: 100,
+    width: 100,
+    borderRadius: 50,
   },
 
-  iconPhoto: {
+  buttonChangePhoto: {
+    borderRadius: 40,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+
+  iconCamera: {
     backgroundColor: '#fff',
     borderRadius: 20,
     height: 30,
@@ -52,12 +71,13 @@ const styles = StyleSheet.create({
   },
 
   edit: {
-    marginBottom: 25,
+    marginBottom: 20,
   },
 
   name: {
     color: '#000',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    fontFamily: 'Roboto-Bold',
     fontSize: 20,
     justifyContent: 'center',
     textAlign: 'center',
@@ -71,7 +91,9 @@ const styles = StyleSheet.create({
 
   editProfileText: {
     color: '#C0C0C0',
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
   },
 
   itemInfo: {
@@ -81,8 +103,9 @@ const styles = StyleSheet.create({
   },
 
   Label: {
-    color: '#C0C0C0',
-    fontSize: 18,
+    color: '#A9A9A9',
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
     marginBottom: 10,
     paddingStart: 10,
   },
@@ -95,11 +118,12 @@ const styles = StyleSheet.create({
     height: 60,
     width: '100%',
     justifyContent: 'center',
-    },
+  },
 
   infoText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: '#000',
+    fontSize: 18,
+    fontFamily: 'Roboto-Regular',
     justifyContent: 'center',
     marginLeft: 15,
   },

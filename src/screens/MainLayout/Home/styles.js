@@ -3,10 +3,13 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {COLORS} from 'constants/theme';
 const styles = StyleSheet.create({
   root: {
-    // flex: 1,
-    height: Dimensions.get('screen').height,
+    flex: 1,
+    // height: Dimensions.get('screen').height,
     // paddingHorizontal: 20,
     // height
+    // backgroundColor: 'red',
+    // marginBottom: 200,
+    marginBottom: 200,
   },
   scrollview: {
     flexGrow: 1,
@@ -46,9 +49,28 @@ const styles = StyleSheet.create({
     bottom: 13,
     left: 30,
   },
-  listCate: {
-    marginVertical: 30,
+  slider: {
+    borderRadius: 20,
+    // padding: 20,
+    margin: 20,
+  },
+  swiper: {
+    height: 220,
+    position: 'relative',
+    borderRadius: 20,
+    // padding: 20,
+    // margin: 20,
+    // top: -160,
+  },
+  imageSlider: {
     width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 20,
+  },
+  listCate: {
+    // marginVertical: 30,
+    // width: '100%',
   },
   bestSeller: {
     paddingTop: 20,
@@ -61,6 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Roboto-Bold',
     fontWeight: '600',
+    color: COLORS.black50,
   },
   listProduct: {
     justifyContent: 'flex-start',

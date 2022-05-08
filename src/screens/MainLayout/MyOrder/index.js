@@ -1,7 +1,9 @@
+import BackButton from 'components/BackButton';
 import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
+  ScrollView,
   Text,
   View,
   TouchableOpacity,
@@ -15,10 +17,11 @@ const MyOrderScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style='light' />
       <View style={styles.title}>
+        <BackButton style={styles.back}/>
         <Text style={styles.titleText}>My Orders</Text>
       </View>
 
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>
           <View style={styles.tab}>
             <TouchableOpacity style={styles.tabUpcoming}>
@@ -85,7 +88,7 @@ const MyOrderScreen = () => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

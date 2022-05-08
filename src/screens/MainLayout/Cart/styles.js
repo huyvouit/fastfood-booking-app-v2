@@ -12,11 +12,12 @@ const styles = StyleSheet.create({
     // backgroundColor: 'yellow',
   },
 
-  textWrapper: {
+  textWrapper: quantity => ({
     paddingTop: 20,
-    paddingBottom: 0,
+    // paddingBottom: 0,
     // backgroundColor: 'red',
-  },
+    height: quantity >= 3 ? 300 : 'auto',
+  }),
 
   title: {
     flexDirection: 'row',
@@ -122,15 +123,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   fees: {
-    marginTop: 30,
+    marginTop: 20,
     // backgroundColor: 'green',
   },
   cost_info: {
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
     borderBottomWidth: 1,
     borderColor: '#c4c4c4',
     // top: -50,
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 30,
   },
   buttonCheck: {
     backgroundColor: '#FE724C',
