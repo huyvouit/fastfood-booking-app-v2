@@ -35,68 +35,42 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
 
-  info: {
-    marginBottom: 15,
+  itemInfo: {
+    top: 20,
+    marginBottom: 20,
+    justifyContent: 'center',
   },
 
-  label: {
+  Label: {
     color: '#A9A9A9',
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+    marginBottom: 10,
+    paddingStart: 10,
   },
 
-  inputName: {
-    borderRadius: 10,
+  info: {
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#C0C0C0',
-    marginTop: 10,
-    backgroundColor: '#fff',
+    borderRadius: 15,
+    height: 60,
+    width: '100%',
+    justifyContent: 'center',
   },
 
-  inputPhoneNumber: {
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#C0C0C0',
-    marginTop: 10,
-    backgroundColor: '#fff',
-  },
-
-  /* inputCity: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-  
-    inputDistrict: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-  
-    input_Town_Ward: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-    */
-
-  inputAddress: {
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#C0C0C0',
-    marginTop: 10,
-    backgroundColor: '#fff',
+  inputInfo: {
+    color: '#000',
+    fontSize: 18,
+    fontFamily: 'Roboto-Regular',
+    justifyContent: 'center',
+    marginLeft: 10,
   },
 
   buttonAction: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    bottom: -10,
+    paddingTop: 35,
   },
 
   buttonSave: {
@@ -113,4 +87,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 export default styles;
