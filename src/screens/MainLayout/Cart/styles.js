@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {COLORS} from 'constants/theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -172,6 +173,26 @@ const styles = StyleSheet.create({
     width: 180,
     height: 50,
     borderRadius: 25,
+  },
+
+  emptyPage: {
+    top: -60,
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+
+  emptyNotification: {
+    color: '#767F9D',
+    textAlign: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    fontSize: 20,
+    fontFamily: 'Roboto-Regular',
   },
 });
 

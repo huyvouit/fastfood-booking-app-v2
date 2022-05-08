@@ -152,6 +152,26 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 16,
   },
+
+  emptyPage: {
+    top: -60,
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+
+  emptyNotification: {
+    color: '#767F9D',
+    textAlign: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    fontSize: 20,
+    fontFamily: 'Roboto-Regular',
+  },
 });
 
 export default styles;
