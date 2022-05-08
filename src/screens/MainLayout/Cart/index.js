@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ScrollView,
   TextInput,
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
@@ -17,67 +18,97 @@ import styles from './styles';
 import IncreaseButton from 'components/IncreaseButton';
 import DecreaseButton from 'components/DecreaseButton';
 
-const CartScreen = () => {
+const CartScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.textWrapper}>
-          <View style={styles.foods}>
-            <Image
-              source={pizza}
-              style={{
-                width: 70,
-                height: 70,
-                resizeMode: 'cover',
-                position: 'relative',
-                borderRadius: 10,
-                marginRight: 20,
-              }}
-            />
-            <View style={styles.information}>
-              <Text style={styles.name_food}>Red n hot pizza</Text>
-              <Text style={styles.savour}>Spicy chicken, beef</Text>
-              <Text style={styles.cost}>$15.30</Text>
-            </View>
-            <TouchableOpacity style={styles.close}>
-              <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-            </TouchableOpacity>
-            <View style={styles.modify}>
-              <DecreaseButton action={() => {}} />
-              <Text style={styles.quantity}>02</Text>
+        <View style={styles.textWrapper(3)}>
+          <ScrollView>
+            <View style={styles.foods}>
+              <Image
+                source={pizza}
+                style={{
+                  width: 70,
+                  height: 70,
+                  resizeMode: 'cover',
+                  position: 'relative',
+                  borderRadius: 10,
+                  marginRight: 20,
+                }}
+              />
+              <View style={styles.information}>
+                <Text style={styles.name_food}>Red n hot pizza</Text>
+                <Text style={styles.savour}>Spicy chicken, beef</Text>
+                <Text style={styles.cost}>$15.30</Text>
+              </View>
+              <TouchableOpacity style={styles.close}>
+                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+              </TouchableOpacity>
+              <View style={styles.modify}>
+                <DecreaseButton action={() => {}} />
+                <Text style={styles.quantity}>02</Text>
 
-              <IncreaseButton action={() => {}} />
-            </View>
-          </View>
-
-          <View style={styles.foods}>
-            <Image
-              source={salad}
-              style={{
-                width: 70,
-                height: 70,
-                resizeMode: 'cover',
-                position: 'relative',
-                borderRadius: 10,
-                marginRight: 20,
-              }}
-            />
-            <View style={styles.information}>
-              <Text style={styles.name_food}>Greek salad</Text>
-              <Text style={styles.savour}>with baked salmon</Text>
-              <Text style={styles.cost}>$12.00</Text>
+                <IncreaseButton action={() => {}} />
+              </View>
             </View>
 
-            <TouchableOpacity style={styles.close}>
-              <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-            </TouchableOpacity>
-            <View style={styles.modify}>
-              <DecreaseButton action={() => {}} />
-              <Text style={styles.quantity}>02</Text>
+            <View style={styles.foods}>
+              <Image
+                source={salad}
+                style={{
+                  width: 70,
+                  height: 70,
+                  resizeMode: 'cover',
+                  position: 'relative',
+                  borderRadius: 10,
+                  marginRight: 20,
+                }}
+              />
+              <View style={styles.information}>
+                <Text style={styles.name_food}>Greek salad</Text>
+                <Text style={styles.savour}>with baked salmon</Text>
+                <Text style={styles.cost}>$12.00</Text>
+              </View>
 
-              <IncreaseButton action={() => {}} />
+              <TouchableOpacity style={styles.close}>
+                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+              </TouchableOpacity>
+              <View style={styles.modify}>
+                <DecreaseButton action={() => {}} />
+                <Text style={styles.quantity}>02</Text>
+
+                <IncreaseButton action={() => {}} />
+              </View>
             </View>
-          </View>
+            <View style={styles.foods}>
+              <Image
+                source={salad}
+                style={{
+                  width: 70,
+                  height: 70,
+                  resizeMode: 'cover',
+                  position: 'relative',
+                  borderRadius: 10,
+                  marginRight: 20,
+                }}
+              />
+              <View style={styles.information}>
+                <Text style={styles.name_food}>Greek salad</Text>
+                <Text style={styles.savour}>with baked salmon</Text>
+                <Text style={styles.cost}>$12.00</Text>
+              </View>
+
+              <TouchableOpacity style={styles.close}>
+                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+              </TouchableOpacity>
+              <View style={styles.modify}>
+                <DecreaseButton action={() => {}} />
+                <Text style={styles.quantity}>02</Text>
+
+                <IncreaseButton action={() => {}} />
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
 
@@ -130,7 +161,9 @@ const CartScreen = () => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.buttonCheck}>
+        <TouchableOpacity
+          style={styles.buttonCheck}
+          onPress={() => navigation.navigate('CheckoutScreen')}>
           <Text style={styles.buttonText}>CHECKOUT</Text>
         </TouchableOpacity>
       </View>

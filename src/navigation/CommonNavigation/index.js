@@ -9,6 +9,7 @@ import SearchScreen from 'screens/MainLayout/Search';
 import ReviewScreen from 'screens/MainLayout/Review';
 import DetailScreen from 'screens/MainLayout/Detail';
 import NewAddressScreen from 'screens/MainLayout/NewAddress';
+import CheckoutScreen from 'screens/MainLayout/Checkout';
 
 const CommonStack = createNativeStackNavigator();
 
@@ -41,6 +42,8 @@ const CommonStackScreen = props => {
         name="NewAddressScreen"
         component={NewAddressScreen}
       />
+
+      <CommonStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     </CommonStack.Navigator>
   );
 };
