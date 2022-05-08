@@ -1,10 +1,4 @@
 import React, {useRef} from 'react';
-import Icons from 'assets/icons';
-import ItemCategory from 'components/ItemCategory';
-import ItemFood from 'components/ItemFood';
-import CardFood from 'components/CardFood';
-import {CATEGORY, LIST_PRODUCT} from 'constants/constants';
-
 import {
   View,
   Text,
@@ -17,6 +11,13 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SvgXml} from 'react-native-svg';
+import Swiper from 'react-native-swiper/src';
+
+import Icons from 'assets/icons';
+import {CATEGORY, LIST_PRODUCT} from 'constants/constants';
+import ItemCategory from 'components/ItemCategory';
+import ItemFood from 'components/ItemFood';
+import CardFood from 'components/CardFood';
 
 import styles from './styles';
 
@@ -106,6 +107,25 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity style={styles.iconSearch}>
             <SvgXml xml={Icons.IconSearch} color="#767F9D" />
           </TouchableOpacity>
+        </View>
+        <View style={styles.slider}>
+          <Swiper style={styles.swiper} autoplay>
+            <Image
+              source={require('../../../assets/images/splash-screen.jpg')}
+              alt=""
+              style={styles.imageSlider}
+            />
+            <Image
+              source={require('../../../assets/images/splash-screen.jpg')}
+              alt=""
+              style={styles.imageSlider}
+            />
+            <Image
+              source={require('../../../assets/images/splash-screen.jpg')}
+              alt=""
+              style={styles.imageSlider}
+            />
+          </Swiper>
         </View>
         {/* <View style={styles.bestSeller}>
         <Text style={styles.textMenu}>Best Seller</Text>

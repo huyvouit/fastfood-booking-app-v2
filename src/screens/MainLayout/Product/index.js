@@ -61,7 +61,7 @@ const ProductScreen = ({navigation}) => {
                 left: -25,
                 backgroundColor: 'transparent',
                 elevation: -1,
-
+                // justifyContent: 'flex-start',
                 padding: 0,
                 margin: 0,
 
@@ -73,6 +73,7 @@ const ProductScreen = ({navigation}) => {
                 fontStyle: 'italic',
                 fontWeight: '400',
                 fontSize: 16,
+                // textAlign: 'left',
               }}
               rowStyle={{backgroundColor: 'white'}}
               data={LIST_SHORTING}
@@ -89,12 +90,13 @@ const ProductScreen = ({navigation}) => {
           </View>
           <TouchableOpacity
             style={styles.iconFilter}
-            onPress={() => setShowFilterModal(true)}>
+            onPress={() => setShowFilterModal(true)}
+            activeOpacity={0.8}>
             <SvgXml
               xml={Icons.IconFilter}
               fill="#FE724C"
-              width={30}
-              height={30}
+              width={24}
+              height={24}
             />
           </TouchableOpacity>
         </View>
