@@ -7,9 +7,11 @@ import Icons from '../../assets/icons';
 import styles from './styles';
 
 const ItemFood = props => {
-  const {action} = props;
+  const {navigation} = props;
   return (
-    <TouchableOpacity style={styles.foodItems}>
+    <TouchableOpacity
+      style={styles.foodItems}
+      onPress={() => navigation.navigate('DetailScreen')}>
       <Image source={Images.Pizza} style={styles.image} />
 
       <View style={styles.costView}>

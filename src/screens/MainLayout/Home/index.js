@@ -88,12 +88,12 @@ const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.root}>
       <ScrollView
-      // ref={scrollViewRef}
-      // style={{flex: 1}}
-      // scrollEnabled={scrollEnabled}
-      // contentContainerStyle={styles.scrollview}
-      // onContentSizeChange={onContentSizeChange}
-      >
+        // ref={scrollViewRef}
+        // style={{flex: 1}}
+        // scrollEnabled={scrollEnabled}
+        // contentContainerStyle={styles.scrollview}
+        // onContentSizeChange={onContentSizeChange}
+        style={{height: 300}}>
         <Text style={styles.textIntro}>What would you like to order</Text>
         <View style={styles.fieldInputSearch}>
           <TextInput
@@ -119,7 +119,7 @@ const HomeScreen = ({navigation}) => {
             return <CardFood key={index} item={item} navigation={navigation} />;
           })}
         </SafeAreaView>
-        <View>{renderCategory()}</View>
+        {/* <View>{renderCategory()}</View> */}
       </ScrollView>
     </SafeAreaView>
   );

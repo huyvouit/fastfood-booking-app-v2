@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     // height
     // backgroundColor: 'red',
     // marginBottom: 200,
+    marginBottom: 200,
   },
   scrollview: {
     flexGrow: 1,

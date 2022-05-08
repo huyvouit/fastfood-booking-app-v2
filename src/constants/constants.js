@@ -19,6 +19,30 @@ export const BOTTOM_TABS = [
   },
 ];
 
+export const SIZE_PRODUCT = [
+  {
+    id: 0,
+    size: 'ALL',
+    active: true,
+  },
+  {
+    id: 1,
+    size: 'M',
+    active: false,
+  },
+  {
+    id: 2,
+    size: 'L',
+    active: false,
+  },
+];
+
+export const LIST_SHORTING = [
+  'Default sorting',
+  'Lowest to Highest',
+  'Hightest to Lowest',
+];
+
 export const CATEGORY = [
   {
     id: 1,

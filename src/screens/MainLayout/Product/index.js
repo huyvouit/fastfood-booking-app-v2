@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown';
 import {
   ImageBackground,
   StyleSheet,
@@ -10,20 +11,37 @@ import {
 import {SvgXml} from 'react-native-svg';
 import Icons from 'assets/icons';
 
-import styles from './styles';
-
 import Pizza from '../../../assets/images/Pizza.png';
 import FilterModal from 'components/FilterModal';
+import ItemFood from 'components/ItemFood';
 
-const ProductScreen = () => {
+import styles from './styles';
+import {LIST_SHORTING} from 'constants/constants';
+import Images from 'assets/images';
+
+const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   return (
     <View style={styles.container}>
       <ScrollView style={{height: 300}}>
-        <ImageBackground
-          source={Pizza}
-          resizeMode="cover"
-          style={styles.image}></ImageBackground>
+        <View style={{height: 300, flexDirection: 'row'}}>
+          <Text
+            style={{
+              position: 'absolute',
+              bottom: 50,
+              width: 140,
+              fontSize: 50,
+              fontWeight: '700',
+              paddingLeft: 20,
+            }}>
+            <Text>Fast</Text>
+            <Text style={{color: '#FE724C', marginLeft: 15}}>Food</Text>
+          </Text>
+          <Image
+            source={Images.Poster2}
+            resizeMode="cover"
+            style={styles.image}></Image>
+        </View>
         {showFilterModal && (
           <FilterModal
             setShowFilterModal={setShowFilterModal}
@@ -32,10 +50,43 @@ const ProductScreen = () => {
           />
         )}
         <View style={styles.title}>
-          <Text style={styles.text}>Short by: </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.text}>Short price by: </Text>
 
-          <Button title="Popular"></Button>
+            <SelectDropdown
+              // style={styles.inputCity}
+              defaultValue={'Default sorting'}
+              buttonStyle={{
+                position: 'relative',
+                left: -25,
+                backgroundColor: 'transparent',
+                elevation: -1,
 
+                padding: 0,
+                margin: 0,
+
+                // width: 150,
+                height: 40,
+              }}
+              buttonTextStyle={{
+                ...styles.text,
+                fontStyle: 'italic',
+                fontWeight: '400',
+                fontSize: 16,
+              }}
+              rowStyle={{backgroundColor: 'white'}}
+              data={LIST_SHORTING}
+              onSelect={(selectedItem, index) => {
+                console.log(selectedItem, index);
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+            />
+          </View>
           <TouchableOpacity
             style={styles.iconFilter}
             onPress={() => setShowFilterModal(true)}>
@@ -47,8 +98,12 @@ const ProductScreen = () => {
             />
           </TouchableOpacity>
         </View>
-
-        <View style={styles.items}>
+        <View style={{paddingHorizontal: 20}}>
+          <ItemFood navigation={navigation} />
+          <ItemFood navigation={navigation} />
+          <ItemFood navigation={navigation} />
+        </View>
+        {/* <View style={styles.items}>
           <Image source={Pizza} style={styles.img_container} />
 
           <Text style={styles.price}>
@@ -93,7 +148,7 @@ const ProductScreen = () => {
             angus. Garlic . use fresh chopped. Spices . chili powder, cumin,
             onion powder.
           </Text>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
