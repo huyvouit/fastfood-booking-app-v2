@@ -17,9 +17,23 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 
+  title: {
+    flexDirection: 'row',
+    paddingTop: 30,
+  },
+
+  titleText: {
+    color: '#000',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+
+
   back: {
     paddingStart: 10,
-    paddingTop: 20,
+    paddingTop: 8,
   },
 
   profile: {
@@ -39,7 +53,13 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
 
-  iconPhoto: {
+  buttonChangePhoto: {
+    borderRadius: 40,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+
+  iconCamera: {
     backgroundColor: '#fff',
     borderRadius: 20,
     height: 30,
@@ -57,7 +77,8 @@ const styles = StyleSheet.create({
 
   name: {
     color: '#000',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    fontFamily: 'Roboto-Bold',
     fontSize: 20,
     justifyContent: 'center',
     textAlign: 'center',
@@ -71,7 +92,9 @@ const styles = StyleSheet.create({
 
   editProfileText: {
     color: '#C0C0C0',
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
   },
 
   itemInfo: {
@@ -81,8 +104,9 @@ const styles = StyleSheet.create({
   },
 
   Label: {
-    color: '#C0C0C0',
-    fontSize: 18,
+    color: '#A9A9A9',
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
     marginBottom: 10,
     paddingStart: 10,
   },
@@ -98,8 +122,9 @@ const styles = StyleSheet.create({
     },
 
   infoText: {
+    color: '#000',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Regular',
     justifyContent: 'center',
     marginLeft: 15,
   },

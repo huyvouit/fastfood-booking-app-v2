@@ -1,5 +1,7 @@
 import BackButton from 'components/BackButton';
 import React from 'react';
+import Icons from 'assets/icons';
+import { SvgXml } from 'react-native-svg';
 import {
   Text,
   View,
@@ -16,7 +18,10 @@ const ProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
-      <BackButton style={styles.back} />
+      <View style={styles.title}>
+        <BackButton style={styles.back} />
+        <Text style={styles.titleText}>My Profile</Text>
+      </View>
       <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>
           <View style={styles.profile}>
@@ -32,7 +37,7 @@ const ProfileScreen = ({navigation}) => {
             <Text style={styles.name}>Eljad Eendaz</Text>
             <TouchableOpacity
               style={styles.editProfile}
-              onPress={() => navigation.navigate('DetailScreen')}>
+              onPress={() => navigation.navigate('EditProfileScreen')}>
               <Text style={styles.editProfileText}>Edit Profile</Text>
             </TouchableOpacity>
           </View>

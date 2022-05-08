@@ -9,6 +9,7 @@ import SearchScreen from 'screens/MainLayout/Search';
 import ReviewScreen from 'screens/MainLayout/Review';
 import DetailScreen from 'screens/MainLayout/Detail';
 import NewAddressScreen from 'screens/MainLayout/NewAddress';
+import EditProfileScreen from 'screens/MainLayout/EditProfile';
 
 const CommonStack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ const CommonStackScreen = props => {
       <CommonStack.Screen name="Search" component={SearchScreen} />
       <CommonStack.Screen name="ReviewScreen" component={ReviewScreen} />
       <CommonStack.Screen name="DetailScreen" component={DetailScreen} />
+      <CommonStack.Screen name="EditProfileScreen" component={EditProfileScreen} />
       <CommonStack.Screen
         name="NewAddressScreen"
         component={NewAddressScreen}

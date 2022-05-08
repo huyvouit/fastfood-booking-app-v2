@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 24,
     },
+
+    back: {
+      paddingStart: 10,
+      paddingTop: 8,
+    },
   
     info: {
       marginBottom: 15,
@@ -108,4 +113,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
     },
   });
+
+  export default styles;
 

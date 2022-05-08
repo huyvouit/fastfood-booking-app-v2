@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import styles from './styles';
+import BackButton from 'components/BackButton';
 
 const Province_City = [
   'TP Ho Chi Minh',
@@ -38,6 +39,7 @@ const NewAddressScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
+        <BackButton style={styles.back}/>
         <Text style={styles.titleText}>Add new address</Text>
       </View>
       <ScrollView style={styles.content}>
