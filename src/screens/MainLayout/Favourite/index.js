@@ -18,9 +18,8 @@ import styles from './styles';
 
 const FavouriteScreen = () => {
   const [isChange, setIsChange] = React.useState(false);
-  return (
-    isChange ? (
-      <SafeAreaView style={styles.container}>
+  return isChange ? (
+    <SafeAreaView style={styles.container}>
       {/* <StatusBar style="light" /> */}
       {/* <View style={styles.title}>
         <TouchableOpacity style={styles.back}>
@@ -149,12 +148,17 @@ const FavouriteScreen = () => {
         </View>
       </View>
     </SafeAreaView>
-    ) : (
-      <View style={styles.emptyPage}>
-        <SvgXml xml={Icons.IconFavourite} color="#767F9D" width={80} height={80} />
-        <Text style={styles.emptyNotification}>Your favourite list is empty</Text>
-      </View>
-    )
+  ) : (
+    <View style={styles.emptyPage}>
+      <SvgXml
+        xml={Icons.IconFavourite}
+        color="#FE724C"
+        width={150}
+        height={150}
+        fill="#FE724C"
+      />
+      <Text style={styles.emptyNotification}>Your favourite list is empty</Text>
+    </View>
   );
 };
 export default FavouriteScreen;
