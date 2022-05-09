@@ -26,7 +26,7 @@ const windowHeight = Dimensions.get('window').height;
 const SignIn = 'SIGNIN';
 const SignUp = 'SIGNUP';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const [page, setpage] = useState(SignIn);
   return (
     <View style={styles.main1}>
@@ -34,7 +34,11 @@ export default function LoginScreen() {
         <RedComponent page={page} setpage={setpage} />
       </View>
       <View style={styles.main3}>
-        {page === SignIn ? <GreenComponent /> : <RegisterComponent />}
+        {page === SignIn ? (
+          <GreenComponent navigation={navigation} />
+        ) : (
+          <RegisterComponent />
+        )}
       </View>
 
       <View style={styles.main4}>
@@ -76,7 +80,7 @@ const RedComponent = ({page, setpage}) => {
   );
 };
 
-const GreenComponent = () => {
+const GreenComponent = ({navigation}) => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const [passwordHidden, setpasswordHidden] = useState(true);
@@ -127,7 +131,9 @@ const GreenComponent = () => {
         </TouchableOpacity>
       </View>
       {/* Button Login */}
-      <TouchableOpacity style={styles.gr13}>
+      <TouchableOpacity
+        style={styles.gr13}
+        onPress={() => navigation.navigate('Drawer')}>
         <Text style={styles.gr14}>LOGIN</Text>
       </TouchableOpacity>
     </View>
