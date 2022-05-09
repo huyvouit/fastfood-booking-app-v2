@@ -57,7 +57,7 @@ import styles from './styles';
        </View>
        <View style={styles.red5}>
          <TouchableOpacity
-           style={style.red6
+           style={styles.red6
            }
            onPress={() => {
              setpage(SignIn);
@@ -72,7 +72,7 @@ import styles from './styles';
            {page === SignIn ? (
              <View
                style={
-                 style.red8
+                 styles.red8
                }></View>
            ) : null}
          </TouchableOpacity>
@@ -103,13 +103,13 @@ import styles from './styles';
    return (
      <View
        style={styles.gr1}>
-       {/* REGISTER */}
+       {/* Login */}
        <Text style={styles.gr2}>
          REGISTER YOUR ACOUNT.
        </Text>
        <View
          style={
-           style.gr3
+           styles.gr3
          }>
          <Image
            source={require('../../../assets/images/people.png')}
@@ -127,7 +127,7 @@ import styles from './styles';
        {/* Email */}
        <View
          style={
-           style.gr3
+           styles.gr3
          }>
          <Image
            source={require('../../../assets/images/email.png')}
