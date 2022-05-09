@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import OnBoardingScreen from 'screens/Auth/Onboarding';
-// import LoginScreen from 'screens/Auth/Login';
+import LoginScreen from 'screens/Auth/Login';
 // import RegisterScreen from 'screens/Auth/Register';
 import {DrawerScreen} from 'navigation/DrawerNavigation';
 // import CartScreen from 'screens/MainLayout/Cart';
@@ -15,11 +15,11 @@ const AuthStack = createNativeStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator
     headerMode="none"
-    initialRouteName="Drawer"
+    initialRouteName="OnBoarding"
     screenOptions={{headerShown: false}}>
     <AuthStack.Screen name="OnBoarding" component={OnBoardingScreen} />
 
-    {/* <AuthStack.Screen name="Login" component={LoginScreen} /> */}
+    <AuthStack.Screen name="Login" component={LoginScreen} />
     {/* <AuthStack.Screen name="Register" component={RegisterScreen} /> */}
     {/* <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
     <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} /> */}
