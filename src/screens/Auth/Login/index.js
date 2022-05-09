@@ -1,3 +1,11 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -13,19 +21,20 @@ import {
   TextInput,
 } from 'react-native';
 import styles from './styles';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const SignIn = 'SIGNIN';
 const SignUp = 'SIGNUP';
 
 export default function LoginScreen() {
-  const [page, setpage] = useState('');
+  const [page, setpage] = useState(SignIn);
   return (
     <View style={styles.main1}>
       <View style={styles.main2}>
         <RedComponent page={page} setpage={setpage} />
       </View>
       <View style={styles.main3}>
-        {page === SignIn ? <GreenComponent /> : null}
+        {page === SignIn ? <GreenComponent /> : <RegisterComponent />}
       </View>
 
       <View style={styles.main4}>
@@ -66,6 +75,7 @@ const RedComponent = ({page, setpage}) => {
     </View>
   );
 };
+
 const GreenComponent = () => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
@@ -123,6 +133,71 @@ const GreenComponent = () => {
     </View>
   );
 };
+
+const RegisterComponent = () => {
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const [passwordHidden, setpasswordHidden] = useState(true);
+  return (
+    <View style={styles.gr1}>
+      {/* Login */}
+      <Text style={styles.gr2}>REGISTER YOUR ACOUNT.</Text>
+      <View style={styles.gr3}>
+        <Image
+          source={require('../../../assets/images/people.png')}
+          resizeMode="stretch"
+          style={styles.gr4}
+        />
+        <TextInput
+          style={styles.gr5}
+          autoCapitalize={null}
+          placeholder="FULL NAME"
+        />
+      </View>
+      {/* Email */}
+      <View style={styles.gr3}>
+        <Image
+          source={require('../../../assets/images/email.png')}
+          resizeMode="stretch"
+          style={styles.gr4}
+        />
+        <TextInput
+          style={styles.gr5}
+          autoCapitalize={null}
+          placeholder="E-mail"
+        />
+      </View>
+      {/* Password */}
+      <View style={styles.gr3}>
+        <Image
+          source={require('../../../assets/images/password.png')}
+          resizeMode="stretch"
+          style={styles.gr6}
+        />
+        <TextInput
+          style={styles.gr7}
+          autoCapitalize={'none'}
+          placeholder="Password"
+          secureTextEntry={passwordHidden ? true : false}
+        />
+        <TouchableOpacity
+          style={styles.gr8}
+          onPress={() => setpasswordHidden(!passwordHidden)}>
+          <Image
+            source={require('../../../assets/images/passwordeye.png')}
+            resizeMode="stretch"
+            style={styles.gr9}
+          />
+        </TouchableOpacity>
+      </View>
+      {/* Button SIGN UP */}
+      <TouchableOpacity style={styles.gr13}>
+        <Text style={styles.gr14}>SIGN UP</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const BlueComponent = () => {
   return (
     <View style={styles.bl1}>
