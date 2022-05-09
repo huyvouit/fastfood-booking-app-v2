@@ -17,8 +17,10 @@ import HawaiianChicken from '../../../assets/images/Hawaiian_Chicken.png';
 import styles from './styles';
 
 const FavouriteScreen = () => {
+  const [isChange, setIsChange] = React.useState(false);
   return (
-    <SafeAreaView style={styles.container}>
+    isChange ? (
+      <SafeAreaView style={styles.container}>
       {/* <StatusBar style="light" /> */}
       {/* <View style={styles.title}>
         <TouchableOpacity style={styles.back}>
@@ -147,6 +149,12 @@ const FavouriteScreen = () => {
         </View>
       </View>
     </SafeAreaView>
+    ) : (
+      <View style={styles.emptyPage}>
+        <SvgXml xml={Icons.IconFavourite} color="#767F9D" width={80} height={80} />
+        <Text style={styles.emptyNotification}>Your favourite list is empty</Text>
+      </View>
+    )
   );
 };
 export default FavouriteScreen;
