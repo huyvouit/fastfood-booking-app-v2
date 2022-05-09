@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         flexDirection: 'row',
         alignContent: 'center',
+        borderWidth: 1,
+        borderColor: '#F97350',
+        borderRadius: 10,
     },
     gr4: {
         width: 30,
@@ -88,6 +91,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         justifyContent: 'center',
         alignContent: 'center',
+        
     },
     gr5: {
         height: '100%', flex: 1, marginLeft: 10, fontSize: 20
@@ -175,13 +179,6 @@ const styles = StyleSheet.create({
         height: '100%',
         marginLeft: 6,
     },
-
-
-
-
-
-
-
   });
   
   export default styles;
