@@ -19,7 +19,9 @@ const AuthStackScreen = () => (
     screenOptions={{headerShown: false}}>
     <AuthStack.Screen name="OnBoarding" component={OnBoardingScreen} />
 
-    <AuthStack.Screen name="Login" component={LoginScreen} />
+    <AuthStack.Screen name="Login">
+      {props => <LoginScreen {...props} redirect={props.navigation} />}
+    </AuthStack.Screen>
     {/* <AuthStack.Screen name="Register" component={RegisterScreen} /> */}
     {/* <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
     <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} /> */}

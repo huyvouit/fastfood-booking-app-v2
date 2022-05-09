@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useContext} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {
   createDrawerNavigator,
@@ -9,10 +9,11 @@ import {SvgXml} from 'react-native-svg';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {setSelectedTab} from '../../redux/actions';
-
-import MainLayout from 'screens/MainLayout';
+import {AuthContext} from 'contexts/AuthProvider';
 import {COLORS} from '../../constants';
 import Icons from 'assets/icons';
+
+import MainLayout from 'screens/MainLayout';
 import MyOrderScreen from 'screens/MainLayout/MyOrder';
 import VoucherScreen from 'screens/MainLayout/Voucher';
 import ContactScreen from 'screens/MainLayout/ContactUs';
@@ -21,7 +22,14 @@ import CommonStackScreen from 'navigation/CommonNavigation';
 import AddressBookScreen from 'screens/MainLayout/AddressBook';
 import AddressStackScreen from 'navigation/AddressNavigation';
 
-const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
+const CustomDrawerContent = ({
+  navigation,
+  selectedTab,
+  dispatch,
+  redirect,
+  user,
+}) => {
+  const {logout} = useContext(AuthContext);
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -78,7 +86,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
                   fontFamily: 'Roboto-Regular',
                   color: 'white',
                 }}>
-                User acount
+                {user?.email}
               </Text>
               <Text
                 style={{
@@ -181,7 +189,8 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
             icon={Icons.IconLogout}
             onPress={() => {
               // dispatch(setSelectedTab('Contact'));
-              redirect.navigate('OnBoarding');
+              logout();
+              redirect.replace('Login');
             }}
           />
         </View>
@@ -214,6 +223,8 @@ const CustomDrawerItem = ({label, icon, isFocused, onPress}) => {
 const Drawer = createDrawerNavigator();
 
 export const DrawerScreen = ({redirect}) => {
+  const {user, setUser} = useContext(AuthContext);
+
   const selectedTab = useSelector(state => state.selectedTab);
   const dispatch = useDispatch();
 
@@ -228,6 +239,13 @@ export const DrawerScreen = ({redirect}) => {
     inputRange: [0, 1],
     outputRange: [0, 10],
   });
+
+  useEffect(() => {
+    console.log(user);
+    if (!user) {
+      redirect.replace('Login');
+    }
+  }, [user]);
 
   // const scale = Animated.interpolateNode(progress, {
   //   inputRange: [0, 1],
@@ -268,6 +286,7 @@ export const DrawerScreen = ({redirect}) => {
               selectedTab={selectedTab}
               dispatch={dispatch}
               redirect={redirect}
+              user={user}
             />
           );
         }}>

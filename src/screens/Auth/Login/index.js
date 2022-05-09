@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,13 +12,23 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+
+import {AuthContext} from 'contexts/AuthProvider';
+
 import styles from './styles';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const SignIn = 'SIGNIN';
 const SignUp = 'SIGNUP';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, redirect}) {
+  const {user} = useContext(AuthContext);
+  useEffect(() => {
+    console.log('login', user);
+    if (user) {
+      redirect.replace('Drawer');
+    }
+  }, [user]);
   const [page, setpage] = useState(SignIn);
   return (
     <View style={styles.main1}>
@@ -35,9 +37,9 @@ export default function LoginScreen({navigation}) {
       </View>
       <View style={styles.main3}>
         {page === SignIn ? (
-          <GreenComponent navigation={navigation} />
+          <GreenComponent navigation={navigation} redirect={redirect} />
         ) : (
-          <RegisterComponent />
+          <RegisterComponent redirect={redirect} />
         )}
       </View>
 
@@ -80,10 +82,12 @@ const RedComponent = ({page, setpage}) => {
   );
 };
 
-const GreenComponent = ({navigation}) => {
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const [passwordHidden, setpasswordHidden] = useState(true);
+const GreenComponent = ({navigation, redirect}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
+  const {login, user} = useContext(AuthContext);
+  console.log(user, 'login');
   return (
     <View style={styles.gr1}>
       {/* Login */}
@@ -99,6 +103,8 @@ const GreenComponent = ({navigation}) => {
           style={styles.gr5}
           autoCapitalize={null}
           placeholder="E-mail"
+          value={email}
+          onChangeText={userEmail => setEmail(userEmail)}
         />
       </View>
       {/* Password */}
@@ -112,11 +118,13 @@ const GreenComponent = ({navigation}) => {
           style={styles.gr7}
           autoCapitalize={'none'}
           placeholder="Password"
+          value={password}
+          onChangeText={userPassword => setPassword(userPassword)}
           secureTextEntry={passwordHidden ? true : false}
         />
         <TouchableOpacity
           style={styles.gr8}
-          onPress={() => setpasswordHidden(!passwordHidden)}>
+          onPress={() => setPasswordHidden(!passwordHidden)}>
           <Image
             source={require('../../../assets/images/passwordeye.png')}
             resizeMode="stretch"
@@ -133,17 +141,23 @@ const GreenComponent = ({navigation}) => {
       {/* Button Login */}
       <TouchableOpacity
         style={styles.gr13}
-        onPress={() => navigation.navigate('Drawer')}>
+        onPress={() => {
+          console.log('click login');
+          login(email, password);
+          // redirect.replace('Drawer');
+        }}>
         <Text style={styles.gr14}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const RegisterComponent = () => {
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const [passwordHidden, setpasswordHidden] = useState(true);
+const RegisterComponent = ({redirect}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
+  const {user, register} = useContext(AuthContext);
+
   return (
     <View style={styles.gr1}>
       {/* Login */}
@@ -171,6 +185,8 @@ const RegisterComponent = () => {
           style={styles.gr5}
           autoCapitalize={null}
           placeholder="E-mail"
+          value={email}
+          onChangeText={userEmail => setEmail(userEmail)}
         />
       </View>
       {/* Password */}
@@ -184,11 +200,13 @@ const RegisterComponent = () => {
           style={styles.gr7}
           autoCapitalize={'none'}
           placeholder="Password"
+          value={password}
+          onChangeText={userPassword => setPassword(userPassword)}
           secureTextEntry={passwordHidden ? true : false}
         />
         <TouchableOpacity
           style={styles.gr8}
-          onPress={() => setpasswordHidden(!passwordHidden)}>
+          onPress={() => setPasswordHidden(!passwordHidden)}>
           <Image
             source={require('../../../assets/images/passwordeye.png')}
             resizeMode="stretch"
@@ -197,7 +215,12 @@ const RegisterComponent = () => {
         </TouchableOpacity>
       </View>
       {/* Button SIGN UP */}
-      <TouchableOpacity style={styles.gr13}>
+      <TouchableOpacity
+        style={styles.gr13}
+        onPress={() => {
+          register('Huy Vo', email, password);
+          // redirect.replace('Drawer');
+        }}>
         <Text style={styles.gr14}>SIGN UP</Text>
       </TouchableOpacity>
     </View>

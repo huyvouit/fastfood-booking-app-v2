@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "59817141190",
+    "project_id": "fastfood-e2fee",
+    "storage_bucket": "fastfood-e2fee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59817141190:android:7ea37730fc826a5d6048c7",
+        "android_client_info": {
+          "package_name": "com.fastfoodappv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59817141190-ceojgpdems4506636fsvl1l1lmke8kuo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlur6Y_xjc7G9EnhN7ULMPhUjQnECeCUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59817141190-ceojgpdems4506636fsvl1l1lmke8kuo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
