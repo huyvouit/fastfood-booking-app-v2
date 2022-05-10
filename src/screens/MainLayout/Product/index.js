@@ -1,51 +1,49 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
+import {TouchableOpacity, ActivityIndicator} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import {
-  ImageBackground,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
-
 import {SvgXml} from 'react-native-svg';
-import Icons from 'assets/icons';
 
-import Pizza from '../../../assets/images/Pizza.png';
-import FilterModal from 'components/FilterModal';
+import Icons from 'assets/icons';
+import Images from 'assets/images';
 import ItemFood from 'components/ItemFood';
+import FilterModal from 'components/FilterModal';
+import {LIST_SHORTING} from 'constants/constants';
+
+import productApi from 'api/product_api';
 
 import styles from './styles';
-import {LIST_SHORTING} from 'constants/constants';
-import Images from 'assets/images';
-import productApi from 'api/product_api';
 
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [productList, setProductList] = useState([]);
 
+  const fetchProductList = async sortType => {
+    try {
+      const params = {
+        currentPage: 1,
+        productPerPage: 10,
+        sortType,
+      };
+      const response = await productApi.getByFilter(params);
+      // console.log(response.data.filteredProducts);
+      setProductList(response.data.filteredProducts.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch product list: ', error);
+    }
+  };
   useEffect(() => {
-    const fetchProductList = async () => {
-      try {
-        const params = {
-          currentPage: 1,
-          productPerPage: 10,
-        };
-        const response = await productApi.getByFilter(params);
-        console.log(response.data.filteredProducts);
-        setProductList(response.data.filteredProducts.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log('Failed to fetch product list: ', error);
-      }
-    };
     fetchProductList();
   }, []);
 
   if (isLoading) {
-    return <ActivityIndicator size="small" color="orange" />;
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="small" color="orange" />
+      </View>
+    );
   }
   return (
     <View style={styles.container}>
@@ -104,7 +102,7 @@ const ProductScreen = ({navigation}) => {
               rowStyle={{backgroundColor: 'white'}}
               data={LIST_SHORTING}
               onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
+                fetchProductList(index);
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
