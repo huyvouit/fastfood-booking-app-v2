@@ -36,13 +36,31 @@ const Section = ({containerStyle, title, children}) => {
   );
 };
 
-const FilterModal = ({isVisible, onClose, setFilter}) => {
+const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(isVisible);
-  const [category, setCategory] = React.useState(0);
-  const [lower, setLower] = React.useState(150000);
-  const [higher, setHigher] = React.useState(0);
-  const [size, setSize] = React.useState(0);
-  const [rating, setRating] = React.useState(-1);
+  const [category, setCategory] = React.useState(filter?.category || 0);
+  const [lower, setLower] = React.useState(filter?.lower || 150000);
+  const [higher, setHigher] = React.useState(filter?.higher || 0);
+  const [size, setSize] = React.useState(filter?.size || 0);
+  const [rating, setRating] = React.useState(filter?.rating || -1);
+  useEffect(() => {
+    if (filter.category) {
+      setCategory(convertCategoryToNumber(filter?.category));
+    }
+    if (filter.size) {
+      setSize(convertSizeToNumber(filter?.size));
+    }
+    if (filter.higher) {
+      console.log('run higher');
+      setHigher(filter.higher);
+    }
+    if (filter.lower) {
+      setLower(filter.lower);
+    }
+    if (filter.rating) {
+      setRating(filter.rating);
+    }
+  }, [filter]);
 
   const convertCategory = category => {
     switch (category) {
@@ -68,6 +86,30 @@ const FilterModal = ({isVisible, onClose, setFilter}) => {
         return 'All';
     }
   };
+  const convertCategoryToNumber = (category = 'All') => {
+    switch (category) {
+      case 'All':
+        return 0;
+
+      case 'Burger':
+        return 1;
+
+      case 'Pizza':
+        return 2;
+
+      case 'Chicken':
+        return 3;
+
+      case 'Combo':
+        return 4;
+
+      case 'Drink':
+        return 5;
+
+      default:
+        return 0;
+    }
+  };
 
   const convertSize = size => {
     switch (size) {
@@ -79,6 +121,21 @@ const FilterModal = ({isVisible, onClose, setFilter}) => {
 
       case 2:
         return 'L';
+
+      default:
+        return 'All';
+    }
+  };
+  const convertSizeToNumber = (size = 0) => {
+    switch (size) {
+      case 'All':
+        return 0;
+
+      case 'M':
+        return 1;
+
+      case 'L':
+        return 2;
 
       default:
         return 'All';
@@ -256,7 +313,7 @@ const FilterModal = ({isVisible, onClose, setFilter}) => {
                       activeOpacity={0.8}
                       key={index}
                       onPress={() => {
-                        setRating(index);
+                        setRating(index + 1);
                       }}
                       style={{
                         marginTop: 15,
@@ -303,11 +360,13 @@ const FilterModal = ({isVisible, onClose, setFilter}) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => {
-                  setCategory(0);
-                  setHigher(0);
-                  setLower(150000);
-                  setSize(0);
-                  setRating(-1);
+                  setFilter({
+                    category: convertCategory(0),
+                    higher: 0,
+                    lower: 150000,
+                    size: convertSize(0),
+                    rating: -1,
+                  });
                 }}
                 style={{
                   marginTop: 15,
@@ -339,6 +398,8 @@ const FilterModal = ({isVisible, onClose, setFilter}) => {
                     size: convertSize(size),
                     rating,
                   });
+                  setShowFilterModal(false);
+                  action('0');
                 }}
                 style={{
                   marginTop: 15,

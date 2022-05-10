@@ -78,28 +78,28 @@ export const CATEGORY = [
 ];
 export const RATING = [
   {
-    id: 0,
+    id: 1,
     star: '1',
     // image: Images.slider2,
     // icon:
   },
   {
-    id: 1,
+    id: 2,
     star: '2',
     // image: Images.Burger,
   },
   {
-    id: 2,
+    id: 3,
     star: '3',
     // image: Images.Pizza,
   },
   {
-    id: 3,
+    id: 4,
     star: '4',
     // image: Images.Chicken,
   },
   {
-    id: 4,
+    id: 5,
     star: '5',
     // image: Images.Combo,
   },
