@@ -19,9 +19,12 @@ import styles from './styles';
 import {SvgXml} from 'react-native-svg';
 import ChevronLeft from '../../../assets/icons/chevron-left.svg';
 import productApi from 'api/product_api';
+import Loading from 'screens/Loading';
+import {formatter} from 'helper/formatter';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
+  console.log(productId);
   const [data, setNewPlants] = useState([
     {
       id: 0,
@@ -62,75 +65,61 @@ const DetailScreen = ({navigation, route}) => {
   ]);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [productList, setProductList] = useState([]);
+  const [product, setProduct] = useState([]);
 
   const fetchProductList = async sortType => {
     try {
       const params = {
         id: productId,
       };
+
       const response = await productApi.getById(params);
-      // console.log(response.data.filteredProducts);
-      setProductList(response.data.filteredProducts.data);
+      // console.log(response.data.data);
+      setProduct(response.data.data);
       setIsLoading(false);
     } catch (error) {
       console.log('Failed to fetch product list: ', error);
     }
   };
-  // useEffect(() => {
-  //   fetchProductList();
-  // }, []);
+  useEffect(() => {
+    fetchProductList();
+  }, []);
 
   if (isLoading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="small" color="orange" />
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <ScrollView>
         <Swiper style={styles.swiper} autoplay>
-          <Image
-            source={require('../../../assets/images/splash-screen.jpg')}
-            alt=""
-            style={{
-              width: '100%',
-              height: '100%',
-              resizeMode: 'cover',
-            }}
-          />
-          <Image
-            source={require('../../../assets/images/splash-screen.jpg')}
-            alt=""
-            style={{
-              width: '100%',
-              height: '100%',
-              resizeMode: 'cover',
-            }}
-          />
-          <Image
-            source={require('../../../assets/images/splash-screen.jpg')}
-            alt=""
-            style={{
-              width: '100%',
-              height: '100%',
-              resizeMode: 'cover',
-            }}
-          />
+          {product.images?.map((item, index) => {
+            return (
+              <Image
+                source={{uri: item}}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  resizeMode: 'cover',
+                }}
+              />
+            );
+          })}
         </Swiper>
         <View style={{position: 'absolute', top: 0}}>
           <HeaderPage returnPage={() => navigation.goBack()} />
         </View>
         <View style={styles.content}>
-          <Text style={styles.nameProduct}>Ground Beef Tacos</Text>
+          <Text style={styles.nameProduct}>{product?.name}</Text>
           {/* <View style={styles.iconHeart}>
             <ChevronLeft width={24} height={24} />
           </View> */}
           <View style={styles.subInfo}>
-            <Text style={styles.price}>40000 VND</Text>
+            <Text style={styles.price}>
+              {' '}
+              {formatter.format(product.type[0]?.price.$numberDecimal)}
+            </Text>
             <View style={styles.quantity}>
               <DecreaseButton action={() => console.log('asdsd')} />
               <Text style={styles.quantityItem}>1</Text>
