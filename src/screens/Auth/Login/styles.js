@@ -3,19 +3,19 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     main1: {
-        width: '100%', height: '100%'
+        width: '100%', height: '100%', flex: 1,
     },
     main2: {
         height: '25%', width: '100%'
     },
     main3: {
-        height: '45%', width: '100%', backgroundColor: 'F5F5F5'
+        height: '45%', width: '100%', backgroundColor: 'F5F5F5', paddingTop: 25,
     },
     main4: {
-        flex: 1
+        height: '30%'
     },
     main5: {
-        flex: 1, top: 30,
+        flex: 1,height: '30%' ,top: 30,
     },
     red1: {
         flex: 1

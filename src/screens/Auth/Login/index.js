@@ -162,7 +162,7 @@ const RegisterComponent = ({redirect}) => {
   const {user, register} = useContext(AuthContext);
 
   return (
-    <View style={styles.gr1}>
+    <SafeAreaView style={styles.gr1}>
       {/* Login */}
       <Text style={styles.gr2}>REGISTER YOUR ACOUNT.</Text>
       <View style={styles.gr3}>
@@ -226,7 +226,7 @@ const RegisterComponent = ({redirect}) => {
         }}>
         <Text style={styles.gr14}>SIGN UP</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
