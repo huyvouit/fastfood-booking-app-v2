@@ -31,22 +31,25 @@ export default function LoginScreen({navigation, redirect}) {
   }, [user]);
   const [page, setpage] = useState(SignIn);
   return (
-    <View style={styles.main1}>
-      <View style={styles.main2}>
+    <ScrollView style={styles.main1}>
+      <SafeAreaView style={styles.main2}>
         <RedComponent page={page} setpage={setpage} />
-      </View>
-      <View style={styles.main3}>
+      </SafeAreaView>
+      <SafeAreaView style={styles.main3}>
         {page === SignIn ? (
           <GreenComponent navigation={navigation} redirect={redirect} />
         ) : (
           <RegisterComponent redirect={redirect} />
         )}
-      </View>
+      </SafeAreaView>
 
-      <View style={styles.main4}>
+      <SafeAreaView style={styles.main4}>
         <BlueComponent />
-      </View>
-    </View>
+      </SafeAreaView>
+      <SafeAreaView style={styles.main4}>
+        <BlueComponent />
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 const RedComponent = ({page, setpage}) => {
