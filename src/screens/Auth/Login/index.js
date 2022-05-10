@@ -46,7 +46,7 @@ export default function LoginScreen({navigation, redirect}) {
       <SafeAreaView style={styles.main4}>
         <BlueComponent />
       </SafeAreaView>
-      <SafeAreaView style={styles.main4}>
+      <SafeAreaView style={styles.main5}>
         <BlueComponent />
       </SafeAreaView>
     </ScrollView>

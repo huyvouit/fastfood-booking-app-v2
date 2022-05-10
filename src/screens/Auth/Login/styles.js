@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     main4: {
         flex: 1
     },
-    main4: {
+    main5: {
         flex: 1, top: 30,
     },
     red1: {
