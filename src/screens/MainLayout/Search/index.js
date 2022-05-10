@@ -1,6 +1,8 @@
+import productApi from 'api/product_api';
 import Icons from 'assets/icons';
 import HeaderPage from 'components/Header';
 import {LIST_PRODUCT} from 'constants/constants';
+import {formatter} from 'helper/formatter';
 import React, {useEffect} from 'react';
 import {
   View,
@@ -14,6 +16,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SvgXml} from 'react-native-svg';
+import Loading from 'screens/Loading';
 
 import styles from './styles';
 
@@ -33,13 +36,17 @@ const CardProduct = ({item, navigation}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('DetailScreen')}
+      onPress={() =>
+        navigation.navigate('DetailScreen', {
+          productId: item?._id,
+        })
+      }
       style={{
         // height: Dimensions.get('window').width / 1.5,
         ...styles.item,
       }}>
       <Image
-        source={item.mainImage}
+        source={{uri: item.mainImage}}
         style={{
           width: '100%',
           height: 140,
@@ -54,9 +61,11 @@ const CardProduct = ({item, navigation}) => {
         </Text>
 
         <Text numberOfLines={2} style={styles.descProduct}>
-          {item.desc}
+          {item?.desc || `Thom ngon tron vi`}
         </Text>
-        <Text style={styles.priceProduct}>{item.price}</Text>
+        <Text style={styles.priceProduct}>
+          {formatter.format(item.type[0]?.price.$numberDecimal)}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -81,6 +90,26 @@ const CardProduct = ({item, navigation}) => {
 const SearchScreen = ({navigation}) => {
   const [keyword, setKeyword] = React.useState('');
   const [isSubmited, setIsSubmited] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [productList, setProductList] = React.useState([]);
+
+  const fetchProductList = async () => {
+    try {
+      const params = {
+        q: keyword,
+      };
+      const response = await productApi.getBySearch(params);
+      setProductList(response.data.data.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch product list: ', error);
+    }
+  };
+
+  // React.useEffect(() => {
+  //   fetchProductList();
+  // }, []);
+
   return (
     <View style={styles.root}>
       <ScrollView>
@@ -95,14 +124,17 @@ const SearchScreen = ({navigation}) => {
             }}
             style={styles.inputSearch}
             placeholder="Search for food ..."
-            onSubmitEditing={() => setIsSubmited(true)}
+            onSubmitEditing={() => {
+              fetchProductList();
+              setIsSubmited(true);
+            }}
           />
           <TouchableOpacity style={styles.iconSearch}>
             <SvgXml xml={Icons.IconSearch} color="#767F9D" />
           </TouchableOpacity>
         </View>
 
-        {isSubmited && keyword != '' && (
+        {isSubmited && keyword != '' && !isLoading ? (
           <>
             <Text style={styles.searching}>
               <Text>Searching for </Text>
@@ -110,7 +142,7 @@ const SearchScreen = ({navigation}) => {
             </Text>
 
             <SafeAreaView style={styles.listProduct}>
-              {LIST_PRODUCT.map((item, index) => {
+              {productList?.map((item, index) => {
                 return (
                   <CardProduct
                     key={index}
@@ -121,6 +153,8 @@ const SearchScreen = ({navigation}) => {
               })}
             </SafeAreaView>
           </>
+        ) : (
+          isLoading && <Loading />
         )}
       </ScrollView>
     </View>

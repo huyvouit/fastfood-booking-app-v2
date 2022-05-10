@@ -1,3 +1,4 @@
+import {COLORS} from 'constants';
 import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontFamily: 'Roboto-Regular',
     lineHeight: 20,
-    color: '#323643',
+    color: COLORS.primaryOrange,
   },
 });
 

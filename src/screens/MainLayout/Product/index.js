@@ -13,6 +13,7 @@ import {LIST_SHORTING} from 'constants/constants';
 import productApi from 'api/product_api';
 
 import styles from './styles';
+import Loading from 'screens/Loading';
 
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
@@ -39,11 +40,7 @@ const ProductScreen = ({navigation}) => {
   }, []);
 
   if (isLoading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="small" color="orange" />
-      </View>
-    );
+    return <Loading />;
   }
   return (
     <View style={styles.container}>

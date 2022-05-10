@@ -20,6 +20,7 @@ import ItemFood from 'components/ItemFood';
 import CardFood from 'components/CardFood';
 
 import styles from './styles';
+import Images from 'assets/images';
 
 const widthScreen = Dimensions.get('screen').width;
 const {height} = Dimensions.get('window');
@@ -110,21 +111,9 @@ const HomeScreen = ({navigation}) => {
         </View>
         <View style={styles.slider}>
           <Swiper style={styles.swiper} autoplay>
-            <Image
-              source={require('../../../assets/images/splash-screen.jpg')}
-              alt=""
-              style={styles.imageSlider}
-            />
-            <Image
-              source={require('../../../assets/images/splash-screen.jpg')}
-              alt=""
-              style={styles.imageSlider}
-            />
-            <Image
-              source={require('../../../assets/images/splash-screen.jpg')}
-              alt=""
-              style={styles.imageSlider}
-            />
+            <Image source={Images.slider1} alt="" style={styles.imageSlider} />
+            <Image source={Images.slider2} alt="" style={styles.imageSlider} />
+            <Image source={Images.slider3} alt="" style={styles.imageSlider} />
           </Swiper>
         </View>
         {/* <View style={styles.bestSeller}>

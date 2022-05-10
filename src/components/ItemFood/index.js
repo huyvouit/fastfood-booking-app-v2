@@ -11,8 +11,13 @@ const ItemFood = props => {
   const {navigation, product} = props;
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       style={styles.foodItems}
-      onPress={() => navigation.navigate('DetailScreen')}>
+      onPress={() =>
+        navigation.navigate('DetailScreen', {
+          productId: product?._id,
+        })
+      }>
       <Image source={{uri: product?.mainImage}} style={styles.image} />
 
       <View style={styles.costView}>

@@ -6,6 +6,7 @@ export const COLORS = {
   lightGray: '#B3B3B3',
   yellow100: '#FFC529',
   black50: '#323643',
+  primaryOrange: '#FE724C',
 };
 
 export const FONTS = {

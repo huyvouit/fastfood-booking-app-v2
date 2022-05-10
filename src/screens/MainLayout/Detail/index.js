@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   View,
@@ -18,8 +18,10 @@ import IncreaseButton from '../../../components/IncreaseButton';
 import styles from './styles';
 import {SvgXml} from 'react-native-svg';
 import ChevronLeft from '../../../assets/icons/chevron-left.svg';
+import productApi from 'api/product_api';
 
-const DetailScreen = ({navigation}) => {
+const DetailScreen = ({navigation, route}) => {
+  const {productId} = route.params;
   const [data, setNewPlants] = useState([
     {
       id: 0,
@@ -58,6 +60,34 @@ const DetailScreen = ({navigation}) => {
       favourite: false,
     },
   ]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [productList, setProductList] = useState([]);
+
+  const fetchProductList = async sortType => {
+    try {
+      const params = {
+        id: productId,
+      };
+      const response = await productApi.getById(params);
+      // console.log(response.data.filteredProducts);
+      setProductList(response.data.filteredProducts.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch product list: ', error);
+    }
+  };
+  // useEffect(() => {
+  //   fetchProductList();
+  // }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="small" color="orange" />
+      </View>
+    );
+  }
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
@@ -101,11 +131,11 @@ const DetailScreen = ({navigation}) => {
           </View> */}
           <View style={styles.subInfo}>
             <Text style={styles.price}>40000 VND</Text>
-            {/* <View style={styles.quantity}>
+            <View style={styles.quantity}>
               <DecreaseButton action={() => console.log('asdsd')} />
-              <Text style={styles.quantityItem}>2</Text>
+              <Text style={styles.quantityItem}>1</Text>
               <IncreaseButton action={() => {}} />
-            </View> */}
+            </View>
           </View>
 
           <View style={styles.description}>
