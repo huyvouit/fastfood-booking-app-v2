@@ -20,23 +20,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 15,
-    width: 80,
+    width: 110,
     height: 28,
     top: -160,
     right: -20,
+    elevation: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 30,
   },
 
   unit: {
     color: '#FE724C',
     fontWeight: 'bold',
-    alignSelf: 'flex-end',
+    // alignSelf: 'flex-end',
+    marginLeft: 5,
   },
 
   cost: {
     fontWeight: 'bold',
-    color: '#323643',
-    fontSize: 22,
+    color: '#FE724C',
+    fontSize: 18,
   },
 
   rateView: {
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 15,
-    width: 76,
+    width: 50,
     height: 26,
     top: -40,
     right: -20,

@@ -87,7 +87,7 @@ const GreenComponent = ({navigation, redirect}) => {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const {login, user} = useContext(AuthContext);
-  console.log(user, 'login');
+
   return (
     <View style={styles.gr1}>
       {/* Login */}

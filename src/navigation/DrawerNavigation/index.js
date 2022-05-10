@@ -22,14 +22,8 @@ import CommonStackScreen from 'navigation/CommonNavigation';
 import AddressBookScreen from 'screens/MainLayout/AddressBook';
 import AddressStackScreen from 'navigation/AddressNavigation';
 
-const CustomDrawerContent = ({
-  navigation,
-  selectedTab,
-  dispatch,
-  redirect,
-  user,
-}) => {
-  const {logout} = useContext(AuthContext);
+const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
+  const {user, logout} = useContext(AuthContext);
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -190,7 +184,7 @@ const CustomDrawerContent = ({
             onPress={() => {
               // dispatch(setSelectedTab('Contact'));
               logout();
-              redirect.replace('Login');
+              // redirect.replace('Login');
             }}
           />
         </View>
@@ -227,7 +221,7 @@ export const DrawerScreen = ({redirect}) => {
 
   const selectedTab = useSelector(state => state.selectedTab);
   const dispatch = useDispatch();
-
+  console.log('tab:', selectedTab);
   const [progress, setProgress] = React.useState(new Animated.Value(0.01));
 
   const scale = interpolateNode(progress, {
@@ -240,12 +234,12 @@ export const DrawerScreen = ({redirect}) => {
     outputRange: [0, 10],
   });
 
-  useEffect(() => {
-    console.log(user);
-    if (!user) {
-      redirect.replace('Login');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user);
+  //   if (!user) {
+  //     redirect.replace('Login');
+  //   }
+  // }, [user]);
 
   // const scale = Animated.interpolateNode(progress, {
   //   inputRange: [0, 1],
@@ -286,7 +280,6 @@ export const DrawerScreen = ({redirect}) => {
               selectedTab={selectedTab}
               dispatch={dispatch}
               redirect={redirect}
-              user={user}
             />
           );
         }}>

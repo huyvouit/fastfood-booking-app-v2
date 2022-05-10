@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Button,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 
 import {SvgXml} from 'react-native-svg';
@@ -18,9 +19,34 @@ import ItemFood from 'components/ItemFood';
 import styles from './styles';
 import {LIST_SHORTING} from 'constants/constants';
 import Images from 'assets/images';
+import productApi from 'api/product_api';
 
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    const fetchProductList = async () => {
+      try {
+        const params = {
+          currentPage: 1,
+          productPerPage: 10,
+        };
+        const response = await productApi.getByFilter(params);
+        console.log(response.data.filteredProducts);
+        setProductList(response.data.filteredProducts.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+    };
+    fetchProductList();
+  }, []);
+
+  if (isLoading) {
+    return <ActivityIndicator size="small" color="orange" />;
+  }
   return (
     <View style={styles.container}>
       <ScrollView style={{height: 300}}>
@@ -101,9 +127,9 @@ const ProductScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={{paddingHorizontal: 20}}>
-          <ItemFood navigation={navigation} />
-          <ItemFood navigation={navigation} />
-          <ItemFood navigation={navigation} />
+          {productList.map((item, index) => (
+            <ItemFood key={index} navigation={navigation} product={item} />
+          ))}
         </View>
         {/* <View style={styles.items}>
           <Image source={Pizza} style={styles.img_container} />

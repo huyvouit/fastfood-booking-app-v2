@@ -20,7 +20,7 @@ const RootStackScreen = () => {
           animationEnabled: false,
         }}
       />
-      <RootStack.Screen name="SplashScreen" component={SplashScreen} />
+      {/* <RootStack.Screen name="SplashScreen" component={SplashScreen} /> */}
 
       <RootStack.Screen
         name="Drawer"
