@@ -2,12 +2,12 @@ import {StyleSheet} from 'react-native';
 import {COLORS} from '../../constants/theme';
 
 const styles = StyleSheet.create({
-  container: {
-    width: 75,
-    height: 115,
+  container: (isActived, id) => ({
+    width: 100,
+    height: 45,
     borderRadius: 50,
-    elevation: 20,
-    // flexDirection: 'row',
+    elevation: 5,
+    flexDirection: 'row',
     // shadowColor: '#FE724C',
     // shadowOffset: {width: 0, height: 0},
     // shadowOpacity: 0.15,
@@ -15,30 +15,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // alignContent: 'flex-start',
-    backgroundColor: '#FE724C',
+    backgroundColor: isActived == id ? '#FE724C' : '#e4e4e4',
     // padding: 5,
-  },
+  }),
   bgIcon: {
     backgroundColor: 'white',
-    width: 45,
-    height: 45,
+    width: 35,
+    height: 35,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginRight: 7,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 50,
     resizeMode: 'contain',
   },
-  category: {
-    color: 'white',
-    fontSize: 12,
+  category: (isActived, id) => ({
+    color: isActived == id ? 'white' : '#323643',
+    fontSize: 12.5,
+    fontFamily: 'Roboto-Bold',
     fontWeight: '600',
     borderRadius: 50,
-  },
+  }),
 });
 
 export default styles;

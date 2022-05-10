@@ -19,7 +19,13 @@ const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [productList, setProductList] = useState([]);
-
+  const [filter, setFilter] = useState({
+    category: '',
+    higher: '',
+    lower: '',
+    size: '',
+    rating: '',
+  });
   const fetchProductList = async sortType => {
     try {
       const params = {
@@ -35,13 +41,14 @@ const ProductScreen = ({navigation}) => {
       console.log('Failed to fetch product list: ', error);
     }
   };
-  useEffect(() => {
-    fetchProductList();
-  }, []);
+  // useEffect(() => {
+  //   fetchProductList();
+  // }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+  console.log(filter);
   return (
     <View style={styles.container}>
       <ScrollView style={{height: 300}}>
@@ -68,6 +75,7 @@ const ProductScreen = ({navigation}) => {
             setShowFilterModal={setShowFilterModal}
             isVisible={showFilterModal}
             onClose={() => setShowFilterModal(false)}
+            setFilter={setFilter}
           />
         )}
         <View style={styles.title}>

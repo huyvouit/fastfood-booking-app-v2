@@ -1,3 +1,4 @@
+import Icons from 'assets/icons';
 import Images from 'assets/images';
 
 export const BOTTOM_TABS = [
@@ -45,6 +46,11 @@ export const LIST_SHORTING = [
 
 export const CATEGORY = [
   {
+    id: 0,
+    category: 'All',
+    image: Images.slider2,
+  },
+  {
     id: 1,
     category: 'Burger',
     image: Images.Burger,
@@ -68,6 +74,34 @@ export const CATEGORY = [
     id: 5,
     category: 'Drink',
     image: Images.Chicken,
+  },
+];
+export const RATING = [
+  {
+    id: 0,
+    star: '1',
+    // image: Images.slider2,
+    // icon:
+  },
+  {
+    id: 1,
+    star: '2',
+    // image: Images.Burger,
+  },
+  {
+    id: 2,
+    star: '3',
+    // image: Images.Pizza,
+  },
+  {
+    id: 3,
+    star: '4',
+    // image: Images.Chicken,
+  },
+  {
+    id: 4,
+    star: '5',
+    // image: Images.Combo,
   },
 ];
 

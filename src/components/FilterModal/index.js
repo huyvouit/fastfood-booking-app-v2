@@ -1,6 +1,7 @@
 import Icons from 'assets/icons';
+import ItemCategory from 'components/ItemCategory';
 import TwoPointSider from 'components/TwoPointSlider';
-import {SIZE_PRODUCT} from 'constants/constants';
+import {CATEGORY, RATING, SIZE_PRODUCT} from 'constants/constants';
 import React, {useEffect} from 'react';
 import {
   View,
@@ -11,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Modal,
   Dimensions,
+  Image,
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
 // import Animated, {interpolateNode} from 'react-native-reanimated';
@@ -34,9 +36,54 @@ const Section = ({containerStyle, title, children}) => {
   );
 };
 
-const FilterModal = ({isVisible, onClose}) => {
+const FilterModal = ({isVisible, onClose, setFilter}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(isVisible);
+  const [category, setCategory] = React.useState(0);
+  const [lower, setLower] = React.useState(150000);
+  const [higher, setHigher] = React.useState(0);
+  const [size, setSize] = React.useState(0);
+  const [rating, setRating] = React.useState(-1);
 
+  const convertCategory = category => {
+    switch (category) {
+      case 0:
+        return 'All';
+
+      case 1:
+        return 'Burger';
+
+      case 2:
+        return 'Pizza';
+
+      case 3:
+        return 'Chicken';
+
+      case 4:
+        return 'Combo';
+
+      case 5:
+        return 'Drink';
+
+      default:
+        return 'All';
+    }
+  };
+
+  const convertSize = size => {
+    switch (size) {
+      case 0:
+        return 'All';
+
+      case 1:
+        return 'M';
+
+      case 2:
+        return 'L';
+
+      default:
+        return 'All';
+    }
+  };
   const modalAnimationValue = React.useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (showFilterModal) {
@@ -55,7 +102,7 @@ const FilterModal = ({isVisible, onClose}) => {
   }, [showFilterModal]);
   const modalY = modalAnimationValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [screenHeight, screenHeight - 400],
+    outputRange: [screenHeight, screenHeight - 630],
   });
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible}>
@@ -102,7 +149,7 @@ const FilterModal = ({isVisible, onClose}) => {
             </Text>
             <TouchableOpacity
               style={{
-                borderColor: '#c4c4c4',
+                borderColor: '#e4e4e4',
                 borderRadius: 7,
                 borderWidth: 1,
                 padding: 2,
@@ -115,22 +162,50 @@ const FilterModal = ({isVisible, onClose}) => {
 
           <ScrollView
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingBottom: 250,
-            }}>
+            contentContainerStyle={
+              {
+                // paddingBottom: 250,
+              }
+            }>
+            <Section title="Category">
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginTop: 12,
+                }}>
+                {CATEGORY.map((item, index) => {
+                  return (
+                    <View
+                      key={index}
+                      style={{marginRight: 10, marginBottom: 5}}>
+                      <ItemCategory
+                        isActived={category}
+                        type={item}
+                        action={() => setCategory(index)}
+                      />
+                    </View>
+                  );
+                })}
+              </View>
+            </Section>
             <Section title="Price">
               <View style={{alignItems: 'center'}}>
                 <TwoPointSider
-                  values={[30000, 120000]}
+                  values={[higher, lower]}
                   min={0}
                   max={150000}
                   postfix="VND"
-                  onValuesChange={values => console.log(values)}
+                  onValuesChange={values => {
+                    console.log(values);
+                    setHigher(values[0]);
+                    setLower(values[1]);
+                  }}
                 />
               </View>
             </Section>
 
-            <Section title={'Size'} containerStyle={{marginTop: 30}}>
+            <Section title={'Size'} containerStyle={{marginTop: 15}}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -141,11 +216,14 @@ const FilterModal = ({isVisible, onClose}) => {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       key={index}
-                      onPress={() => {}}
+                      onPress={() => {
+                        setSize(index);
+                      }}
                       style={{
                         marginTop: 15,
                         borderRadius: 5,
-                        backgroundColor: item.active ? '#FE724C' : '#c4c4c4',
+                        backgroundColor:
+                          item.id == size ? '#FE724C' : '#e4e4e4',
                         width: 80,
                         height: 40,
                         justifyContent: 'center',
@@ -157,10 +235,57 @@ const FilterModal = ({isVisible, onClose}) => {
                           fontSize: 18,
                           fontWeight: '700',
                           fontFamily: 'Roboto-Regular',
-                          color: item.active ? 'white' : '#323643',
+                          color: item.id == size ? 'white' : '#323643',
                         }}>
                         {item.size}
                       </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </Section>
+            <Section title={'Rating'} containerStyle={{marginTop: 20}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}>
+                {RATING.map((item, index) => {
+                  return (
+                    <TouchableOpacity
+                      activeOpacity={0.8}
+                      key={index}
+                      onPress={() => {
+                        setRating(index);
+                      }}
+                      style={{
+                        marginTop: 15,
+                        borderRadius: 5,
+                        backgroundColor:
+                          item.id == rating ? '#FE724C' : '#e4e4e4',
+                        width: 55,
+                        height: 40,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginRight: 15,
+                        flexDirection: 'row',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: '700',
+                          fontFamily: 'Roboto-Regular',
+                          color: item?.active ? 'white' : '#323643',
+                          paddingRight: 5,
+                        }}>
+                        {item.star}
+                      </Text>
+                      <SvgXml
+                        xml={Icons.IconStar}
+                        fill="yellow"
+                        width={20}
+                        height={20}
+                      />
                     </TouchableOpacity>
                   );
                 })}
@@ -177,7 +302,13 @@ const FilterModal = ({isVisible, onClose}) => {
               }}>
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => {}}
+                onPress={() => {
+                  setCategory(0);
+                  setHigher(0);
+                  setLower(150000);
+                  setSize(0);
+                  setRating(-1);
+                }}
                 style={{
                   marginTop: 15,
                   borderRadius: 5,
@@ -200,7 +331,15 @@ const FilterModal = ({isVisible, onClose}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => {}}
+                onPress={() => {
+                  setFilter({
+                    category: convertCategory(category),
+                    higher,
+                    lower,
+                    size: convertSize(size),
+                    rating,
+                  });
+                }}
                 style={{
                   marginTop: 15,
                   borderRadius: 5,

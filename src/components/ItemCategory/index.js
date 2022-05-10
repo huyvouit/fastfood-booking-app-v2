@@ -7,13 +7,15 @@ import Icons from '../../assets/icons';
 import styles from './styles';
 
 const ItemCategory = props => {
-  const {action, image, category} = props;
+  const {action, type, isActived} = props;
   return (
-    <TouchableOpacity style={styles.container} onPress={action}>
+    <TouchableOpacity
+      style={styles.container(isActived, type.id)}
+      onPress={action}>
       <View style={styles.bgIcon}>
-        <Image source={image} style={styles.icon} />
+        <Image source={type?.image} style={styles.icon} />
       </View>
-      <Text style={styles.category}>{category}</Text>
+      <Text style={styles.category(isActived, type.id)}>{type?.category}</Text>
     </TouchableOpacity>
   );
 };
