@@ -12,7 +12,7 @@ const productApi = {
   },
 
   getById: params => {
-    const url = `/product`;
+    const url = `/product/detail`;
     return axiosClient.get(url, {params});
   },
 

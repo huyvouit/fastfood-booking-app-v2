@@ -74,7 +74,7 @@ const DetailScreen = ({navigation, route}) => {
       };
 
       const response = await productApi.getById(params);
-      // console.log(response.data.data);
+      console.log(response.data.data);
       setProduct(response.data.data);
       setIsLoading(false);
     } catch (error) {
@@ -96,6 +96,7 @@ const DetailScreen = ({navigation, route}) => {
           {product.images?.map((item, index) => {
             return (
               <Image
+                key={index}
                 source={{uri: item}}
                 alt=""
                 style={{
@@ -117,7 +118,6 @@ const DetailScreen = ({navigation, route}) => {
           </View> */}
           <View style={styles.subInfo}>
             <Text style={styles.price}>
-              {' '}
               {formatter.format(product.type[0]?.price.$numberDecimal)}
             </Text>
             <View style={styles.quantity}>
