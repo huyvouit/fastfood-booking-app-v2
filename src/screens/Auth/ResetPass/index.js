@@ -26,7 +26,7 @@
  const SignIn = 'SIGNIN';
  const SignUp = 'SIGNUP';
  
- export default function Login() {
+ export default function Reset() {
    const [page, setpage] = useState('');
    return (
      <ScrollView style={styles.main1}>
