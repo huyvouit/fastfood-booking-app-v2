@@ -399,7 +399,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                     rating,
                   });
                   setShowFilterModal(false);
-                  action('0');
+                  // action('0');
                 }}
                 style={{
                   marginTop: 15,

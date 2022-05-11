@@ -18,6 +18,7 @@ import Loading from 'screens/Loading';
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState(0);
   const [productList, setProductList] = useState([]);
   const [filter, setFilter] = useState({
     category: null,
@@ -26,7 +27,8 @@ const ProductScreen = ({navigation}) => {
     size: null,
     rating: null,
   });
-  const fetchProductList = async sortType => {
+  const fetchProductList = async () => {
+    setIsLoading(true);
     try {
       const params = {
         currentPage: 1,
@@ -45,11 +47,11 @@ const ProductScreen = ({navigation}) => {
   };
   useEffect(() => {
     fetchProductList();
-  }, []);
+  }, [filter, sortType]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
   console.log(filter);
   return (
     <View style={styles.container}>
@@ -111,7 +113,8 @@ const ProductScreen = ({navigation}) => {
               rowStyle={{backgroundColor: 'white'}}
               data={LIST_SHORTING}
               onSelect={(selectedItem, index) => {
-                fetchProductList(index);
+                setSortType(index);
+                // fetchProductList(index);
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
@@ -133,11 +136,15 @@ const ProductScreen = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{paddingHorizontal: 20}}>
-          {productList.map((item, index) => (
-            <ItemFood key={index} navigation={navigation} product={item} />
-          ))}
-        </View>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <View style={{paddingHorizontal: 20}}>
+            {productList.map((item, index) => (
+              <ItemFood key={index} navigation={navigation} product={item} />
+            ))}
+          </View>
+        )}
         {/* <View style={styles.items}>
           <Image source={Pizza} style={styles.img_container} />
 
