@@ -37,7 +37,7 @@ const Routes = () => {
   }, []);
 
   if (initializing) return null;
-
+  console.log(user);
   return (
     <NavigationContainer>
       {user ? <DrawerScreen /> : <AuthStackScreen />}

@@ -74,8 +74,11 @@ const styles = StyleSheet.create({
   },
 
   foodInfo: {
-    right: -20,
+    // right: 20,
+    // left: 20,
     top: -30,
+    paddingHorizontal: 15,
+    // backgroundColor: 'red',
   },
 
   foodNameText: {

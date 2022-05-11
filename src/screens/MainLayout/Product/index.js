@@ -18,21 +18,25 @@ import Loading from 'screens/Loading';
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState(0);
   const [productList, setProductList] = useState([]);
   const [filter, setFilter] = useState({
-    category: '',
-    higher: '',
-    lower: '',
-    size: '',
-    rating: '',
+    category: null,
+    higher: null,
+    lower: null,
+    size: null,
+    rating: null,
   });
-  const fetchProductList = async sortType => {
+  const fetchProductList = async () => {
+    setIsLoading(true);
     try {
       const params = {
         currentPage: 1,
         productPerPage: 10,
         sortType,
+        ...filter,
       };
+
       const response = await productApi.getByFilter(params);
       // console.log(response.data.filteredProducts);
       setProductList(response.data.filteredProducts.data);
@@ -41,14 +45,14 @@ const ProductScreen = ({navigation}) => {
       console.log('Failed to fetch product list: ', error);
     }
   };
-  // useEffect(() => {
-  //   fetchProductList();
-  // }, []);
+  useEffect(() => {
+    fetchProductList();
+  }, [filter, sortType]);
 
   // if (isLoading) {
   //   return <Loading />;
   // }
-  // console.log(filter);
+  console.log(filter);
   return (
     <View style={styles.container}>
       <ScrollView style={{height: 300}}>
@@ -76,6 +80,8 @@ const ProductScreen = ({navigation}) => {
             isVisible={showFilterModal}
             onClose={() => setShowFilterModal(false)}
             setFilter={setFilter}
+            filter={filter}
+            action={fetchProductList}
           />
         )}
         <View style={styles.title}>
@@ -107,7 +113,8 @@ const ProductScreen = ({navigation}) => {
               rowStyle={{backgroundColor: 'white'}}
               data={LIST_SHORTING}
               onSelect={(selectedItem, index) => {
-                fetchProductList(index);
+                setSortType(index);
+                // fetchProductList(index);
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
@@ -129,11 +136,15 @@ const ProductScreen = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{paddingHorizontal: 20}}>
-          {productList.map((item, index) => (
-            <ItemFood key={index} navigation={navigation} product={item} />
-          ))}
-        </View>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <View style={{paddingHorizontal: 20}}>
+            {productList.map((item, index) => (
+              <ItemFood key={index} navigation={navigation} product={item} />
+            ))}
+          </View>
+        )}
         {/* <View style={styles.items}>
           <Image source={Pizza} style={styles.img_container} />
 

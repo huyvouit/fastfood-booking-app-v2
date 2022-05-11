@@ -36,7 +36,9 @@ const ItemFood = props => {
       </View>
 
       <View style={styles.foodInfo}>
-        <Text style={styles.foodNameText}>{product?.name}</Text>
+        <Text numberOfLines={1} style={styles.foodNameText}>
+          {product?.name}
+        </Text>
         <Text style={styles.savour}>Chicken, Cheese and pineapple</Text>
       </View>
     </TouchableOpacity>
