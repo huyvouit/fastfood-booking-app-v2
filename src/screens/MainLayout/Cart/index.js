@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   SafeAreaView,
   View,
@@ -17,10 +17,38 @@ import salad from '../../../assets/images/Greek_salad.png';
 import styles from './styles';
 import IncreaseButton from 'components/IncreaseButton';
 import DecreaseButton from 'components/DecreaseButton';
+import cartApi from 'api/cart_api';
+import {AuthContext} from 'contexts/AuthProvider';
+import {formatter} from 'helper/formatter';
 
 const CartScreen = ({navigation}) => {
+  const {account, cart, setCart} = useContext(AuthContext);
   const [isChange, setIsChange] = React.useState(true);
-  return isChange ? (
+  const [cartList, setCartList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchCartList = async () => {
+    setIsLoading(true);
+    try {
+      const params = {
+        currentPage: 1,
+        productPerPage: 10,
+        uid: account?._id,
+      };
+
+      const response = await cartApi.getByUser(params);
+      setCartList(response.data.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch cart list: ', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartList();
+  }, [cart]);
+
+  return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.textWrapper(3)}>
@@ -53,62 +81,42 @@ const CartScreen = ({navigation}) => {
               </View>
             </View>
 
-            <View style={styles.foods}>
-              <Image
-                source={salad}
-                style={{
-                  width: 70,
-                  height: 70,
-                  resizeMode: 'cover',
-                  position: 'relative',
-                  borderRadius: 10,
-                  marginRight: 20,
-                }}
-              />
-              <View style={styles.information}>
-                <Text style={styles.name_food}>Greek salad</Text>
-                <Text style={styles.savour}>with baked salmon</Text>
-                <Text style={styles.cost}>$12.00</Text>
-              </View>
+            {cartList?.map((item, index) => {
+              <View style={styles.foods}>
+                <Image
+                  source={{uri: item.productId?.mainImage}}
+                  style={{
+                    width: 70,
+                    height: 70,
+                    resizeMode: 'cover',
+                    position: 'relative',
+                    borderRadius: 10,
+                    marginRight: 20,
+                  }}
+                />
+                <View style={styles.information}>
+                  <Text style={styles.name_food}>{item.productId?.name}</Text>
+                  <Text style={styles.savour} numberOfLines={1}>
+                    {item.productId?.description}
+                  </Text>
+                  <Text style={styles.cost}>
+                    {formatter.format(
+                      item.productId?.type[0]?.price.$numberDecimal,
+                    )}
+                  </Text>
+                </View>
 
-              <TouchableOpacity style={styles.close}>
-                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-              </TouchableOpacity>
-              <View style={styles.modify}>
-                <DecreaseButton action={() => {}} />
-                <Text style={styles.quantity}>02</Text>
+                <TouchableOpacity style={styles.close}>
+                  <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+                </TouchableOpacity>
+                <View style={styles.modify}>
+                  <DecreaseButton action={() => {}} />
+                  <Text style={styles.quantity}>{item.quantity}</Text>
 
-                <IncreaseButton action={() => {}} />
-              </View>
-            </View>
-            <View style={styles.foods}>
-              <Image
-                source={salad}
-                style={{
-                  width: 70,
-                  height: 70,
-                  resizeMode: 'cover',
-                  position: 'relative',
-                  borderRadius: 10,
-                  marginRight: 20,
-                }}
-              />
-              <View style={styles.information}>
-                <Text style={styles.name_food}>Greek salad</Text>
-                <Text style={styles.savour}>with baked salmon</Text>
-                <Text style={styles.cost}>$12.00</Text>
-              </View>
-
-              <TouchableOpacity style={styles.close}>
-                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-              </TouchableOpacity>
-              <View style={styles.modify}>
-                <DecreaseButton action={() => {}} />
-                <Text style={styles.quantity}>02</Text>
-
-                <IncreaseButton action={() => {}} />
-              </View>
-            </View>
+                  <IncreaseButton action={() => {}} />
+                </View>
+              </View>;
+            })}
           </ScrollView>
         </View>
       </View>

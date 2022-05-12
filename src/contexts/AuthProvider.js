@@ -10,6 +10,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [account, setAccount] = useState(null);
+  const [cart, setCart] = useState(null);
 
   const createUser = async (fullname, email, uid) => {
     try {
@@ -54,6 +55,8 @@ export const AuthProvider = ({children}) => {
         setUser,
         account,
         setAccount,
+        cart,
+        setCart,
         login: async (email, password) => {
           try {
             await auth()

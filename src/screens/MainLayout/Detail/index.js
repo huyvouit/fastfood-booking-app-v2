@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
 import {
   View,
@@ -21,10 +21,12 @@ import ChevronLeft from '../../../assets/icons/chevron-left.svg';
 import productApi from 'api/product_api';
 import Loading from 'screens/Loading';
 import {formatter} from 'helper/formatter';
+import cartApi from 'api/cart_api';
+import {AuthContext} from 'contexts/AuthProvider';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
-
+  const {account, cart, setCart} = useContext(AuthContext);
   console.log(productId);
   const [data, setNewPlants] = useState([
     {
@@ -119,6 +121,22 @@ const DetailScreen = ({navigation, route}) => {
     return <Loading />;
   }
 
+  const addToCart = async () => {
+    try {
+      const result = await cartApi.addToCart({
+        userId: account?._id,
+        productId,
+        size: 'M',
+        quantity: count,
+        price: count * product.type[0]?.price.$numberDecimal,
+      });
+      if (result.data.success) {
+        console.log(result.data.message);
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flex: 1}}>
@@ -252,13 +270,18 @@ const DetailScreen = ({navigation, route}) => {
           backgroundColor: 'transparent',
           elevation: 20,
         }}>
-        <View style={styles.btnAdd}>
+        <TouchableOpacity
+          style={styles.btnAdd}
+          onPress={() => {
+            addToCart();
+            setCart(Math.floor(Math.random() * 1001));
+          }}>
           <View style={styles.iconBag}>
             <SvgFromXml xml={Icons.IconCart} color={'#FE724C'} />
             {/* <Icons.Bag fill={'#FE724C'} /> */}
           </View>
           <Text style={styles.textBtn}>Add to cart</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
