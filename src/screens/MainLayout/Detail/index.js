@@ -24,6 +24,7 @@ import {formatter} from 'helper/formatter';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
+
   console.log(productId);
   const [data, setNewPlants] = useState([
     {
@@ -66,6 +67,7 @@ const DetailScreen = ({navigation, route}) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState([]);
+  const [relatedProduct, setRelatedProduct] = useState([]);
 
   const fetchProductList = async sortType => {
     try {
@@ -74,11 +76,26 @@ const DetailScreen = ({navigation, route}) => {
       };
 
       const response = await productApi.getById(params);
-      console.log(response.data.data);
-      setProduct(response.data.data);
-      setIsLoading(false);
+      if (response.data) {
+        console.log(response.data.data.category);
+        setProduct(response.data.data);
+        await fetchRelatedProduct(response.data.data.category);
+      }
     } catch (error) {
       console.log('Failed to fetch product list: ', error);
+    }
+  };
+  const fetchRelatedProduct = async type => {
+    try {
+      const params = {category: type, currentPage: 2, productPerPage: 4};
+
+      const response = await productApi.getByFilter(params);
+      if (response.data) {
+        setRelatedProduct(response.data.filteredProducts.data);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -136,12 +153,12 @@ const DetailScreen = ({navigation, route}) => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={data}
-              keyExtractor={item => item.id.toString()}
+              data={relatedProduct}
+              keyExtractor={item => item._id.toString()}
               renderItem={({item}) => (
                 <View style={{width: 200, marginHorizontal: 8}}>
                   <Image
-                    source={require('../../../assets/images/splash-screen.jpg')}
+                    source={{uri: item?.mainImage}}
                     alt=""
                     style={{
                       width: 200,
@@ -151,9 +168,12 @@ const DetailScreen = ({navigation, route}) => {
                   />
                   <View style={styles.infoProduct}>
                     <Text style={styles.name} numberOfLines={1}>
-                      Ground Beef Tacos
+                      {item?.name}
                     </Text>
-                    <Text style={styles.priceProduct}>25000 VND</Text>
+                    <Text style={styles.priceProduct}>
+                      {' '}
+                      {formatter.format(item.type[0]?.price.$numberDecimal)}
+                    </Text>
                   </View>
                 </View>
               )}

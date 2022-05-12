@@ -61,6 +61,7 @@ const GreenComponent = () => {
           resizeMode="stretch"
           style={styles.gr3}
         />
+
         <TextInput
           style={styles.gr4}
           // autoCapitalize={false}
