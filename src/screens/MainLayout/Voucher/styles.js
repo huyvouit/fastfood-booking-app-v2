@@ -5,11 +5,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  image: {
-    justifyContent: "center",
-    height: 300,
-  },
   
+  title: {
+    flexDirection: 'row',
+    paddingTop: 30,
+  },
+
+  titleText: {
+    color: '#323643',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 24,
+    left: 60,
+    top: -10,
+  },
+
   tab: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -47,6 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginHorizontal: 15,
     marginVertical: 15,
+    marginTop: 20,
   },
   items:{
     flexDirection: "row",
@@ -55,14 +67,16 @@ const styles = StyleSheet.create({
     borderColor: "#aaaaaa",
     width: "100%",
     borderRadius: 10,
+    marginBottom: 10,
   },
   img_vouchers:{
-    backgroundColor: "#178fff",
+    backgroundColor: "#FE724C",
     width: 100,
     height: 100,
     borderRadius: 10,
     marginHorizontal: 8,
     marginVertical: 8,
+    
   },
   text_vouchers:{
     margin: 10,

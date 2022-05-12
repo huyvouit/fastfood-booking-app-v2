@@ -10,13 +10,16 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import styles from './styles';
+import HeaderPage from 'components/Header';
 
-const EditProfileScreen = () => {
+const EditProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <BackButton style={styles.back}/>
+        <TouchableOpacity style={{position: 'absolute', top: -20, left: -10}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </TouchableOpacity>
         <Text style={styles.titleText}>Edit Profile</Text>
       </View>
       <ScrollView style={styles.content}>
@@ -31,14 +34,18 @@ const EditProfileScreen = () => {
           <View style={styles.itemInfo}>
             <Text style={styles.Label}>E-mail</Text>
             <View style={styles.info}>
-              <TextInput style={styles.inputInfo}>prelookstudio@gmail.com</TextInput>
+              <TextInput style={styles.inputInfo}>
+                prelookstudio@gmail.com
+              </TextInput>
             </View>
           </View>
 
           <View style={styles.itemInfo}>
             <Text style={styles.Label}>Phone number</Text>
             <View style={styles.info}>
-              <TextInput style={styles.inputInfo} keyboardType={'numeric'}>+1 (783) 0986 8786</TextInput>
+              <TextInput style={styles.inputInfo} keyboardType={'numeric'}>
+                +1 (783) 0986 8786
+              </TextInput>
             </View>
           </View>
 

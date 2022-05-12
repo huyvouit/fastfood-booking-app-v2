@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import BackButton from 'components/BackButton';
+import HeaderPage from 'components/Header';
 
 const Province_City = [
   'TP Ho Chi Minh',
@@ -34,12 +35,14 @@ const District_Ward = [
 
 const Town_Ward = ['phuong 1', 'phuong 2', 'phuong 3', 'phuong 4', 'phuong 5'];
 
-const NewAddressScreen = () => {
+const NewAddressScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <BackButton style={styles.back}/>
+        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </TouchableOpacity>
         <Text style={styles.titleText}>Add new address</Text>
       </View>
       <ScrollView style={styles.content}>
