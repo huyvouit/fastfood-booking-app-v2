@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   btnAdd: {
     backgroundColor: '#FE724C',
     height: 53,
-    width: 160,
+    width: 170,
     // justifyContent:"center",
     alignItems: 'center',
     flexDirection: 'row',

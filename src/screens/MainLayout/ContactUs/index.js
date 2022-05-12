@@ -1,3 +1,4 @@
+import HeaderPage from 'components/Header';
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -18,12 +19,12 @@ import styles from './styles';
 //  const SignIn = 'SIGNIN';
 //  const SignUp = 'SIGNUP';
 
-export default function ContactScreen() {
+export default function ContactScreen({navigation}) {
   const [page, setpage] = useState('');
   return (
     <ScrollView style={styles.main1}>
       <View style={styles.main2}>
-        <RedComponent page={page} setpage={setpage} />
+        <RedComponent page={page} setpage={setpage} navigation={navigation} />
       </View>
       <View style={styles.main3}>
         <GreenComponent />
@@ -34,12 +35,15 @@ export default function ContactScreen() {
     </ScrollView>
   );
 }
-const RedComponent = ({page, setpage}) => {
+const RedComponent = ({page, setpage, navigation}) => {
   return (
     <View style={{flex: 1}}>
       <StatusBar barstyle="light-content" />
       <View style={{width: '100%', height: 180}}>
         <View style={styles.red1}>
+          <View style={{position: 'absolute', top: 0}}>
+            <HeaderPage returnPage={() => navigation.openDrawer()} />
+          </View>
           <Text style={styles.red2}>FASTFOOD</Text>
         </View>
       </View>

@@ -3,13 +3,13 @@ import {StyleSheet, StatusBar} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'white',
     paddingTop: StatusBar.height,
     paddingHorizontal: 20,
   },
 
   content: {
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
   },
 
   textWrapper: {
@@ -77,17 +77,22 @@ const styles = StyleSheet.create({
   },
 
   presentOrder: {
-    top: 20,
+    // top: 20,
     marginBottom: 30,
     borderRadius: 20,
-    height: 210,
+    // height: 210,
     width: '100%',
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#f3f3f3',
+    padding: 15,
   },
 
   part_1: {
     flexDirection: 'row',
-    marginTop: 5,
+    justifyContent: 'space-between',
+    // backgroundColor: 'red',
+    // marginTop: 5,
+    // flex: 1,
+    // width: '100%',
     marginBottom: 10,
   },
 
@@ -115,8 +120,8 @@ const styles = StyleSheet.create({
   },
 
   code: {
-    marginTop: 10,
-    left: 170,
+    // marginTop: 10,
+    // left: 170,
     color: '#FE724C',
   },
 

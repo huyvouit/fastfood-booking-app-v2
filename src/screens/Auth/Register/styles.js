@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     height: '25%',
-    backgroundColor: '#F97350',
+    backgroundColor: '#FE724C',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   red7: {
     fontSize: 20,
     textAlign: 'center',
-    color: '#F97350',
+    color: '#FE724C',
   },
   red8: {
     position: 'absolute',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 3,
     width: '100%',
-    backgroundColor: '#F97350',
+    backgroundColor: '#FE724C',
   },
   red9: {
     width: '50%',
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   red10: {
     fontSize: 20,
-    color: '#F97350',
+    color: '#FE724C',
     textAlign: 'center',
   },
   gr1: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     borderWidth: 1,
-    borderColor: '#F97350',
+    borderColor: '#FE724C',
     borderRadius: 10,
   },
   gr4: {
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   gr13: {
     width: windowWidth - 60,
     height: 50,
-    backgroundColor: '#F97350',
+    backgroundColor: '#FE724C',
     marginLeft: 30,
     marginTop: 10,
     borderRadius: 100,
