@@ -12,6 +12,7 @@ import {
   StatusBar,
 } from 'react-native';
 import styles from './styles';
+import HeaderPage from 'components/Header';
 
 const ProfileScreen = ({navigation}) => {
   // console.log(navigation);
@@ -19,8 +20,10 @@ const ProfileScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <BackButton style={styles.back} />
-        <Text style={styles.titleText}>My Profile</Text>
+        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </TouchableOpacity>
+        <Text style={styles.titleText}>Profile</Text>
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>

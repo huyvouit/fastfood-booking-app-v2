@@ -6,40 +6,61 @@ import styles from './styles';
 
 import Pizza from '../../../assets/images/Pizza.png';
 import Logo from '../../../assets/images/logo.png';
+import HeaderPage from 'components/Header';
 
 
-const VoucherScreen = () => {
+const VoucherScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={Pizza} resizeMode="cover" style={styles.image}>
-      </ImageBackground>
-
-      <View style={styles.tab}>
-        <TouchableOpacity style={styles.tab_AllVouchers}>
-          <Text style={styles.tab_FoodItems_Text}>All vouchers</Text>
+      <View style={styles.title}>
+        <TouchableOpacity style={{position: 'absolute', top: 0}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tab_Used}>
-          <Text style={styles.tab_Resturents_Text}>Used</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab_Used}>
-          <Text style={styles.tab_Resturents_Text}>Expired</Text>
-        </TouchableOpacity>
+        <Text style={styles.titleText}>Vouchers</Text>
       </View>
 
-      <View style={styles.vouchers}>
-        <View style={styles.items}>
-          <Image style={styles.img_vouchers} source={Logo} />  
+      <ScrollView style={styles.vouchers}>
+        <TouchableOpacity style={styles.items}>
+          <Image style={styles.img_vouchers} source={Logo} />
           <View style={styles.text_vouchers}>
             <Text style={styles.text_vouchers_id}>Mã voucher: VC001</Text>
             <Text style={styles.text_vouchers_per}>Giảm 10%</Text>
             <Text style={styles.text_vouchers_date}>HSD: 10/06/2022</Text>
           </View>
-          <View style={{top: 70, left: 20}}>
-            <Button title='Save'/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
+          <Image style={styles.img_vouchers} source={Logo} />
+          <View style={styles.text_vouchers}>
+            <Text style={styles.text_vouchers_id}>Mã voucher: VC001</Text>
+            <Text style={styles.text_vouchers_per}>Giảm 10%</Text>
+            <Text style={styles.text_vouchers_date}>HSD: 10/06/2022</Text>
           </View>
-        </View>
-      </View>
-
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
+          <Image style={styles.img_vouchers} source={Logo} />
+          <View style={styles.text_vouchers}>
+            <Text style={styles.text_vouchers_id}>Mã voucher: VC001</Text>
+            <Text style={styles.text_vouchers_per}>Giảm 10%</Text>
+            <Text style={styles.text_vouchers_date}>HSD: 10/06/2022</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
+          <Image style={styles.img_vouchers} source={Logo} />
+          <View style={styles.text_vouchers}>
+            <Text style={styles.text_vouchers_id}>Mã voucher: VC001</Text>
+            <Text style={styles.text_vouchers_per}>Giảm 10%</Text>
+            <Text style={styles.text_vouchers_date}>HSD: 10/06/2022</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.items}>
+          <Image style={styles.img_vouchers} source={Logo} />
+          <View style={styles.text_vouchers}>
+            <Text style={styles.text_vouchers_id}>Mã voucher: VC001</Text>
+            <Text style={styles.text_vouchers_per}>Giảm 10%</Text>
+            <Text style={styles.text_vouchers_date}>HSD: 10/06/2022</Text>
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };

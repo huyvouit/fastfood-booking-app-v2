@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
   title: {
     flexDirection: 'row',
-    paddingTop: 30,
+    top: 20,
   },
 
   titleText: {
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 24,
+    left: 50,
   },
 
   back: {

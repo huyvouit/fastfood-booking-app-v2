@@ -11,13 +11,16 @@ import {
 } from 'react-native';
 import StarBuck from '../../../assets/images/starbuck.png';
 import styles from './styles';
+import HeaderPage from 'components/Header';
 
-const MyOrderScreen = () => {
+const MyOrderScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style='light' />
       <View style={styles.title}>
-        <BackButton style={styles.back}/>
+        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </TouchableOpacity>
         <Text style={styles.titleText}>My Orders</Text>
       </View>
 

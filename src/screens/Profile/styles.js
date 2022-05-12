@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 24,
+    left: 50,
+    top: -10,
   },
 
   back: {

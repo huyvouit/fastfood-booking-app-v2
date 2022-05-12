@@ -83,7 +83,7 @@ const GreenComponent = () => {
       {/* content */}
       <View style={styles.gr2}>
         <Image
-          source={require('../../../assets/images/index/content.png')}
+          source={require('../../../assets/images/content.png')}
           resizeMode="stretch"
           style={styles.gr5}
         />

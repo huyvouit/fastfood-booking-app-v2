@@ -21,7 +21,9 @@ const AddressBookScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <BackButton style={styles.back} />
+        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
+          <HeaderPage returnPage={() => navigation.goBack()} />
+        </TouchableOpacity>
         <Text style={styles.titleText}>Address Book</Text>
       </View>
       <ScrollView style={styles.content}>
