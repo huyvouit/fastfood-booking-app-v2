@@ -11,6 +11,7 @@ import DetailScreen from 'screens/MainLayout/Detail';
 import NewAddressScreen from 'screens/MainLayout/NewAddress';
 import CheckoutScreen from 'screens/MainLayout/Checkout';
 import EditProfileScreen from 'screens/MainLayout/EditProfile';
+import OrderSuccessfulScreen from 'screens/MainLayout/OrderSuccessful';
 
 const CommonStack = createNativeStackNavigator();
 
@@ -47,7 +48,7 @@ const CommonStackScreen = props => {
         name="NewAddressScreen"
         component={NewAddressScreen}
       />
-
+      <CommonStack.Screen name='OrderSuccessfulScreen' component={OrderSuccessfulScreen}/>
       <CommonStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     </CommonStack.Navigator>
   );

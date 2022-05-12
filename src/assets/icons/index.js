@@ -16,6 +16,7 @@ import IconChevronleft from './chevron-left.svg';
 import IconMenu from './menu.svg';
 import IconFilter from './filter.svg';
 import IconCamera from './camera.svg';
+import IconCash from './cash.svg';
 
 
 import IconAddress from './address.svg';
@@ -39,6 +40,7 @@ const Icons = {
   IconFilter,
   IconAddress,
   IconCamera,
+  IconCash,
 };
 
 export default Icons;

@@ -12,6 +12,9 @@ import happydeals1 from './onboard-1.png';
 import KFC from './KFC.png';
 import Bowl_Company from './bowl_company.png';
 import Starbuck from './starbuck.png';
+import Cash from './cash.png';
+import ZaloPay from './ZaloPay-ngang.png';
+import Tick from './tick.png';
 const Images = {
   Burger,
   Chicken,
@@ -26,6 +29,9 @@ const Images = {
   KFC,
   Bowl_Company,
   Starbuck,
+  Cash,
+  ZaloPay,
+  Tick,
 };
 
 export default Images;

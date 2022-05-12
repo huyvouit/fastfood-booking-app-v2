@@ -19,7 +19,7 @@ import IncreaseButton from 'components/IncreaseButton';
 import DecreaseButton from 'components/DecreaseButton';
 
 const CartScreen = ({navigation}) => {
-  const [isChange, setIsChange] = React.useState(false);
+  const [isChange, setIsChange] = React.useState(true);
   return (
       isChange ? (
         <SafeAreaView style={styles.container}>
@@ -124,8 +124,8 @@ const CartScreen = ({navigation}) => {
           <Text style={styles.buttonText}>Apply</Text>
         </TouchableOpacity>
       </View> */}
-
-          <View style={{backgroundColor: 'white'}}>
+     
+          {/* <View style={{backgroundColor: 'white'}}>
             <View style={styles.fees}>
               <View style={styles.cost_info}>
                 <Text style={styles.kind_of_fee}>Subtotal</Text>
@@ -134,8 +134,7 @@ const CartScreen = ({navigation}) => {
                   <Text style={styles.unit}>USD</Text>
                 </View>
               </View>
-              {/* <View
-            style={{borderWidth: 0.5, borderColor: '#C0C0C0', top: -50}}></View> */}
+              
               <View style={styles.cost_info}>
                 <Text style={styles.kind_of_fee}>Tax and Fees</Text>
                 <View style={styles.money}>
@@ -160,7 +159,7 @@ const CartScreen = ({navigation}) => {
                 </View>
               </View>
             </View>
-          </View>
+          </View> */}
 
           <View style={styles.footer}>
             <TouchableOpacity
