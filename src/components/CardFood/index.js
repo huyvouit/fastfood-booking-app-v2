@@ -1,3 +1,4 @@
+import {formatter} from 'helper/formatter';
 import React from 'react';
 import {
   View,
@@ -30,13 +31,13 @@ const CardFood = ({item, navigation}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('DetailScreen')}
+      onPress={() => navigation.navigate('DetailScreen', {productId: item._id})}
       style={{
         // height: Dimensions.get('window').width / 1.5,
         ...styles.item,
       }}>
       <Image
-        source={item.mainImage}
+        source={{uri: item.mainImage}}
         style={{
           width: '100%',
           height: 140,
@@ -51,9 +52,11 @@ const CardFood = ({item, navigation}) => {
         </Text>
 
         <Text numberOfLines={2} style={styles.descProduct}>
-          {item.desc}
+          {item?.description}
         </Text>
-        <Text style={styles.priceProduct}>{item.price}</Text>
+        <Text style={styles.priceProduct}>
+          {formatter.format(item.type[0]?.price.$numberDecimal)}
+        </Text>
       </View>
     </TouchableOpacity>
   );

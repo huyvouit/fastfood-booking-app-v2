@@ -63,7 +63,7 @@ const GreenComponent = () => {
         />
         <TextInput
           style={styles.gr4}
-          autoCapitalize={false}
+          // autoCapitalize={false}
           placeholder="Full name"
         />
       </View>
@@ -76,20 +76,20 @@ const GreenComponent = () => {
         />
         <TextInput
           style={styles.gr4}
-          autoCapitalize={false}
+          // autoCapitalize={false}
           placeholder="E-mail"
         />
       </View>
       {/* content */}
       <View style={styles.gr2}>
         <Image
-          source={require('../../../assets/images/index/content.png')}
+          source={require('../../../assets/images/content.png')}
           resizeMode="stretch"
           style={styles.gr5}
         />
         <TextInput
           style={styles.gr4}
-          autoCapitalize={false}
+          // autoCapitalize={false}
           placeholder="Content"
         />
       </View>

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -22,50 +22,35 @@ import CardFood from 'components/CardFood';
 import styles from './styles';
 import Images from 'assets/images';
 import {FlatGrid} from 'react-native-super-grid';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import productApi from 'api/product_api';
+import Loading from 'screens/Loading';
 
 const widthScreen = Dimensions.get('screen').width;
 const {height} = Dimensions.get('window');
 const HomeScreen = ({navigation}) => {
   const scrollViewRef = useRef();
-  const [listCate, setListCate] = React.useState([
-    {
-      id: 0,
-      name: 'Plant 1',
+  const [productList, setProductList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-      favourite: false,
-    },
-    {
-      id: 1,
-      name: 'Plant 2',
+  const fetchProductList = async () => {
+    setIsLoading(true);
+    try {
+      const params = {
+        currentPage: 2,
+        productPerPage: 4,
+      };
 
-      favourite: true,
-    },
-    {
-      id: 2,
-      name: 'Plant 3',
+      const response = await productApi.getByFilter(params);
+      setProductList(response.data.filteredProducts.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch product list: ', error);
+    }
+  };
 
-      favourite: false,
-    },
-    {
-      id: 3,
-      name: 'Plant 4',
-
-      favourite: false,
-    },
-    {
-      id: 4,
-      name: 'Plant 5',
-
-      favourite: false,
-    },
-    {
-      id: 5,
-      name: 'Plant 6',
-
-      favourite: false,
-    },
-  ]);
+  useEffect(() => {
+    fetchProductList();
+  }, []);
 
   const [items, setItems] = React.useState([
     {
@@ -94,22 +79,6 @@ const HomeScreen = ({navigation}) => {
     },
   ]);
 
-  function renderCategory() {
-    return (
-      <FlatList
-        horizontal={true}
-        data={listCate}
-        keyExtractor={item => item.id}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item, index}) => (
-          <View style={{marginBottom: 8}}>
-            {/* <Text>{item.name}</Text> */}
-            <ItemCategory image={item.image} category={item.category} />
-          </View>
-        )}
-      />
-    );
-  }
   const [screenHeight, setScreenHeight] = React.useState(height);
   const scrollEnabled = screenHeight > height;
 
@@ -153,9 +122,15 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.textMenu}>Popular Items</Text>
         </View>
         <SafeAreaView style={styles.listProduct}>
-          {LIST_PRODUCT.slice(0, 4).map((item, index) => {
-            return <CardFood key={index} item={item} navigation={navigation} />;
-          })}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            productList.map((item, index) => {
+              return (
+                <CardFood key={index} item={item} navigation={navigation} />
+              );
+            })
+          )}
         </SafeAreaView>
         {/* <View>{renderCategory()}</View> */}
 

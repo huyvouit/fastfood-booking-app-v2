@@ -128,11 +128,7 @@ const DetailScreen = ({navigation, route}) => {
           </View>
 
           <View style={styles.description}>
-            <Text style={styles.descText}>
-              Brown the beef better. Lean ground beef - I like to use 85% lean
-              angus. Garlic - use fresh chopped. Spices - chili powder, cumin,
-              onion powder
-            </Text>
+            <Text style={styles.descText}>{product?.description}</Text>
           </View>
 
           <View styles={{marginTop: 20}}>

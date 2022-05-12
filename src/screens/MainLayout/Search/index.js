@@ -61,7 +61,7 @@ const CardProduct = ({item, navigation}) => {
         </Text>
 
         <Text numberOfLines={2} style={styles.descProduct}>
-          {item?.desc || `Thom ngon tron vi`}
+          {item?.description || `Thom ngon tron vi`}
         </Text>
         <Text style={styles.priceProduct}>
           {formatter.format(item.type[0]?.price.$numberDecimal)}
