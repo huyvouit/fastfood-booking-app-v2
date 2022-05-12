@@ -21,7 +21,8 @@ import CardFood from 'components/CardFood';
 
 import styles from './styles';
 import Images from 'assets/images';
-import { FlatGrid } from 'react-native-super-grid';
+import {FlatGrid} from 'react-native-super-grid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const widthScreen = Dimensions.get('screen').width;
 const {height} = Dimensions.get('window');
@@ -67,10 +68,30 @@ const HomeScreen = ({navigation}) => {
   ]);
 
   const [items, setItems] = React.useState([
-    { content: 'UP TO 33% OFF', note: 'on KFC' , code: '#FF0000', image: Images.KFC},
-    { content: '60% OFF', note: 'on BOWL COMPANY', code: '#FF8C00', image: Images.Bowl_Company},
-    { content: '40% OFF', note: 'on MCDONALD'+"'S" , code: '#FFD700', image: Images.KFC},
-    { content: '20% OFF', note: 'on STARBUCK', code: '#2E8B57', image: Images.Starbuck},
+    {
+      content: 'UP TO 33% OFF',
+      note: 'on KFC',
+      code: '#FF0000',
+      image: Images.KFC,
+    },
+    {
+      content: '60% OFF',
+      note: 'on BOWL COMPANY',
+      code: '#FF8C00',
+      image: Images.Bowl_Company,
+    },
+    {
+      content: '40% OFF',
+      note: 'on MCDONALD' + "'S",
+      code: '#FFD700',
+      image: Images.KFC,
+    },
+    {
+      content: '20% OFF',
+      note: 'on STARBUCK',
+      code: '#2E8B57',
+      image: Images.Starbuck,
+    },
   ]);
 
   function renderCategory() {
@@ -196,7 +217,7 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => (
               <TouchableOpacity
                 style={[styles.itemContainer, {backgroundColor: item.code}]}>
-                <Image source={item.image} style={styles.imageVoucher}/>
+                <Image source={item.image} style={styles.imageVoucher} />
                 <Text style={styles.itemName}>{item.content}</Text>
                 <Text style={styles.itemCode}>{item.note}</Text>
               </TouchableOpacity>

@@ -16,6 +16,7 @@ import {
 import {AuthContext} from 'contexts/AuthProvider';
 
 import styles from './styles';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const SignIn = 'SIGNIN';
@@ -23,13 +24,15 @@ const SignUp = 'SIGNUP';
 
 export default function LoginScreen({navigation, redirect}) {
   const {user} = useContext(AuthContext);
-  useEffect(() => {
-    console.log('login', user);
-    if (user) {
-      redirect.replace('Drawer');
-    }
-  }, [user]);
   const [page, setpage] = useState(SignIn);
+
+  // useEffect(() => {
+  //   console.log('login', user);
+  //   if (user) {
+  //     redirect.replace('Drawer');
+  //   }
+  // }, [user]);
+
   return (
     <ScrollView style={styles.main1}>
       <SafeAreaView style={styles.main2}>
@@ -52,6 +55,7 @@ export default function LoginScreen({navigation, redirect}) {
     </ScrollView>
   );
 }
+
 const RedComponent = ({page, setpage}) => {
   return (
     <View style={styles.red1}>
@@ -157,6 +161,7 @@ const GreenComponent = ({navigation, redirect}) => {
 
 const RegisterComponent = ({redirect}) => {
   const [email, setEmail] = useState('');
+  const [fullname, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const {user, register} = useContext(AuthContext);
@@ -174,7 +179,9 @@ const RegisterComponent = ({redirect}) => {
         <TextInput
           style={styles.gr5}
           autoCapitalize={null}
-          placeholder="FULL NAME"
+          placeholder="Full name"
+          value={fullname}
+          onChangeText={userFullname => setFullname(userFullname)}
         />
       </View>
       {/* Email */}
@@ -221,7 +228,7 @@ const RegisterComponent = ({redirect}) => {
       <TouchableOpacity
         style={styles.gr13}
         onPress={() => {
-          register('Huy Vo', email, password);
+          register(fullname, email, password);
           // redirect.replace('Drawer');
         }}>
         <Text style={styles.gr14}>SIGN UP</Text>

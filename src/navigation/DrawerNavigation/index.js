@@ -21,9 +21,10 @@ import ProfileScreen from 'screens/Profile';
 import CommonStackScreen from 'navigation/CommonNavigation';
 import AddressBookScreen from 'screens/MainLayout/AddressBook';
 import AddressStackScreen from 'navigation/AddressNavigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
-  const {user, logout} = useContext(AuthContext);
+  const {user, logout, account, setAccount} = useContext(AuthContext);
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -80,7 +81,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
                   fontFamily: 'Roboto-Regular',
                   color: 'white',
                 }}>
-                {user?.email}
+                {account?.fullname}
               </Text>
               <Text
                 style={{
@@ -181,9 +182,11 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
           <CustomDrawerItem
             label="Logout"
             icon={Icons.IconLogout}
-            onPress={() => {
+            onPress={async () => {
               // dispatch(setSelectedTab('Contact'));
               logout();
+              setAccount(null);
+              await AsyncStorage.clear();
               // redirect.replace('Login');
             }}
           />

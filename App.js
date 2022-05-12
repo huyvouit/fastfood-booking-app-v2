@@ -11,6 +11,7 @@ import RootStackScreen from './src/navigation/RootNavigation';
 import store from './src/redux/store';
 import {DrawerScreen} from 'navigation/DrawerNavigation';
 import AuthStackScreen from 'navigation/AuthNavigation';
+import userApi from 'api/user_api';
 
 const Providers = () => {
   return (
@@ -23,10 +24,23 @@ const Providers = () => {
 };
 
 const Routes = () => {
-  const {user, setUser} = useContext(AuthContext);
+  const {user, setUser, account, setAccount} = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await userApi.getUserInfo();
+      // console.log('getUSER:', response.data.data);
+      setAccount(response.data.data);
+    } catch (error) {
+      console.log('Failed to fetch user: ', error);
+    }
+  };
+
   const onAuthStateChanged = user => {
+    if (user?.uid) {
+      fetchUserInfo(user.uid);
+    }
     setUser(user);
     if (initializing) setInitializing(false);
   };
@@ -37,10 +51,10 @@ const Routes = () => {
   }, []);
 
   if (initializing) return null;
-  console.log(user);
+  // console.log(user, account);
   return (
     <NavigationContainer>
-      {user ? <DrawerScreen /> : <AuthStackScreen />}
+      {user && account ? <DrawerScreen /> : <AuthStackScreen />}
     </NavigationContainer>
   );
 };

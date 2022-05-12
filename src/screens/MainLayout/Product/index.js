@@ -52,7 +52,7 @@ const ProductScreen = ({navigation}) => {
   // if (isLoading) {
   //   return <Loading />;
   // }
-  console.log(filter);
+  // console.log(filter);
   return (
     <View style={styles.container}>
       <ScrollView style={{height: 300}}>
