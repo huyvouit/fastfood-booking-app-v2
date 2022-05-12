@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     fontSize: 15,
+    color: 'black',
   },
   gr5: {
     width: 30,

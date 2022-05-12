@@ -1,5 +1,7 @@
+import contactApi from 'api/contact_api';
 import HeaderPage from 'components/Header';
-import React, {useState} from 'react';
+import {AuthContext} from 'contexts/AuthProvider';
+import React, {useContext, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -51,9 +53,34 @@ const RedComponent = ({page, setpage, navigation}) => {
   );
 };
 const GreenComponent = () => {
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const [passwordHidden, setpasswordHidden] = useState(true);
+  const {account} = useContext(AuthContext);
+  // const [email, setEmail] = useState(account?.email);
+  // const [password, setpassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [notice, setNotice] = useState(null);
+
+  const submitContact = async event => {
+    event.preventDefault();
+
+    const contactForm = {
+      name: account?.fullname,
+      email: account?.email,
+      message,
+    };
+    try {
+      const response = await contactApi.postContact(contactForm);
+
+      if (response.data.success) {
+        setNotice(response.data.msg);
+      } else {
+      }
+      setMessage('');
+    } catch (error) {
+      console.log(error.response.data);
+      if (error.response.data) return error.response.data;
+    }
+  };
+
   return (
     <View style={styles.gr0}>
       {/* Contact */}
@@ -69,7 +96,8 @@ const GreenComponent = () => {
         <TextInput
           style={styles.gr4}
           // autoCapitalize={false}
-          placeholder="Full name"
+          editable={false}
+          value={account?.fullname}
         />
       </View>
       {/* Email */}
@@ -82,7 +110,8 @@ const GreenComponent = () => {
         <TextInput
           style={styles.gr4}
           // autoCapitalize={false}
-          placeholder="E-mail"
+          editable={false}
+          value={account?.email}
         />
       </View>
       {/* content */}
@@ -95,12 +124,19 @@ const GreenComponent = () => {
         <TextInput
           style={styles.gr4}
           // autoCapitalize={false}
-          placeholder="Content"
+          placeholder="Please enter message"
+          onChangeText={mess => setMessage(mess)}
         />
       </View>
-      <TouchableOpacity style={styles.gr6}>
+      <TouchableOpacity style={styles.gr6} onPress={submitContact}>
         <Text style={styles.gr7}>Send Message</Text>
       </TouchableOpacity>
+
+      {notice && (
+        <View style={{paddingTop: 30}}>
+          <Text>{notice}</Text>
+        </View>
+      )}
     </View>
   );
 };
