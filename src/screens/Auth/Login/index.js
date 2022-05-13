@@ -62,7 +62,10 @@ const RedComponent = ({page, setpage}) => {
       <StatusBar barstyle="light-content" />
       <View style={styles.red2}>
         <View style={styles.red3}>
-          <Image source={Images.Logo} style={{width: 300, height: 300, justifyContent: 'center', top: 20}}/>
+          <Image
+            source={Images.Logo}
+            style={{width: 300, height: 300, justifyContent: 'center', top: 20}}
+          />
         </View>
       </View>
       <View style={styles.red5}>
@@ -98,7 +101,7 @@ const GreenComponent = ({navigation, redirect}) => {
   return (
     <View style={styles.gr1}>
       {/* Login */}
-      <Text style={styles.gr2}>LOGIN YOUR YOUR ACOUNT.</Text>
+      <Text style={styles.gr2}>LOGIN YOUR ACOUNT.</Text>
       {/* Email */}
       <View style={styles.gr3}>
         <Image
