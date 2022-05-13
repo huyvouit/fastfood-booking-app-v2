@@ -23,7 +23,7 @@ const AddressBookScreen = ({navigation}) => {
       <View style={styles.title}>
         <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
           <HeaderPage
-            returnPage={() => navigation.openDrawr}
+            returnPage={() => navigation.openDrawer()}
             // title={'Address Book'}
           />
         </TouchableOpacity>
@@ -33,7 +33,7 @@ const AddressBookScreen = ({navigation}) => {
         <View style={styles.textWrapper}>
           <View style={styles.address}>
             <View style={styles.info}>
-              <Text>Sweet Latte</Text>
+              <Text>Nguyen Van A</Text>
               <Text>0329496279</Text>
               <Text>12 Robusta Street, Frapped District</Text>
               <Text>White City</Text>

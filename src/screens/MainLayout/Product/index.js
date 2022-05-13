@@ -22,8 +22,8 @@ const ProductScreen = ({navigation}) => {
   const [productList, setProductList] = useState([]);
   const [filter, setFilter] = useState({
     category: null,
-    higher: null,
-    lower: null,
+    higherPrice: null,
+    lowerPrice: null,
     size: null,
     rating: null,
   });

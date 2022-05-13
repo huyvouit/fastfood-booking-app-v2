@@ -171,11 +171,13 @@ const CheckoutScreen = ({navigation}) => {
         <View style={styles.section}>
           <Text style={styles.textHeader}>Payment</Text>
           <View style={styles.selectPayment}>
-            <TouchableOpacity>
-              <Text>Cash</Text>
+            <TouchableOpacity style={styles.cash}>
+              <Image source={Images.Cash} style={styles.cashImage}/>
+              <Text style={styles.cashText}>Cash</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>Zalopay</Text>
+            <TouchableOpacity style={styles.zalopay}>
+              <Image source={Images.ZaloPay} style={styles.zalopayImage}/>
+              <Text style={styles.zalopayText}>Zalopay</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -237,7 +239,8 @@ const CheckoutScreen = ({navigation}) => {
                 width: 100,
                 justifyContent: 'center',
                 alignItems: 'center',
-              }}>
+              }}
+              onPress={() => navigation.navigate('OrderSuccessfulScreen')}>
               <Text style={styles.textBtn}>ORDER</Text>
             </TouchableOpacity>
           </View>

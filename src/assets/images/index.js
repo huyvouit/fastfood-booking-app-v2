@@ -14,6 +14,9 @@ import Bowl_Company from './bowl_company.png';
 import Starbuck from './starbuck.png';
 import logoGG from './logoGG.jpg';
 import logoFb from './logoFB.webp';
+import Cash from './cash.png';
+import ZaloPay from './ZaloPay-ngang.png';
+import Tick from './tick.png';
 const Images = {
   Burger,
   Chicken,
@@ -30,6 +33,9 @@ const Images = {
   Starbuck,
   logoFb,
   logoGG,
+  Cash,
+  ZaloPay,
+  Tick,
 };
 
 export default Images;

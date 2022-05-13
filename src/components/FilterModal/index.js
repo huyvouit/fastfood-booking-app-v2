@@ -39,8 +39,8 @@ const Section = ({containerStyle, title, children}) => {
 const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(isVisible);
   const [category, setCategory] = React.useState(filter?.category || 0);
-  const [lower, setLower] = React.useState(filter?.lower || 150000);
-  const [higher, setHigher] = React.useState(filter?.higher || 0);
+  const [lowerPrice, setLower] = React.useState(filter?.lowerPrice || 150000);
+  const [higherPrice, setHigher] = React.useState(filter?.higherPrice || 0);
   const [size, setSize] = React.useState(filter?.size || 0);
   const [rating, setRating] = React.useState(filter?.rating || -1);
   useEffect(() => {
@@ -50,12 +50,12 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
     if (filter.size) {
       setSize(convertSizeToNumber(filter?.size));
     }
-    if (filter.higher) {
-      console.log('run higher');
-      setHigher(filter.higher);
+    if (filter.higherPrice) {
+      console.log('run higherPrice');
+      setHigher(filter.higherPrice);
     }
-    if (filter.lower) {
-      setLower(filter.lower);
+    if (filter.lowerPrice) {
+      setLower(filter.lowerPrice);
     }
     if (filter.rating) {
       setRating(filter.rating);
@@ -249,7 +249,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
             <Section title="Price">
               <View style={{alignItems: 'center'}}>
                 <TwoPointSider
-                  values={[higher, lower]}
+                  values={[higherPrice, lowerPrice]}
                   min={0}
                   max={150000}
                   postfix="VND"
@@ -362,8 +362,8 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                 onPress={() => {
                   setFilter({
                     category: convertCategory(0),
-                    higher: 0,
-                    lower: 150000,
+                    higherPrice: 0,
+                    lowerPrice: 150000,
                     size: convertSize(0),
                     rating: -1,
                   });
@@ -393,8 +393,8 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                 onPress={() => {
                   setFilter({
                     category: convertCategory(category),
-                    higher,
-                    lower,
+                    higherPrice,
+                    lowerPrice,
                     size: convertSize(size),
                     rating,
                   });

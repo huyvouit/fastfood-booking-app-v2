@@ -142,6 +142,50 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  selectPayment: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  cash: {
+    borderRadius: 15,
+    backgroundColor: '#FE724C',
+    height: 60,
+    width: 80,
+    top: 5,
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  cashImage: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+  },
+  cashText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
+  },
+  zalopay: {
+    borderRadius: 15,
+    backgroundColor: '#f5f5f5',
+    height: 60,
+    width: 80,
+    justifyContent: 'center',
+    top: 5,
+    marginRight: 10,
+  },
+  zalopayImage: {
+    width: 50,
+    height: 30,
+    alignSelf: 'center',
+  },
+  zalopayText: {
+    textAlign: 'center',
+    color: '#FE724C',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
+  },
 });
 
 export default styles;
