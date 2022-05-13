@@ -47,7 +47,7 @@ const CartScreen = ({navigation}) => {
   useEffect(() => {
     fetchCartList();
   }, [account, cart]);
-  console.log('length:', cartList, cartList.size);
+  console.log('length:', cartList);
   return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
