@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   main3: {
     height: '45%',
     width: '100%',
-    backgroundColor: 'F5F5F5',
     paddingTop: 25,
   },
   main4: {
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     height: '25%',
-    backgroundColor: '#FE724C',
+    backgroundColor: '#F5F5F5',
     justifyContent: 'center',
     alignItems: 'center',
   },

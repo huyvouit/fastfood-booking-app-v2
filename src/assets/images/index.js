@@ -17,6 +17,7 @@ import logoFb from './logoFB.webp';
 import Cash from './cash.png';
 import ZaloPay from './ZaloPay-ngang.png';
 import Tick from './tick.png';
+import Logo from './logo.png';
 const Images = {
   Burger,
   Chicken,
@@ -31,6 +32,7 @@ const Images = {
   KFC,
   Bowl_Company,
   Starbuck,
+  Logo,
   logoFb,
   logoGG,
   Cash,

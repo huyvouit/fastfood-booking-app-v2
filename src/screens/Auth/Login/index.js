@@ -62,7 +62,7 @@ const RedComponent = ({page, setpage}) => {
       <StatusBar barstyle="light-content" />
       <View style={styles.red2}>
         <View style={styles.red3}>
-          <Text style={styles.red4}>FASTFOOD</Text>
+          <Image source={Images.Logo} style={{width: 300, height: 300, justifyContent: 'center', top: 20}}/>
         </View>
       </View>
       <View style={styles.red5}>

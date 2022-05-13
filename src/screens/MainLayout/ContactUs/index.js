@@ -16,6 +16,7 @@ import {
   TextInput,
 } from 'react-native';
 import styles from './styles';
+import Images from 'assets/images';
 //  const windowWidth = Dimensions.get('window').width;
 //  const windowHeight = Dimensions.get('window').height;
 //  const SignIn = 'SIGNIN';
@@ -46,7 +47,7 @@ const RedComponent = ({page, setpage, navigation}) => {
           <View style={{position: 'absolute', top: 0}}>
             <HeaderPage returnPage={() => navigation.openDrawer()} />
           </View>
-          <Text style={styles.red2}>FASTFOOD</Text>
+          <Image source={Images.Logo} style={{width: 300, height: 300, justifyContent: 'center', top: 20}}/>
         </View>
       </View>
     </View>
