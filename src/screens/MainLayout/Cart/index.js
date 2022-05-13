@@ -46,42 +46,14 @@ const CartScreen = ({navigation}) => {
 
   useEffect(() => {
     fetchCartList();
-  }, [cart]);
-
+  }, [account, cart]);
+  console.log('length:', cartList, cartList.size);
   return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.textWrapper(3)}>
-          <ScrollView>
-            <View style={styles.foods}>
-              <Image
-                source={pizza}
-                style={{
-                  width: 70,
-                  height: 70,
-                  resizeMode: 'cover',
-                  position: 'relative',
-                  borderRadius: 10,
-                  marginRight: 20,
-                }}
-              />
-              <View style={styles.information}>
-                <Text style={styles.name_food}>Red n hot pizza</Text>
-                <Text style={styles.savour}>Spicy chicken, beef</Text>
-                <Text style={styles.cost}>$15.30</Text>
-              </View>
-              <TouchableOpacity style={styles.close}>
-                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-              </TouchableOpacity>
-              <View style={styles.modify}>
-                <DecreaseButton action={() => {}} />
-                <Text style={styles.quantity}>02</Text>
-
-                <IncreaseButton action={() => {}} />
-              </View>
-            </View>
-
-            {cartList?.map((item, index) => {
+        <View style={styles.textWrapper(cartList?.length)}>
+          <View>
+            {cartList.map((item, index) => {
               <View style={styles.foods}>
                 <Image
                   source={{uri: item.productId?.mainImage}}
@@ -109,15 +81,15 @@ const CartScreen = ({navigation}) => {
                 <TouchableOpacity style={styles.close}>
                   <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
                 </TouchableOpacity>
-                <View style={styles.modify}>
+                {/* <View style={styles.modify}>
                   <DecreaseButton action={() => {}} />
                   <Text style={styles.quantity}>{item.quantity}</Text>
 
                   <IncreaseButton action={() => {}} />
-                </View>
+                </View> */}
               </View>;
             })}
-          </ScrollView>
+          </View>
         </View>
       </View>
 

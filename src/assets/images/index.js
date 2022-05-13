@@ -12,6 +12,8 @@ import happydeals1 from './onboard-1.png';
 import KFC from './KFC.png';
 import Bowl_Company from './bowl_company.png';
 import Starbuck from './starbuck.png';
+import logoGG from './logoGG.jpg';
+import logoFb from './logoFB.webp';
 const Images = {
   Burger,
   Chicken,
@@ -26,6 +28,8 @@ const Images = {
   KFC,
   Bowl_Company,
   Starbuck,
+  logoFb,
+  logoGG,
 };
 
 export default Images;

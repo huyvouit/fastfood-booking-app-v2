@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-
+import Images from 'assets/images';
 import {AuthContext} from 'contexts/AuthProvider';
 
 import styles from './styles';
@@ -241,22 +241,22 @@ const BlueComponent = () => {
   return (
     <View style={styles.bl1}>
       <View style={styles.bl2}>
-        <View style={styles.bl3}></View>
+        {/* <View style={styles.bl3}></View> */}
         <Text>OR CONNECT WITH</Text>
-        <View style={styles.bl4}></View>
+        {/* <View style={styles.bl4}></View> */}
       </View>
       <View style={styles.bl5}>
         <TouchableOpacity>
           <Image
-            source={require('../../../assets/images/google.png')}
-            resizeMode="stretch"
+            source={Images.logoGG}
+            resizeMode="contain"
             style={styles.bl6}
           />
         </TouchableOpacity>
         <TouchableOpacity>
           <Image
-            source={require('../../../assets/images/fb.png')}
-            resizeMode="stretch"
+            source={Images.logoFb}
+            resizeMode="contain"
             style={styles.bl7}
           />
         </TouchableOpacity>

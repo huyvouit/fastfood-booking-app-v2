@@ -27,8 +27,9 @@ const styles = StyleSheet.create({
 
   foods: {
     flexDirection: 'row',
+    height: 100,
     // justifyContent: "center",
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
     marginBottom: 20,
   },
 

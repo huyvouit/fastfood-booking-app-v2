@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     top: 40,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     height: 40,
     width: windowWidth - 60,
     marginLeft: 30,
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 20,
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   bl6: {
     width: 0.5 * (windowWidth - 60) - 3,
