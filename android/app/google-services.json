@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "59817141190-qrr9a9nr8jlvgg9om1e8th8b6d9nruen.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fastfoodappv2",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "59817141190-ceojgpdems4506636fsvl1l1lmke8kuo.apps.googleusercontent.com",
           "client_type": 3
         }

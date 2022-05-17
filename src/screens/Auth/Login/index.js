@@ -96,7 +96,7 @@ const GreenComponent = ({navigation, redirect}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
-  const {login, user} = useContext(AuthContext);
+  const {login, googleLogin, user} = useContext(AuthContext);
 
   return (
     <View style={styles.gr1}>
@@ -241,6 +241,7 @@ const RegisterComponent = ({redirect}) => {
 };
 
 const BlueComponent = () => {
+  const {googleLogin} = useContext(AuthContext);
   return (
     <View style={styles.bl1}>
       <View style={styles.bl2}>
@@ -249,7 +250,7 @@ const BlueComponent = () => {
         {/* <View style={styles.bl4}></View> */}
       </View>
       <View style={styles.bl5}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => googleLogin()}>
           <Image
             source={Images.logoGG}
             resizeMode="contain"

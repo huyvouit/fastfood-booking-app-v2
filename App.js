@@ -38,6 +38,7 @@ const Routes = () => {
   };
 
   const onAuthStateChanged = user => {
+    console.log(user);
     if (user?.uid) {
       fetchUserInfo(user.uid);
     }
