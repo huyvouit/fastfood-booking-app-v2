@@ -26,7 +26,7 @@ const CartScreen = ({navigation}) => {
   const [isChange, setIsChange] = React.useState(true);
   const [cartList, setCartList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [subTotal, setSubTotal] = useState(0);
   const fetchCartList = async () => {
     setIsLoading(true);
     try {
@@ -37,17 +37,29 @@ const CartScreen = ({navigation}) => {
       };
 
       const response = await cartApi.getByUser(params);
-      setCartList(response.data.data);
-      setIsLoading(false);
+      if (response.data.success) {
+        setCartList(response.data.data);
+        setSubTotal(calculateSubTotal(response.data.data));
+        setIsLoading(false);
+      }
     } catch (error) {
       console.log('Failed to fetch cart list: ', error);
     }
   };
 
+  const calculateSubTotal = cartList => {
+    console.log('run calculate');
+    let subTotal = 0;
+    for (let i = 0; i < cartList; i++) {
+      console.log(i.productId?.type[0]?.price.$numberDecimal);
+      subTotal += i.productId?.type[0]?.price.$numberDecimal;
+    }
+    return subTotal;
+  };
   useEffect(() => {
     fetchCartList();
   }, [account, cart]);
-  console.log('length:', cartList);
+
   return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -121,7 +133,7 @@ const CartScreen = ({navigation}) => {
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Subtotal</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$27.30</Text>
+              <Text style={styles.cost_of_fee}>{subTotal}</Text>
               <Text style={styles.unit}>USD</Text>
             </View>
           </View>
