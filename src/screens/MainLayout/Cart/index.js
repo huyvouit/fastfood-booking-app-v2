@@ -51,46 +51,58 @@ const CartScreen = ({navigation}) => {
   return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.textWrapper(cartList?.length)}>
+        <ScrollView style={styles.textWrapper(cartList?.length)}>
           <View>
             {cartList.map((item, index) => {
-              <View style={styles.foods}>
-                <Image
-                  source={{uri: item.productId?.mainImage}}
-                  style={{
-                    width: 70,
-                    height: 70,
-                    resizeMode: 'cover',
-                    position: 'relative',
-                    borderRadius: 10,
-                    marginRight: 20,
-                  }}
-                />
-                <View style={styles.information}>
-                  <Text style={styles.name_food}>{item.productId?.name}</Text>
-                  <Text style={styles.savour} numberOfLines={1}>
-                    {item.productId?.description}
-                  </Text>
-                  <Text style={styles.cost}>
-                    {formatter.format(
-                      item.productId?.type[0]?.price.$numberDecimal,
-                    )}
-                  </Text>
+              return (
+                <View style={styles.foods} key={index}>
+                  <Image
+                    source={{uri: item.productId?.mainImage}}
+                    style={{
+                      width: 80,
+                      height: 80,
+                      resizeMode: 'cover',
+                      position: 'relative',
+                      borderRadius: 10,
+                      marginRight: 20,
+                    }}
+                  />
+                  <View style={styles.information}>
+                    <Text style={styles.name_food} numberOfLines={1}>
+                      {item.productId?.name}
+                    </Text>
+                    <Text style={styles.savour} numberOfLines={1}>
+                      {item.productId?.description}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={styles.cost}>
+                        {formatter.format(
+                          item.productId?.type[0]?.price.$numberDecimal,
+                        )}
+                      </Text>
+                      <Text style={styles.quantity}> X {item.quantity}</Text>
+                    </View>
+                  </View>
+
+                  <TouchableOpacity style={styles.close}>
+                    <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+                  </TouchableOpacity>
+                  {/* <View style={styles.modify}>
+                    <DecreaseButton action={() => {}} />
+                    <Text style={styles.quantity}>{item.quantity}</Text>
+
+                    <IncreaseButton action={() => {}} />
+                  </View> */}
                 </View>
-
-                <TouchableOpacity style={styles.close}>
-                  <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
-                </TouchableOpacity>
-                {/* <View style={styles.modify}>
-                  <DecreaseButton action={() => {}} />
-                  <Text style={styles.quantity}>{item.quantity}</Text>
-
-                  <IncreaseButton action={() => {}} />
-                </View> */}
-              </View>;
+              );
             })}
           </View>
-        </View>
+        </ScrollView>
       </View>
 
       {/* <View style={styles.promoCode}>

@@ -29,13 +29,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 100,
     // justifyContent: "center",
-    backgroundColor: 'red',
-    marginBottom: 20,
+    // backgroundColor: 'red',
+    marginBottom: 5,
   },
 
   information: {
-    alignSelf: 'center',
+    alignItems: 'flex-start',
     flex: 1,
+    paddingRight: 10,
   },
 
   name_food: {
@@ -46,13 +47,18 @@ const styles = StyleSheet.create({
 
   savour: {
     color: '#C0C0C0',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'normal',
   },
 
   cost: {
     color: '#FE724C',
     fontSize: 20,
+    fontWeight: 'bold',
+  },
+  quantity: {
+    color: '#323643',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 

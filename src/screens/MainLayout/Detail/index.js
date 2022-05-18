@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ToastAndroid,
 } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import Icons from '../../../assets/icons';
@@ -84,6 +85,16 @@ const DetailScreen = ({navigation, route}) => {
     }
   }
 
+  const showToastWithGravityAndOffset = content => {
+    ToastAndroid.showWithGravityAndOffset(
+      content,
+      ToastAndroid.LONG,
+      ToastAndroid.ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+
   const fetchProductList = async sortType => {
     try {
       const params = {
@@ -131,6 +142,7 @@ const DetailScreen = ({navigation, route}) => {
         price: count * product.type[0]?.price.$numberDecimal,
       });
       if (result.data.success) {
+        showToastWithGravityAndOffset(result.data.message);
         console.log(result.data.message);
       }
     } catch (error) {
