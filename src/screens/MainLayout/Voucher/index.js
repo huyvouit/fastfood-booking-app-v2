@@ -14,6 +14,38 @@ import Logo from '../../../assets/images/logo.png';
 import HeaderPage from 'components/Header';
 
 const VoucherScreen = ({navigation}) => {
+  const [showFilterModal, setShowFilterModal] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState(0);
+  const [productList, setProductList] = useState([]);
+  const [filter, setFilter] = useState({
+    code: null,
+    discount: null,
+    quantity: null,
+    beginDate: null,
+    endDate: null,
+  });
+  const fetchVouchersList = async () => {
+    setIsLoading(true);
+    try {
+      const params = {
+        currentPage: 1,
+        productPerPage: 10,
+        sortType,
+        ...filter,
+      };
+
+      const response = await productApi.getByFilter(params);
+      // console.log(response.data.filteredProducts);
+      setVouchersList(response.data.filteredProducts.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Failed to fetch vouchers list: ', error);
+    }
+  };
+  useEffect(() => {
+    fetchVouchersList();
+  }, [filter, sortType]);
   return (
     <View style={styles.container}>
       <View style={styles.title}>
