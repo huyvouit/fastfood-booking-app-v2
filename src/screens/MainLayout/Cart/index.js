@@ -48,11 +48,14 @@ const CartScreen = ({navigation}) => {
   };
 
   const calculateSubTotal = cartList => {
-    console.log('run calculate');
+    console.log('run');
     let subTotal = 0;
-    for (let i = 0; i < cartList; i++) {
-      console.log(i.productId?.type[0]?.price.$numberDecimal);
-      subTotal += i.productId?.type[0]?.price.$numberDecimal;
+    for (let i = 0; i < cartList?.length; i++) {
+      // console.log(cartList[0].productId?.type[0]?.price.$numberDecimal);
+      subTotal =
+        subTotal +
+        Number(cartList[i].productId?.type[0]?.price.$numberDecimal) *
+          cartList[i].quantity;
     }
     return subTotal;
   };
@@ -117,24 +120,15 @@ const CartScreen = ({navigation}) => {
         </ScrollView>
       </View>
 
-      {/* <View style={styles.promoCode}>
-        <TextInput
-          style={styles.inputCode}
-          placeholder="Promo Code"
-          placeholderTextColor="#C0C0C0"
-        />
-        <TouchableOpacity style={styles.buttonApply}>
-          <Text style={styles.buttonText}>Apply</Text>
-        </TouchableOpacity>
-      </View> */}
-
       <View style={{backgroundColor: 'white'}}>
         <View style={styles.fees}>
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Subtotal</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>{subTotal}</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>
+                {formatter.format(subTotal)}
+              </Text>
+              {/* <Text style={styles.unit}>USD</Text> */}
             </View>
           </View>
           {/* <View
@@ -142,24 +136,23 @@ const CartScreen = ({navigation}) => {
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Tax and Fees</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$5.30</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}> {formatter.format(0)}</Text>
             </View>
           </View>
 
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Delivery</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$1.00</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>{formatter.format(0)}</Text>
             </View>
           </View>
 
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Total</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$33.60</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>
+                {formatter.format(subTotal)}
+              </Text>
             </View>
           </View>
         </View>
@@ -168,7 +161,12 @@ const CartScreen = ({navigation}) => {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.buttonCheck}
-          onPress={() => navigation.navigate('CheckoutScreen')}>
+          onPress={() =>
+            navigation.navigate('CheckoutScreen', {
+              cartList,
+              subTotal,
+            })
+          }>
           <Text style={styles.buttonText}>CHECKOUT</Text>
         </TouchableOpacity>
       </View>

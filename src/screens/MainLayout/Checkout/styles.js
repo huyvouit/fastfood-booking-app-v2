@@ -56,25 +56,25 @@ const styles = StyleSheet.create({
   },
 
   information: {
-    alignSelf: 'center',
+    alignItems: 'flex-start',
     flex: 1,
   },
 
   name_food: {
     color: '#323643',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 
   savour: {
     color: '#C0C0C0',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'normal',
   },
 
   cost: {
     color: '#FE724C',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 

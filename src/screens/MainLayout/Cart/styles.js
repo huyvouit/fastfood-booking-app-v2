@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
 
   money: {
     flexDirection: 'row',
-    paddingRight: 10,
+    // paddingRight: 10,
   },
 
   cost_of_fee: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     paddingLeft: 120,
-    paddingRight: 10,
+    // paddingRight: 10,
   },
 
   unit: {
