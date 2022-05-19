@@ -27,7 +27,7 @@ const EditProfileScreen = ({navigation}) => {
           <View style={styles.itemInfo}>
             <Text style={styles.Label}>Full name</Text>
             <View style={styles.info}>
-              <TextInput style={styles.inputInfo}>Eljad Eendaz</TextInput>
+              <TextInput style={styles.inputInfo}>huy</TextInput>
             </View>
           </View>
 
@@ -35,7 +35,7 @@ const EditProfileScreen = ({navigation}) => {
             <Text style={styles.Label}>E-mail</Text>
             <View style={styles.info}>
               <TextInput style={styles.inputInfo}>
-                prelookstudio@gmail.com
+                client3@gmail.com
               </TextInput>
             </View>
           </View>

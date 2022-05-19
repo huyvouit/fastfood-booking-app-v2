@@ -3,7 +3,7 @@ import {StyleSheet, StatusBar} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#F5F5F5',
     paddingTop: StatusBar.height,
     paddingHorizontal: 20,
   },
@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  /* inputCity: {
+  inputDropdown: {
       borderRadius: 10,
       borderWidth: 1,
       borderColor: '#C0C0C0',
       marginTop: 10,
       backgroundColor: '#fff',
     },
-  
+  /* 
     inputDistrict: {
       borderRadius: 10,
       borderWidth: 1,

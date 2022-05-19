@@ -63,7 +63,9 @@ const NewAddressScreen = ({navigation}) => {
           <View style={styles.info}>
             <Text style={styles.label}>Province/City</Text>
             <SelectDropdown
-              style={styles.inputCity}
+              dropdownStyle={{borderRadius: 10}}
+              buttonStyle={styles.inputDropdown}
+              buttonTextStyle={{fontFamily: 'Roboto-Regular', color: '#000'}}
               data={Province_City}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
@@ -80,7 +82,9 @@ const NewAddressScreen = ({navigation}) => {
           <View style={styles.info}>
             <Text style={styles.label}>District</Text>
             <SelectDropdown
-              style={styles.inputCity}
+              dropdownStyle={{borderRadius: 10}}
+              buttonStyle={styles.inputDropdown}
+              buttonTextStyle={{fontFamily: 'Roboto-Regular', color: '#000'}}
               data={District_Ward}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
@@ -97,7 +101,9 @@ const NewAddressScreen = ({navigation}) => {
           <View style={styles.info}>
             <Text style={styles.label}>Town/Ward</Text>
             <SelectDropdown
-              style={styles.inputCity}
+              dropdownStyle={{borderRadius: 10}}
+              buttonStyle={styles.inputDropdown}
+              buttonTextStyle={{fontFamily: 'Roboto-Regular', color: '#000'}}
               data={Town_Ward}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
