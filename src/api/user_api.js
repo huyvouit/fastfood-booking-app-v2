@@ -13,6 +13,11 @@ const userApi = {
     const url = '/user/get-user-info';
     return axiosClient.get(url);
   },
+
+  getAllAddress: params => {
+    const url = '/address';
+    return axiosClient.get(url, {params});
+  },
 };
 
 export default userApi;

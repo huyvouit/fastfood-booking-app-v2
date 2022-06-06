@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,10 +13,33 @@ import {SvgXml} from 'react-native-svg';
 import styles from './styles';
 import BackButton from 'components/BackButton';
 import HeaderPage from '../../../components/Header';
+import userApi from 'api/user_api';
+import {AuthContext} from 'contexts/AuthProvider';
 
 const AddressBookScreen = ({navigation}) => {
-  // const {addressNav} = props;
-  console.log(navigation);
+  const [listAddress, setListAddress] = useState(null);
+  const {account} = useContext(AuthContext);
+  console.log('user', account);
+  useEffect(() => {
+    (async () => {
+      try {
+        const params = {
+          userId: account?._id,
+          currentPage: Number(1),
+          addressPerPage: 5,
+        };
+        console.log(params);
+        const res = await userApi.getAllAddress(params);
+        console.log(res.data);
+        if (res.data.success) {
+          setListAddress(res.data.data);
+        }
+      } catch (error) {
+        console.log('error to get address list', error);
+      }
+    })();
+  }, []);
+  console.log('lisrAddress', listAddress);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
@@ -31,14 +54,18 @@ const AddressBookScreen = ({navigation}) => {
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>
-          <View style={styles.address}>
-            <View style={styles.info}>
-              <Text>Nguyen Van A</Text>
-              <Text>0329496279</Text>
-              <Text>12 Robusta Street, Frapped District</Text>
-              <Text>White City</Text>
-            </View>
-          </View>
+          {listAddress?.map((item, index) => {
+            return (
+              <View style={styles.address} key={index}>
+                <View style={styles.info}>
+                  <Text>{item?.username}</Text>
+                  <Text>{item?.phone}</Text>
+                  <Text>{`${item?.address.number}, ${item?.address?.street}, ${item?.address?.ward}, ${item?.address?.district}, ${item?.address?.province}`}</Text>
+                </View>
+              </View>
+            );
+          })}
+
           <TouchableOpacity
             style={styles.buttonAdd}
             onPress={() => navigation.navigate('NewAddressScreen')}>
