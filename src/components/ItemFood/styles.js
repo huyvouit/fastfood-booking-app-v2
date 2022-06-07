@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
   },
   type: {
     flexDirection: 'row',
@@ -96,6 +97,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   foodNameText: {
+    // marginRight: 100,
+    width: 230,
     color: '#323643',
     fontWeight: 'bold',
     fontSize: 20,
