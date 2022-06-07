@@ -64,6 +64,7 @@ export const AuthProvider = ({children}) => {
         login: async (email, password) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);
+            console.log(auth().currentUser.uid);
             if (auth().currentUser.uid) {
               const res = await loginUser(auth().currentUser.uid);
               return res;

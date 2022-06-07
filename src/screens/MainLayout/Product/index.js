@@ -34,7 +34,11 @@ const ProductScreen = ({navigation}) => {
         currentPage: 1,
         productPerPage: 10,
         sortType,
-        ...filter,
+        category: filter.category == 'All' ? '' : filter.category,
+        higherPrice: filter.higherPrice,
+        lowerPrice: filter.lowerPrice,
+        size: filter.size == 'All' ? '' : filter.size,
+        rating: filter.rating,
       };
 
       const response = await productApi.getByFilter(params);
@@ -141,7 +145,12 @@ const ProductScreen = ({navigation}) => {
         ) : (
           <View style={{paddingHorizontal: 20}}>
             {productList.map((item, index) => (
-              <ItemFood key={index} navigation={navigation} product={item} />
+              <ItemFood
+                key={index}
+                navigation={navigation}
+                product={item}
+                size={filter.size}
+              />
             ))}
           </View>
         )}

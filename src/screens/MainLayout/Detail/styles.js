@@ -45,6 +45,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingHorizontal: 10,
   },
+  type: {
+    marginTop: 15,
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemType: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    fontWeight: '700',
+  },
   description: {
     marginVertical: 25,
   },
@@ -106,6 +117,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     color: COLORS.lightGray,
     // paddingTop: 10,
+  },
+  review: {
+    marginBottom: 20,
   },
   contentReview: {
     fontSize: 20,

@@ -20,6 +20,10 @@ const productApi = {
     const url = `/product/search`;
     return axiosClient.get(url, {params});
   },
+  getReviewByProduct: params => {
+    const url = `/review`;
+    return axiosClient.get(url, {params});
+  },
 };
 
 export default productApi;

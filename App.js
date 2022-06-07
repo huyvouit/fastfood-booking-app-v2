@@ -32,18 +32,18 @@ const Routes = () => {
   const fetchUserInfo = async () => {
     try {
       const response = await userApi.getUserInfo();
-      // console.log('getUSER:', response.data.data);
+      console.log('getUSER:', response.data);
       setAccount(response.data.data);
     } catch (error) {
-      console.log('Failed to fetch user: ', error);
+      console.log('Failed to fetch user: ', error.response.data);
     }
   };
 
   const onAuthStateChanged = user => {
-    if (user?.uid) {
-      fetchUserInfo(user.uid);
-    }
-    setUser(user);
+    // if (user?.uid) {
+    //   fetchUserInfo(user.uid);
+    // }
+    // setUser(user);
     setTimeout(() => {
       if (initializing) setInitializing(false);
     }, 4000);
@@ -58,7 +58,7 @@ const Routes = () => {
     <NavigationContainer>
       {initializing ? (
         <SplashScreen />
-      ) : user && account ? (
+      ) : !user && !account ? (
         <DrawerScreen />
       ) : (
         <AuthStackScreen />

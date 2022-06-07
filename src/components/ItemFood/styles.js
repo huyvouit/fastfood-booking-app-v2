@@ -80,7 +80,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     // backgroundColor: 'red',
   },
-
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  type: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemType: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    fontWeight: '700',
+  },
   foodNameText: {
     color: '#323643',
     fontWeight: 'bold',
