@@ -16,6 +16,7 @@ import Images from 'assets/images';
 import {AuthContext} from 'contexts/AuthProvider';
 
 import styles from './styles';
+import Loading from 'screens/Loading';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -97,7 +98,13 @@ const GreenComponent = ({navigation, redirect}) => {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const {login, googleLogin, user} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
+  const handleSunbmitLogin = async () => {
+    setLoading(true);
+    await login(email, password);
+    setLoading(false);
+  };
   return (
     <View style={styles.gr1}>
       {/* Login */}
@@ -149,14 +156,8 @@ const GreenComponent = ({navigation, redirect}) => {
         </TouchableOpacity>
       </View>
       {/* Button Login */}
-      <TouchableOpacity
-        style={styles.gr13}
-        onPress={() => {
-          console.log('click login');
-          login(email, password);
-          // redirect.replace('Drawer');
-        }}>
-        <Text style={styles.gr14}>LOGIN</Text>
+      <TouchableOpacity style={styles.gr13} onPress={handleSunbmitLogin}>
+        <Text style={styles.gr14}>{loading ? <Loading /> : 'LOGIN'}</Text>
       </TouchableOpacity>
     </View>
   );

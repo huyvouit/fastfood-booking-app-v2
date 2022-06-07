@@ -12,6 +12,8 @@ import store from './src/redux/store';
 import {DrawerScreen} from 'navigation/DrawerNavigation';
 import AuthStackScreen from 'navigation/AuthNavigation';
 import userApi from 'api/user_api';
+import Loading from 'screens/Loading';
+import SplashScreen from 'screens/Splash';
 
 const Providers = () => {
   return (
@@ -38,12 +40,13 @@ const Routes = () => {
   };
 
   const onAuthStateChanged = user => {
-    console.log(user);
     if (user?.uid) {
       fetchUserInfo(user.uid);
     }
     setUser(user);
-    if (initializing) setInitializing(false);
+    setTimeout(() => {
+      if (initializing) setInitializing(false);
+    }, 4000);
   };
 
   useEffect(() => {
@@ -51,11 +54,15 @@ const Routes = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (initializing) return null;
-  // console.log(user, account);
   return (
     <NavigationContainer>
-      {user && account ? <DrawerScreen /> : <AuthStackScreen />}
+      {initializing ? (
+        <SplashScreen />
+      ) : user && account ? (
+        <DrawerScreen />
+      ) : (
+        <AuthStackScreen />
+      )}
     </NavigationContainer>
   );
 };

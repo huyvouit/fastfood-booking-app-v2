@@ -33,6 +33,9 @@ const MyOrderScreen = ({navigation}) => {
             <TouchableOpacity style={styles.tabHistory}>
               <Text style={styles.tabHistoryText}>History</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.tabUpcoming}>
+              <Text style={styles.tabUpcomingText}>Cancel</Text>
+            </TouchableOpacity>
           </View> */}
 
           <View style={styles.presentOrder}>
