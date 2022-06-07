@@ -15,7 +15,21 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 15,
   },
-
+  iconHeart: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 18,
+    right: 20,
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    padding: 7,
+    elevation: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 30,
+  },
   costView: {
     backgroundColor: '#fff',
     flexDirection: 'row',

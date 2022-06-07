@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Images from 'assets/images';
 import {formatter} from 'helper/formatter';
 import {TouchableOpacity, Image, Text, View} from 'react-native';
@@ -6,10 +6,34 @@ import {SvgXml} from 'react-native-svg';
 import Icons from '../../assets/icons';
 
 import styles from './styles';
+import {AuthContext} from 'contexts/AuthProvider';
+import favoriteApi from 'api/favorite_api';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 const ItemFood = props => {
   const {navigation, product, size} = props;
   const [selectedType, setSelectType] = useState(0);
+  const {favorite, fetchListFavorite} = useContext(AuthContext);
+
+  const addFavorite = async productId => {
+    try {
+      const body = {productId};
+
+      const result = await favoriteApi.addFavorite(body);
+      console.log(result.data);
+      if (result.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      // setIsLoading(false);
+      console.log('error:', error.response.data.success);
+      if (!error.response.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(error.response.data.message);
+      }
+    }
+  };
 
   useEffect(() => {
     if (size) {
@@ -34,7 +58,18 @@ const ItemFood = props => {
         })
       }>
       <Image source={{uri: product?.mainImage}} style={styles.image} />
-
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={styles.iconHeart}
+        onPress={() => addFavorite(product?._id)}>
+        <SvgXml
+          xml={Icons.IconFavourite}
+          color="#fe724c"
+          width={25}
+          height={25}
+          fill={favorite?.includes(product?._id) ? '#FE724C' : '#fff'}
+        />
+      </TouchableOpacity>
       <View style={styles.costView}>
         <Text style={styles.cost}>
           {' '}

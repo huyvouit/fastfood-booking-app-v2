@@ -6,12 +6,14 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import userApi from 'api/user_api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {showToastWithGravityAndOffset} from 'helper/toast';
+import favoriteApi from 'api/favorite_api';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [account, setAccount] = useState(null);
   const [cart, setCart] = useState(null);
+  const [favorite, setFavorite] = useState(null);
 
   const createUser = async (fullname, email, uid) => {
     try {
@@ -52,6 +54,16 @@ export const AuthProvider = ({children}) => {
       return error.response.data;
     }
   };
+
+  const fetchListFavorite = async () => {
+    try {
+      const response = await favoriteApi.getListIdFavorite();
+
+      setFavorite(response.data.data);
+    } catch (error) {
+      console.log('Failed to fetch list favorite: ', error.response.data);
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -61,6 +73,9 @@ export const AuthProvider = ({children}) => {
         setAccount,
         cart,
         setCart,
+        favorite,
+        setFavorite,
+        fetchListFavorite,
         login: async (email, password) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);

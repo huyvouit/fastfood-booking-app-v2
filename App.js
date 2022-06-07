@@ -14,6 +14,7 @@ import AuthStackScreen from 'navigation/AuthNavigation';
 import userApi from 'api/user_api';
 import Loading from 'screens/Loading';
 import SplashScreen from 'screens/Splash';
+import favoriteApi from 'api/favorite_api';
 
 const Providers = () => {
   return (
@@ -26,7 +27,8 @@ const Providers = () => {
 };
 
 const Routes = () => {
-  const {user, setUser, account, setAccount} = useContext(AuthContext);
+  const {user, setUser, account, setAccount, setFavorite} =
+    useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
   const fetchUserInfo = async () => {
@@ -39,9 +41,20 @@ const Routes = () => {
     }
   };
 
+  const fetchListFavorite = async () => {
+    try {
+      const response = await favoriteApi.getListIdFavorite();
+
+      setFavorite(response.data.data);
+    } catch (error) {
+      console.log('Failed to fetch list favorite: ', error.response.data);
+    }
+  };
+
   const onAuthStateChanged = user => {
     if (user?.uid) {
       fetchUserInfo(user.uid);
+      fetchListFavorite();
     }
     setUser(user);
     setTimeout(() => {
@@ -66,6 +79,7 @@ const Routes = () => {
     </NavigationContainer>
   );
 };
+
 const App = () => {
   return <Providers />;
 };
