@@ -28,10 +28,12 @@ import StarRating from 'components/StarRating';
 
 import moment from 'moment';
 import {showToastWithGravityAndOffset} from 'helper/toast';
+import favoriteApi from 'api/favorite_api';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
-  const {account, cart, setCart} = useContext(AuthContext);
+  const {account, cart, setCart, favorite, fetchListFavorite} =
+    useContext(AuthContext);
 
   const [data, setNewPlants] = useState([
     {
@@ -173,6 +175,26 @@ const DetailScreen = ({navigation, route}) => {
     }
   };
 
+  const addFavorite = async productId => {
+    try {
+      const body = {productId};
+
+      const result = await favoriteApi.addFavorite(body);
+      console.log(result.data);
+      if (result.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      // setIsLoading(false);
+      console.log('error:', error.response.data.success);
+      if (!error.response.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(error.response.data.message);
+      }
+    }
+  };
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flex: 1}}>
@@ -196,6 +218,18 @@ const DetailScreen = ({navigation, route}) => {
           <View style={{position: 'absolute', top: 0}}>
             <HeaderPage returnPage={() => navigation.goBack()} />
           </View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.iconHeart}
+            onPress={() => addFavorite(product?._id)}>
+            <SvgXml
+              xml={Icons.IconFavourite}
+              color="#fe724c"
+              width={25}
+              height={25}
+              fill={favorite?.includes(product?._id) ? '#FE724C' : '#fff'}
+            />
+          </TouchableOpacity>
           <View style={styles.content}>
             <Text style={styles.nameProduct}>{product?.name}</Text>
             {/* <View style={styles.iconHeart}>
