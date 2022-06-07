@@ -5,6 +5,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import userApi from 'api/user_api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -21,18 +22,19 @@ export const AuthProvider = ({children}) => {
       };
 
       const response = await userApi.register(params);
-      console.log(response.data.data?.token);
+
       if (response.data.success) {
         console.log('run storeage');
         await AsyncStorage.setItem('TOKEN_USER', response.data.data?.token);
       }
       setAccount(response.data.data);
+      return response.data;
     } catch (error) {
       console.log('Failed to create user: ', error);
+      return error.response.data;
     }
   };
   const loginUser = async uid => {
-    console.log('abc', uid);
     try {
       const params = {
         uid: uid,
@@ -44,8 +46,10 @@ export const AuthProvider = ({children}) => {
         await AsyncStorage.setItem('TOKEN_USER', response.data.data?.token);
       }
       setAccount(response.data.data);
+      return response.data;
     } catch (error) {
-      console.log('Failed to login: ', error);
+      console.log(error.response.data);
+      return error.response.data;
     }
   };
   return (
@@ -59,13 +63,16 @@ export const AuthProvider = ({children}) => {
         setCart,
         login: async (email, password) => {
           try {
-            await auth()
-              .signInWithEmailAndPassword(email, password)
-              .then(() => {
-                loginUser(auth().currentUser.uid);
-              });
-          } catch (e) {
-            console.log(e);
+            await auth().signInWithEmailAndPassword(email, password);
+            if (auth().currentUser.uid) {
+              const res = await loginUser(auth().currentUser.uid);
+              return res;
+            }
+          } catch (error) {
+            return {
+              success: false,
+              message: error.message,
+            };
           }
         },
         googleLogin: async () => {
@@ -157,31 +164,36 @@ export const AuthProvider = ({children}) => {
         // },
         register: async (fullname, email, password) => {
           try {
-            await auth()
+            const res = await auth()
               .createUserWithEmailAndPassword(email, password)
-              .then(() => {
-                //Once the user creation has happened successfully, we can add the currentUser into firestore
-                //with the appropriate details.
-                createUser(fullname, email, auth().currentUser.uid).then(() => {
-                  firestore()
-                    .collection('users')
-                    .doc(auth().currentUser.uid)
-                    .set({
-                      displayName: fullname,
+              .then(async () => {
+                firestore()
+                  .collection('users')
+                  .doc(auth().currentUser.uid)
+                  .set({
+                    displayName: fullname,
 
-                      email: email,
-                      createdAt: firestore.Timestamp.fromDate(new Date()),
-                      userImg: null,
-                    })
-                    //ensure we catch any errors at this stage to advise us if something does go wrong
-                    .catch(error => {
-                      console.log(
-                        'Something went wrong with added user to firestore: ',
-                        error,
-                      );
-                    });
-                });
+                    email: email,
+                    createdAt: firestore.Timestamp.fromDate(new Date()),
+                    userImg: null,
+                  })
+                  //ensure we catch any errors at this stage to advise us if something does go wrong
+                  .catch(error => {
+                    console.log(
+                      'Something went wrong with added user to firestore: ',
+                      error,
+                    );
+                  });
+                if (auth().currentUser.uid) {
+                  const response = await createUser(
+                    fullname,
+                    email,
+                    auth().currentUser.uid,
+                  );
+                  return response;
+                }
               })
+
               //we need to catch the whole sign up process if it fails too.
               .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
@@ -193,9 +205,18 @@ export const AuthProvider = ({children}) => {
                 }
 
                 console.log('Something went wrong with sign up: ', error);
+                return {
+                  success: false,
+                  message: error.message,
+                };
               });
-          } catch (e) {
-            console.log(e);
+            return res;
+          } catch (error) {
+            console.log('case here');
+            return {
+              success: false,
+              message: error.message,
+            };
           }
         },
         logout: async () => {
