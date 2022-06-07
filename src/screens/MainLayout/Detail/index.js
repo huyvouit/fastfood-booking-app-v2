@@ -27,6 +27,7 @@ import {AuthContext} from 'contexts/AuthProvider';
 import StarRating from 'components/StarRating';
 
 import moment from 'moment';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
@@ -89,15 +90,15 @@ const DetailScreen = ({navigation, route}) => {
     }
   }
 
-  const showToastWithGravityAndOffset = content => {
-    ToastAndroid.showWithGravityAndOffset(
-      content,
-      ToastAndroid.LONG,
-      ToastAndroid.ToastAndroid.BOTTOM,
-      25,
-      50,
-    );
-  };
+  // const showToastWithGravityAndOffset = content => {
+  //   ToastAndroid.showWithGravityAndOffset(
+  //     content,
+  //     ToastAndroid.LONG,
+  //     ToastAndroid.ToastAndroid.BOTTOM,
+  //     25,
+  //     50,
+  //   );
+  // };
 
   const fetchProductList = async sortType => {
     try {
@@ -152,22 +153,26 @@ const DetailScreen = ({navigation, route}) => {
 
   const addToCart = async () => {
     try {
-      const result = await cartApi.addToCart({
+      const body = {
         userId: account?._id,
         productId,
-        size: 'M',
+        size,
         quantity: count,
-        price: count * product.type[0]?.price.$numberDecimal,
-      });
+        price:
+          size == 'M'
+            ? count * product.type[0]?.price.$numberDecimal
+            : count * product.type[1]?.price.$numberDecimal,
+      };
+      const result = await cartApi.addToCart(body);
+
       if (result.data.success) {
         showToastWithGravityAndOffset(result.data.message);
-        console.log(result.data.message);
       }
     } catch (error) {
       setIsLoading(false);
     }
   };
-  console.log(listReview);
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flex: 1}}>

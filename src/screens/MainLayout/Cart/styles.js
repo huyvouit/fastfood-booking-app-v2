@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
     paddingRight: 10,
+    // backgroundColor: 'green',
   },
 
   name_food: {
@@ -87,13 +88,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingEnd: 10,
   },
-
-  quantity: {
-    color: '#323643',
-    fontWeight: 'bold',
-    paddingHorizontal: 13,
+  itemType: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    fontWeight: '700',
   },
-
+  quantityView: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flex: 1,
+    alignItems: 'center',
+  },
+  quantityItem: {
+    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '600',
+    paddingHorizontal: 10,
+  },
   buttonDecrease: {
     backgroundColor: '#fff',
     paddingEnd: 16,

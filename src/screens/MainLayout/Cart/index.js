@@ -20,6 +20,7 @@ import DecreaseButton from 'components/DecreaseButton';
 import cartApi from 'api/cart_api';
 import {AuthContext} from 'contexts/AuthProvider';
 import {formatter} from 'helper/formatter';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 const CartScreen = ({navigation}) => {
   const {account, cart, setCart} = useContext(AuthContext);
@@ -33,7 +34,7 @@ const CartScreen = ({navigation}) => {
       const params = {
         currentPage: 1,
         productPerPage: 10,
-        uid: account?._id,
+        userId: account?._id,
       };
 
       const response = await cartApi.getByUser(params);
@@ -48,17 +49,39 @@ const CartScreen = ({navigation}) => {
   };
 
   const calculateSubTotal = cartList => {
-    console.log('run');
     let subTotal = 0;
     for (let i = 0; i < cartList?.length; i++) {
-      // console.log(cartList[0].productId?.type[0]?.price.$numberDecimal);
-      subTotal =
-        subTotal +
-        Number(cartList[i].productId?.type[0]?.price.$numberDecimal) *
-          cartList[i].quantity;
+      subTotal = subTotal + Number(cartList[i]?.price);
     }
     return subTotal;
   };
+
+  const handleChangeQuantity = async (item, quantity) => {
+    // console.log(item?.type[0]?.price.$numberDecimal);
+    try {
+      const body = {
+        userId: account?._id,
+        productId: item?.productId?._id,
+        size: item?.size,
+        quantity,
+        price:
+          item?.size == 'M'
+            ? quantity * item?.productId?.type[0]?.price.$numberDecimal
+            : quantity * item?.productId?.type[1]?.price.$numberDecimal,
+      };
+      console.log(body);
+      const result = await cartApi.addToCart(body);
+
+      if (result.data.success) {
+        fetchCartList();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchCartList();
   }, [account, cart]);
@@ -86,33 +109,65 @@ const CartScreen = ({navigation}) => {
                     <Text style={styles.name_food} numberOfLines={1}>
                       {item.productId?.name}
                     </Text>
-                    <Text style={styles.savour} numberOfLines={1}>
-                      {item.productId?.description}
-                    </Text>
+
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'center',
+                        // justifyContent: 'center',
                         alignItems: 'center',
                       }}>
                       <Text style={styles.cost}>
-                        {formatter.format(
-                          item.productId?.type[0]?.price.$numberDecimal,
-                        )}
+                        {item?.size == 'M'
+                          ? formatter.format(
+                              item.productId?.type[0]?.price.$numberDecimal,
+                            )
+                          : formatter.format(
+                              item.productId?.type[1]?.price.$numberDecimal,
+                            )}
                       </Text>
-                      <Text style={styles.quantity}> X {item.quantity}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        // backgroundColor: 'red',
+                      }}>
+                      <View
+                        style={{
+                          width: 50,
+                          height: 30,
+                          backgroundColor: '#f4f4f4',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          borderRadius: 5,
+                          // flex: 1,
+                        }}>
+                        <Text
+                          style={{
+                            color: '#FE724C',
+                            ...styles.itemType,
+                          }}>
+                          {item?.size}
+                        </Text>
+                      </View>
+                      <View style={styles.quantityView}>
+                        <DecreaseButton
+                          action={() => handleChangeQuantity(item, -1)}
+                        />
+                        <Text style={styles.quantityItem}>
+                          {item?.quantity}
+                        </Text>
+                        <IncreaseButton
+                          action={() => handleChangeQuantity(item, 1)}
+                        />
+                      </View>
                     </View>
                   </View>
 
                   <TouchableOpacity style={styles.close}>
                     <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
                   </TouchableOpacity>
-                  {/* <View style={styles.modify}>
-                    <DecreaseButton action={() => {}} />
-                    <Text style={styles.quantity}>{item.quantity}</Text>
-
-                    <IncreaseButton action={() => {}} />
-                  </View> */}
                 </View>
               );
             })}

@@ -104,7 +104,6 @@ const GreenComponent = ({navigation, redirect}) => {
   const handleSunbmitLogin = async () => {
     setLoading(true);
     const res = await login(email, password);
-    console.log('login:', res);
 
     if (res?.success) {
       console.log(res.message);
@@ -185,7 +184,7 @@ const RegisterComponent = ({redirect}) => {
   const handleSunbmitRegister = async () => {
     setLoading(true);
     const res = await register(fullname, email, password);
-    console.log('res:', res);
+
     if (res?.success) {
       console.log(res.message);
       showToastWithGravityAndOffset(res.message);
