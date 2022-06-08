@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     paddingTop: StatusBar.height,
-    paddingHorizontal: 20,
   },
 
   content: {
@@ -13,13 +12,13 @@ const styles = StyleSheet.create({
   },
 
   textWrapper: {
-    paddingTop: 30,
+    // paddingTop: 30,
+    paddingHorizontal: 20,
     paddingBottom: 30,
   },
 
   title: {
     flexDirection: 'row',
-    paddingTop: 30,
   },
 
   titleText: {
@@ -42,8 +41,9 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: '#A9A9A9',
+    color: '#000',
     fontWeight: 'bold',
+    fontSize: 18,
   },
 
   inputName: {
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     marginTop: 10,
     backgroundColor: '#fff',
+    paddingHorizontal: 15,
   },
 
   inputPhoneNumber: {
@@ -60,32 +61,35 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     marginTop: 10,
     backgroundColor: '#fff',
+    paddingHorizontal: 15,
   },
 
-  /* inputCity: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-  
-    inputDistrict: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-  
-    input_Town_Ward: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#C0C0C0',
-      marginTop: 10,
-      backgroundColor: '#fff',
-    },
-    */
+  inputCity: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+    marginTop: 10,
+    backgroundColor: '#fff',
+    width: '100%',
+    // paddingHorizontal: 15,
+    textAlign: 'left !important',
+  },
+
+  inputDistrict: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+    marginTop: 10,
+    backgroundColor: '#fff',
+  },
+
+  input_Town_Ward: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+    marginTop: 10,
+    backgroundColor: '#fff',
+  },
 
   inputAddress: {
     borderRadius: 10,

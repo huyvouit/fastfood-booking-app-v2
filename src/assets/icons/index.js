@@ -21,6 +21,11 @@ import IconOrder from './layers.svg';
 import IconVoucher from './smile.svg';
 
 import IconAddress from './address.svg';
+import IconUp from './chevron-up.svg';
+import IconDown from './chevron-down.svg';
+import IconPin from './bell.svg';
+import IconUnPin from './bell-off.svg';
+import IconEdit from './edit.svg';
 const Icons = {
   IconChevronleft,
   IconPlus,
@@ -44,6 +49,11 @@ const Icons = {
   IconCash,
   IconVoucher,
   IconOrder,
+  IconUp,
+  IconDown,
+  IconPin,
+  IconUnPin,
+  IconEdit,
 };
 
 export default Icons;

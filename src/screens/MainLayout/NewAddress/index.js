@@ -12,6 +12,8 @@ import {
 import styles from './styles';
 import BackButton from 'components/BackButton';
 import HeaderPage from 'components/Header';
+import {SvgXml} from 'react-native-svg';
+import Icons from 'assets/icons';
 
 const Province_City = [
   'TP Ho Chi Minh',
@@ -33,19 +35,38 @@ const District_Ward = [
   'Quan 3',
 ];
 
-const Town_Ward = ['phuong 1', 'phuong 2', 'phuong 3', 'phuong 4', 'phuong 5'];
+const Town_Ward = [
+  'phuong 1',
+  'phuong 2',
+  'phuong 3',
+  'phuong 4',
+  'phuong 5',
+  'phuong 1',
+  'phuong 2',
+  'phuong 3',
+  'phuong 4',
+  'phuong 5',
+  'phuong 1',
+  'phuong 2',
+  'phuong 3',
+  'phuong 4',
+  'phuong 5',
+];
 
 const NewAddressScreen = ({navigation}) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
+    <ScrollView style={styles.container}>
       <View style={styles.title}>
-        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
-          <HeaderPage returnPage={() => navigation.goBack()} />
+        <HeaderPage
+          returnPage={() => navigation.openDrawer()}
+          title="New Addres"
+        />
+        {/* <TouchableOpacity style={{position: 'absolute', top: 0}}>
+          <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Add new address</Text>
+        <Text style={styles.titleText}>Vouchers</Text> */}
       </View>
-      <ScrollView style={styles.content}>
+      <View style={styles.content}>
         <View style={styles.textWrapper}>
           <View style={styles.info}>
             <Text style={styles.label}>Full name</Text>
@@ -59,20 +80,33 @@ const NewAddressScreen = ({navigation}) => {
               keyboardType={'numeric'}
             />
           </View>
+          <View style={styles.info}>
+            <Text style={styles.label}>Number house</Text>
+            <TextInput style={styles.inputPhoneNumber} />
+          </View>
+          <View style={styles.info}>
+            <Text style={styles.label}>Street</Text>
+            <TextInput style={styles.inputPhoneNumber} />
+          </View>
 
           <View style={styles.info}>
             <Text style={styles.label}>Province/City</Text>
             <SelectDropdown
               style={styles.inputCity}
-              data={Province_City}
+              data={Town_Ward}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
+              buttonStyle={styles.inputCity}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
+              dropdownIconPosition="right"
               rowTextForSelection={(item, index) => {
                 return item;
+              }}
+              renderDropdownIcon={() => {
+                return <SvgXml xml={Icons.IconDown} color="#000" />;
               }}
             />
           </View>
@@ -81,15 +115,20 @@ const NewAddressScreen = ({navigation}) => {
             <Text style={styles.label}>District</Text>
             <SelectDropdown
               style={styles.inputCity}
-              data={District_Ward}
+              data={Town_Ward}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
+              buttonStyle={styles.inputCity}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
+              dropdownIconPosition="right"
               rowTextForSelection={(item, index) => {
                 return item;
+              }}
+              renderDropdownIcon={() => {
+                return <SvgXml xml={Icons.IconDown} color="#000" />;
               }}
             />
           </View>
@@ -102,18 +141,18 @@ const NewAddressScreen = ({navigation}) => {
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
+              buttonStyle={styles.inputCity}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
+              dropdownIconPosition="right"
               rowTextForSelection={(item, index) => {
                 return item;
               }}
+              renderDropdownIcon={() => {
+                return <SvgXml xml={Icons.IconDown} color="#000" />;
+              }}
             />
-          </View>
-
-          <View style={styles.info}>
-            <Text style={styles.label}>Address (include house number)</Text>
-            <TextInput style={styles.inputAddress} />
           </View>
 
           <View style={styles.buttonAction}>
@@ -122,8 +161,8 @@ const NewAddressScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 };
 

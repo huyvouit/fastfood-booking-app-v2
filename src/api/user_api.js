@@ -27,6 +27,10 @@ const userApi = {
     const url = '/address/add-default';
     return axiosClient.post(url, body);
   },
+  deleteAddress: body => {
+    const url = '/address/delete';
+    return axiosClient.post(url, body);
+  },
 };
 
 export default userApi;
