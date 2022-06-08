@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto-Bold',
     fontWeight: '600',
     // paddingHorizontal: 10,
     marginTop: 10,
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     color: COLORS.lightGray,
     lineHeight: 20,
+    marginTop: 10,
   },
   btnAdd: {
     backgroundColor: '#FE724C',

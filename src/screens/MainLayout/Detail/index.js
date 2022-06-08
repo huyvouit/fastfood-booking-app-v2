@@ -357,12 +357,11 @@ const DetailScreen = ({navigation, route}) => {
                             <Text style={styles.createDate}>
                               {moment(item?.createdAt).format('MMMM D, YYYY')}
                             </Text>
-
-                            <StarRating rating={item.rating} />
                           </View>
                         </View>
                       </View>
                       <View style={{marginTop: 10}}>
+                        <StarRating rating={item.rating} />
                         <Text style={styles.contentReview} numberOfLines={5}>
                           {item?.content}
                         </Text>
