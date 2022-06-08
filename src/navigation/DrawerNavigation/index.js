@@ -152,7 +152,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
           />
           <CustomDrawerItem
             label="My Order"
-            icon={Icons.IconHome}
+            icon={Icons.IconOrder}
             isFocused={selectedTab == 'MyOrder'}
             onPress={() => {
               dispatch(setSelectedTab('MyOrder'));
@@ -161,7 +161,7 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
           />
           <CustomDrawerItem
             label="Voucher"
-            icon={Icons.IconHome}
+            icon={Icons.IconVoucher}
             isFocused={selectedTab == 'Voucher'}
             onPress={() => {
               dispatch(setSelectedTab('Voucher'));

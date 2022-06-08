@@ -1,17 +1,50 @@
-import React from 'react';
+import productApi from 'api/product_api';
+import {showToastWithGravityAndOffset} from 'helper/toast';
+import React, {useState} from 'react';
 import {View, Text, Image, TextInput, Dimensions} from 'react-native';
+import {Rating, AirbnbRating} from 'react-native-ratings';
+import {useDispatch} from 'react-redux';
+import {setSelectedTab} from 'redux/actions';
 import HeaderPage from '../../../components/Header';
 import PrimaryButton from '../../../components/PrimaryButton';
 import styles from './styles';
 
 const screen = Dimensions.get('screen');
 
-const ReviewScreen = ({navigation}) => {
+const ReviewScreen = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const {firstItem} = route.params;
+  const [formRating, setFormRating] = useState({
+    productId: firstItem?.productId?._id,
+    content: '',
+    rating: 5,
+  });
+  const submitReview = async event => {
+    event.preventDefault();
+
+    try {
+      const response = await productApi.postReview(formRating);
+
+      if (response.data.success) {
+        showToastWithGravityAndOffset(response.data.message);
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'MainlayoutScreen'}],
+        });
+        dispatch(setSelectedTab('Home'));
+      } else {
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      if (error.response.data)
+        showToastWithGravityAndOffset(error.response.data.message);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={{height: 220}}>
         <Image
-          source={require('../../../assets/images/splash-screen.jpg')}
+          source={{uri: firstItem?.productId?.images[0]}}
           alt=""
           style={{
             width: '100%',
@@ -20,9 +53,9 @@ const ReviewScreen = ({navigation}) => {
           }}
         />
       </View>
-      {/* <View style={{position: 'fixed', top: 0}}>
-        <HeaderPage />
-      </View> */}
+      <View style={{position: 'absolute', top: 0}}>
+        <HeaderPage returnPage={() => navigation.goBack()} />
+      </View>
       <View
         style={{
           flex: 1,
@@ -30,7 +63,7 @@ const ReviewScreen = ({navigation}) => {
         }}>
         <View style={styles.imageProduct}>
           <Image
-            source={require('../../../assets/images/splash-screen.jpg')}
+            source={{uri: firstItem?.productId?.mainImage}}
             alt=""
             style={{
               width: 80,
@@ -42,18 +75,27 @@ const ReviewScreen = ({navigation}) => {
           />
         </View>
         <View style={styles.textCenter}>
-          <Text style={styles.nameProduct}>Pizza Hut</Text>
-          <Text style={styles.desc}>4102 Pretty View Lanenda</Text>
-          <Text style={styles.info}>Please Rate Food Service</Text>
-          <View style={{paddingHorizontal: 20, width: '100%'}}>
+          <Text style={styles.nameProduct}>{firstItem?.productId?.name}</Text>
+
+          {/* <Text style={styles.info}>Please Rate Food Service</Text> */}
+          <AirbnbRating
+            count={5}
+            reviews={['Terrible', 'Bad', 'Okay', 'Good', 'Great']}
+            defaultRating={formRating.rating}
+            onFinishRating={value =>
+              setFormRating({...formRating, rating: value})
+            }
+            size={25}
+          />
+          <View style={{paddingHorizontal: 20, width: '100%', marginTop: 10}}>
             <TextInput
               style={styles.textarea}
-              underlineColorAndroid="transparent"
+              // underlineColorAndroid="transparent"
+              value={formRating.content}
+              onChangeText={text =>
+                setFormRating({...formRating, content: text})
+              }
               placeholder="Write review"
-              placeholderTextColor="#eeeeee"
-              // numberOfLines={5}
-
-              multiline={true}
             />
           </View>
         </View>
@@ -65,16 +107,10 @@ const ReviewScreen = ({navigation}) => {
             justifyContent: 'flex-end',
             width: '100%',
             paddingBottom: 20,
-            paddingTop: 40,
+            // paddingTop: 40,
             paddingHorizontal: 20,
           }}>
-          <PrimaryButton
-            title="Submit"
-            action={
-              () => navigation.navigate('DetailScreen')
-              // console.log('run');
-            }
-          />
+          <PrimaryButton title="Submit" action={submitReview} />
         </View>
       </View>
     </View>

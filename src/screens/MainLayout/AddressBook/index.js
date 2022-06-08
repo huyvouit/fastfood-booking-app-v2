@@ -44,13 +44,14 @@ const AddressBookScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
-          <HeaderPage
-            returnPage={() => navigation.openDrawer()}
-            // title={'Address Book'}
-          />
+        <HeaderPage
+          returnPage={() => navigation.openDrawer()}
+          title="Address"
+        />
+        {/* <TouchableOpacity style={{position: 'absolute', top: 0}}>
+          <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
-        <Text style={styles.titleText}>{`Address Book`}</Text>
+        <Text style={styles.titleText}>Vouchers</Text> */}
       </View>
       <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>

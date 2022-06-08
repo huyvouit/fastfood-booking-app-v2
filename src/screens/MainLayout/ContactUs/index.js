@@ -17,10 +17,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import Images from 'assets/images';
-//  const windowWidth = Dimensions.get('window').width;
-//  const windowHeight = Dimensions.get('window').height;
-//  const SignIn = 'SIGNIN';
-//  const SignUp = 'SIGNUP';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 export default function ContactScreen({navigation}) {
   const [page, setpage] = useState('');
@@ -47,7 +44,10 @@ const RedComponent = ({page, setpage, navigation}) => {
           <View style={{position: 'absolute', top: 0}}>
             <HeaderPage returnPage={() => navigation.openDrawer()} />
           </View>
-          <Image source={Images.Logo} style={{width: 300, height: 300, justifyContent: 'center', top: 20}}/>
+          <Image
+            source={Images.Logo}
+            style={{width: 300, height: 300, justifyContent: 'center', top: 20}}
+          />
         </View>
       </View>
     </View>
@@ -55,10 +55,7 @@ const RedComponent = ({page, setpage, navigation}) => {
 };
 const GreenComponent = () => {
   const {account} = useContext(AuthContext);
-  // const [email, setEmail] = useState(account?.email);
-  // const [password, setpassword] = useState('');
   const [message, setMessage] = useState('');
-  const [notice, setNotice] = useState(null);
 
   const submitContact = async event => {
     event.preventDefault();
@@ -72,10 +69,10 @@ const GreenComponent = () => {
       const response = await contactApi.postContact(contactForm);
 
       if (response.data.success) {
-        setNotice(response.data.msg);
-      } else {
+        showToastWithGravityAndOffset(response.data.msg);
+
+        setMessage('');
       }
-      setMessage('');
     } catch (error) {
       console.log(error.response.data);
       if (error.response.data) return error.response.data;
@@ -125,6 +122,7 @@ const GreenComponent = () => {
         <TextInput
           style={styles.gr4}
           // autoCapitalize={false}
+          value={message}
           placeholder="Please enter message"
           onChangeText={mess => setMessage(mess)}
         />
@@ -132,12 +130,6 @@ const GreenComponent = () => {
       <TouchableOpacity style={styles.gr6} onPress={submitContact}>
         <Text style={styles.gr7}>Send Message</Text>
       </TouchableOpacity>
-
-      {notice && (
-        <View style={{paddingTop: 30}}>
-          <Text>{notice}</Text>
-        </View>
-      )}
     </View>
   );
 };

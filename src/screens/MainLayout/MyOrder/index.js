@@ -12,7 +12,6 @@ import {
   Pressable,
 } from 'react-native';
 
-import BackButton from 'components/BackButton';
 import HeaderPage from 'components/Header';
 
 import StarBuck from 'assets/images/starbuck.png';
@@ -257,10 +256,14 @@ const MyOrderScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={styles.title}>
-        <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
+        <HeaderPage
+          returnPage={() => navigation.openDrawer()}
+          title="My Orders"
+        />
+        {/* <TouchableOpacity style={{position: 'absolute', top: 0}}>
           <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
-        <Text style={styles.titleText}>My Orders</Text>
+        <Text style={styles.titleText}>Vouchers</Text> */}
       </View>
 
       <View style={styles.textWrapper}>
@@ -373,13 +376,16 @@ const MyOrderScreen = ({navigation}) => {
                     </View>
 
                     <View style={styles.part_4}>
-                      {tabSelected != 1 && (
-                        <TouchableOpacity style={styles.buttonActionLeft}>
-                          <Text style={styles.buttonActionLeftText}>
-                            Cancel
-                          </Text>
-                        </TouchableOpacity>
-                      )}
+                      <TouchableOpacity
+                        style={styles.buttonActionLeft}
+                        onPress={() =>
+                          navigation.navigate('ReviewScreen', {
+                            firstItem: item?.products[0],
+                          })
+                        }>
+                        <Text style={styles.buttonActionLeftText}>Review</Text>
+                      </TouchableOpacity>
+
                       <TouchableOpacity
                         style={styles.buttonActionRight}
                         onPress={() => handleViewDetail(item)}>
