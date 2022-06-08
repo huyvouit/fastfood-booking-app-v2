@@ -24,11 +24,17 @@ import Loading from 'screens/Loading';
 import {formatter} from 'helper/formatter';
 import cartApi from 'api/cart_api';
 import {AuthContext} from 'contexts/AuthProvider';
+import StarRating from 'components/StarRating';
+
+import moment from 'moment';
+import {showToastWithGravityAndOffset} from 'helper/toast';
+import favoriteApi from 'api/favorite_api';
 
 const DetailScreen = ({navigation, route}) => {
   const {productId} = route.params;
-  const {account, cart, setCart} = useContext(AuthContext);
-  console.log(productId);
+  const {account, cart, setCart, favorite, fetchListFavorite} =
+    useContext(AuthContext);
+
   const [data, setNewPlants] = useState([
     {
       id: 0,
@@ -71,8 +77,9 @@ const DetailScreen = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState([]);
   const [relatedProduct, setRelatedProduct] = useState([]);
+  const [listReview, setListReview] = useState([]);
   const [count, setCount] = useState(1);
-
+  const [size, setSize] = useState('M');
   function countSubClick() {
     if (count > 1) {
       setCount(count - 1);
@@ -85,15 +92,15 @@ const DetailScreen = ({navigation, route}) => {
     }
   }
 
-  const showToastWithGravityAndOffset = content => {
-    ToastAndroid.showWithGravityAndOffset(
-      content,
-      ToastAndroid.LONG,
-      ToastAndroid.ToastAndroid.BOTTOM,
-      25,
-      50,
-    );
-  };
+  // const showToastWithGravityAndOffset = content => {
+  //   ToastAndroid.showWithGravityAndOffset(
+  //     content,
+  //     ToastAndroid.LONG,
+  //     ToastAndroid.ToastAndroid.BOTTOM,
+  //     25,
+  //     50,
+  //   );
+  // };
 
   const fetchProductList = async sortType => {
     try {
@@ -103,9 +110,9 @@ const DetailScreen = ({navigation, route}) => {
 
       const response = await productApi.getById(params);
       if (response.data) {
-        console.log(response.data.data.category);
         setProduct(response.data.data);
         await fetchRelatedProduct(response.data.data.category);
+        await fetchListReview();
       }
     } catch (error) {
       console.log('Failed to fetch product list: ', error);
@@ -118,6 +125,20 @@ const DetailScreen = ({navigation, route}) => {
       const response = await productApi.getByFilter(params);
       if (response.data) {
         setRelatedProduct(response.data.filteredProducts.data);
+      }
+    } catch (error) {
+      console.log('Failed to fetch product list: ', error);
+    }
+  };
+
+  const fetchListReview = async () => {
+    try {
+      const params = {productId, currentPage: 1, reviewsPerPage: 2};
+
+      const response = await productApi.getReviewByProduct(params);
+
+      if (response.data) {
+        setListReview(response.data.data);
         setIsLoading(false);
       }
     } catch (error) {
@@ -134,21 +155,46 @@ const DetailScreen = ({navigation, route}) => {
 
   const addToCart = async () => {
     try {
-      const result = await cartApi.addToCart({
+      const body = {
         userId: account?._id,
         productId,
-        size: 'M',
+        size,
         quantity: count,
-        price: count * product.type[0]?.price.$numberDecimal,
-      });
+        price:
+          size == 'M'
+            ? count * product.type[0]?.price.$numberDecimal
+            : count * product.type[1]?.price.$numberDecimal,
+      };
+      const result = await cartApi.addToCart(body);
+
       if (result.data.success) {
         showToastWithGravityAndOffset(result.data.message);
-        console.log(result.data.message);
       }
     } catch (error) {
       setIsLoading(false);
     }
   };
+
+  const addFavorite = async productId => {
+    try {
+      const body = {productId};
+
+      const result = await favoriteApi.addFavorite(body);
+      console.log(result.data);
+      if (result.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      // setIsLoading(false);
+      console.log('error:', error.response.data.success);
+      if (!error.response.data.success) {
+        fetchListFavorite();
+        showToastWithGravityAndOffset(error.response.data.message);
+      }
+    }
+  };
+
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <View style={{flex: 1}}>
@@ -172,6 +218,18 @@ const DetailScreen = ({navigation, route}) => {
           <View style={{position: 'absolute', top: 0}}>
             <HeaderPage returnPage={() => navigation.goBack()} />
           </View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.iconHeart}
+            onPress={() => addFavorite(product?._id)}>
+            <SvgXml
+              xml={Icons.IconFavourite}
+              color="#fe724c"
+              width={25}
+              height={25}
+              fill={favorite?.includes(product?._id) ? '#FE724C' : '#fff'}
+            />
+          </TouchableOpacity>
           <View style={styles.content}>
             <Text style={styles.nameProduct}>{product?.name}</Text>
             {/* <View style={styles.iconHeart}>
@@ -179,7 +237,9 @@ const DetailScreen = ({navigation, route}) => {
           </View> */}
             <View style={styles.subInfo}>
               <Text style={styles.price}>
-                {formatter.format(product.type[0]?.price.$numberDecimal)}
+                {size == 'M'
+                  ? formatter.format(product.type[0]?.price.$numberDecimal)
+                  : formatter.format(product.type[1]?.price.$numberDecimal)}
               </Text>
               <View style={styles.quantity}>
                 <DecreaseButton action={countSubClick} />
@@ -187,7 +247,46 @@ const DetailScreen = ({navigation, route}) => {
                 <IncreaseButton action={countPlusClick} />
               </View>
             </View>
+            <View style={styles.type}>
+              <TouchableOpacity
+                onPress={() => setSize('M')}
+                style={{
+                  width: 50,
+                  height: 30,
+                  backgroundColor: '#e2e2e2',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 5,
+                }}>
+                <Text
+                  style={{
+                    color: size == 'M' ? '#FE724C' : 'white',
+                    ...styles.itemType,
+                  }}>
+                  M
+                </Text>
+              </TouchableOpacity>
 
+              <TouchableOpacity
+                onPress={() => setSize('L')}
+                style={{
+                  width: 50,
+                  height: 30,
+                  backgroundColor: '#e2e2e2',
+                  marginLeft: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 5,
+                }}>
+                <Text
+                  style={{
+                    color: size == 'L' ? '#FE724C' : 'white',
+                    ...styles.itemType,
+                  }}>
+                  L
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.description}>
               <Text style={styles.descText}>{product?.description}</Text>
             </View>
@@ -231,40 +330,49 @@ const DetailScreen = ({navigation, route}) => {
 
             <View style={{marginTop: 20}}>
               <Text style={styles.titleItem}>Reviews</Text>
-              <View style={styles.review}>
-                <View style={styles.infoUser}>
-                  <View
-                    style={{
-                      position: 'relative',
-                      width: 50,
-                      height: 50,
-                    }}>
-                    <Image
-                      source={require('../../../assets/images/splash-screen.jpg')}
-                      style={{borderRadius: 50, width: 50, height: 50}}
-                    />
-                    <View style={styles.rating}>
-                      <Text style={styles.textRating}>4.5</Text>
+              {listReview.length > 0 ? (
+                listReview?.map((item, index) => {
+                  return (
+                    <View style={styles.review} key={index}>
+                      <View style={styles.infoUser}>
+                        <View
+                          style={{
+                            position: 'relative',
+                            width: 50,
+                            height: 50,
+                          }}>
+                          <Image
+                            source={require('../../../assets/images/splash-screen.jpg')}
+                            style={{borderRadius: 50, width: 50, height: 50}}
+                          />
+                          {/* <View style={styles.rating}>
+                          <Text style={styles.textRating}>4.5</Text>
+                        </View> */}
+                        </View>
+                        <View style={{marginLeft: 10}}>
+                          <Text style={styles.nameUser} numberOfLines={1}>
+                            {item?.userId?.fullname}
+                          </Text>
+                          <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.createDate}>
+                              {moment(item?.createdAt).format('MMMM D, YYYY')}
+                            </Text>
+
+                            <StarRating rating={item.rating} />
+                          </View>
+                        </View>
+                      </View>
+                      <View style={{marginTop: 10}}>
+                        <Text style={styles.contentReview} numberOfLines={5}>
+                          {item?.content}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  <View style={{marginLeft: 10}}>
-                    <Text style={styles.nameUser} numberOfLines={1}>
-                      Gonela Solom
-                    </Text>
-                    <Text style={styles.createDate}>22/06/2021</Text>
-                  </View>
-                </View>
-                <View style={{marginTop: 10}}>
-                  <Text style={styles.contentReview} numberOfLines={5}>
-                    Been a life saver for keeping our sanity during the
-                    pandemic, although they could improve some of their ui and
-                    how they handle specials as it often is unclear how to use
-                    them or everything is sold out so fast it feels a bit bait
-                    and switch. Still I'd be stir crazy and losing track of days
-                    without so...
-                  </Text>
-                </View>
-              </View>
+                  );
+                })
+              ) : (
+                <Text style={styles.descText}>No reviews</Text>
+              )}
             </View>
           </View>
         </ScrollView>

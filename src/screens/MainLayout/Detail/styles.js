@@ -14,8 +14,18 @@ const styles = StyleSheet.create({
   },
   iconHeart: {
     position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 18,
     right: 20,
-    top: 20,
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    padding: 7,
+    elevation: 30,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 30,
   },
   nameProduct: {
     fontFamily: 'Roboto-Bold',
@@ -44,6 +54,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     fontWeight: '600',
     paddingHorizontal: 10,
+  },
+  type: {
+    marginTop: 15,
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemType: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    fontWeight: '700',
   },
   description: {
     marginVertical: 25,
@@ -106,6 +127,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     color: COLORS.lightGray,
     // paddingTop: 10,
+  },
+  review: {
+    marginBottom: 20,
   },
   contentReview: {
     fontSize: 20,

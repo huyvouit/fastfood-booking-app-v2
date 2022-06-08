@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
   },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+    borderRadius: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+  },
   textInfo: {
     fontSize: 16,
     fontWeight: '500',
@@ -56,25 +64,25 @@ const styles = StyleSheet.create({
   },
 
   information: {
-    alignSelf: 'center',
+    alignItems: 'flex-start',
     flex: 1,
   },
 
   name_food: {
     color: '#323643',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 
   savour: {
     color: '#C0C0C0',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'normal',
   },
 
   cost: {
     color: '#FE724C',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 
@@ -87,10 +95,80 @@ const styles = StyleSheet.create({
     right: 0,
   },
 
+  // voucher
+  promoCode: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    // paddingHorizontal: 20,
+    // position: 'relative',
+    // top: -40,
+    marginTop: 20,
+  },
+
+  inputCode: {
+    borderRadius: 25,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 15,
+  },
+  close: {position: 'absolute', right: 100, zIndex: 10},
+
+  buttonApply: {
+    backgroundColor: '#FE724C',
+    justifyContent: 'center',
+    width: 80,
+    height: 40,
+    borderRadius: 25,
+    position: 'absolute',
+    right: 10,
+  },
+
   buttonText: {
     color: '#fff',
     textAlign: 'center',
   },
+
+  //modal voucher
+  items_voucher: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#aaaaaa',
+    width: '100%',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  img_vouchers: {
+    backgroundColor: '#FE724C',
+    width: 100,
+    height: 80,
+    borderRadius: 10,
+    marginHorizontal: 8,
+    marginVertical: 8,
+  },
+  text_vouchers: {
+    margin: 10,
+  },
+  text_vouchers_id: {
+    fontSize: 16,
+    color: '#000000',
+    fontWeight: '600',
+    fontFamily: 'Roboto-Bold',
+  },
+  text_vouchers_per: {
+    fontSize: 16,
+    fontWeight: '400',
+    fontFamily: 'Roboto-Regular',
+  },
+  text_vouchers_date: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'Roboto-Regular',
+  },
+  //shipping
   fees: {
     marginTop: 20,
     backgroundColor: '#f5f5f5',
@@ -182,6 +260,48 @@ const styles = StyleSheet.create({
   },
   zalopayText: {
     textAlign: 'center',
+    color: '#FE724C',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
+  },
+
+  //modal
+  modalView: {
+    margin: 0,
+    width: '90%',
+    height: '70%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    alignSelf: 'center',
+    width: 100,
+  },
+
+  buttonClose: {
+    backgroundColor: '#FE724C',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 20,
     color: '#FE724C',
     fontFamily: 'Roboto-Regular',
     fontWeight: '700',

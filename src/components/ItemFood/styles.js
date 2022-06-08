@@ -15,7 +15,21 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 15,
   },
-
+  iconHeart: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 18,
+    right: 20,
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    padding: 7,
+    elevation: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 30,
+  },
   costView: {
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -80,8 +94,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     // backgroundColor: 'red',
   },
-
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  type: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemType: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    fontWeight: '700',
+  },
   foodNameText: {
+    // marginRight: 100,
+    width: 230,
     color: '#323643',
     fontWeight: 'bold',
     fontSize: 20,

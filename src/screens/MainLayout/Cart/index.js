@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
 
 import Icons from 'assets/icons';
-import pizza from '../../../assets/images/Pizza.png';
-import salad from '../../../assets/images/Greek_salad.png';
 
 import styles from './styles';
 import IncreaseButton from 'components/IncreaseButton';
@@ -20,6 +19,7 @@ import DecreaseButton from 'components/DecreaseButton';
 import cartApi from 'api/cart_api';
 import {AuthContext} from 'contexts/AuthProvider';
 import {formatter} from 'helper/formatter';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 const CartScreen = ({navigation}) => {
   const {account, cart, setCart} = useContext(AuthContext);
@@ -33,7 +33,7 @@ const CartScreen = ({navigation}) => {
       const params = {
         currentPage: 1,
         productPerPage: 10,
-        uid: account?._id,
+        userId: account?._id,
       };
 
       const response = await cartApi.getByUser(params);
@@ -48,22 +48,106 @@ const CartScreen = ({navigation}) => {
   };
 
   const calculateSubTotal = cartList => {
-    console.log('run calculate');
     let subTotal = 0;
-    for (let i = 0; i < cartList; i++) {
-      console.log(i.productId?.type[0]?.price.$numberDecimal);
-      subTotal += i.productId?.type[0]?.price.$numberDecimal;
+    for (let i = 0; i < cartList?.length; i++) {
+      subTotal = subTotal + Number(cartList[i]?.price);
     }
     return subTotal;
   };
+
+  const handleChangeQuantity = async (item, quantity) => {
+    // console.log(item?.type[0]?.price.$numberDecimal);
+    try {
+      const body = {
+        cartId: item?._id,
+        quantity,
+        price:
+          item?.size == 'M'
+            ? quantity * item?.productId?.type[0]?.price.$numberDecimal
+            : quantity * item?.productId?.type[1]?.price.$numberDecimal,
+      };
+
+      const result = await cartApi.updateItemCart(body);
+
+      if (result.data.success) {
+        fetchCartList();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleRemoveItemCart = async cartId => {
+    try {
+      const body = {
+        cartId,
+        currentPage: 1,
+        productPerPage: 10,
+      };
+      console.log(body);
+      const result = await cartApi.removeItemInCart(body);
+      // console.log(result.data.);
+      if (result.data.success) {
+        setCartList(result.data.data.data);
+        setSubTotal(calculateSubTotal(result.data.data.data));
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteCart = async () => {
+    try {
+      const result = await cartApi.deleteCart();
+      // console.log(result.data.);
+      if (result.data.success) {
+        fetchCartList();
+        showToastWithGravityAndOffset(result.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+  const onRefresh = async () => {
+    await fetchCartList();
+  };
   useEffect(() => {
     fetchCartList();
-  }, [account, cart]);
+  }, [cart]);
 
   return cartList?.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <ScrollView style={styles.textWrapper(cartList?.length)}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'Roboto-Regular',
+              color: '#000',
+            }}>{`${cartList?.length} item(s)`}</Text>
+          <TouchableOpacity activeOpacity={0.7}>
+            <Text
+              onPress={handleDeleteCart}
+              style={{
+                fontSize: 16,
+                fontFamily: 'Roboto-Regular',
+                color: '#FE724C',
+              }}>
+              Clear all
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView
+          style={styles.textWrapper(cartList?.length)}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }>
           <View>
             {cartList.map((item, index) => {
               return (
@@ -83,33 +167,67 @@ const CartScreen = ({navigation}) => {
                     <Text style={styles.name_food} numberOfLines={1}>
                       {item.productId?.name}
                     </Text>
-                    <Text style={styles.savour} numberOfLines={1}>
-                      {item.productId?.description}
-                    </Text>
+
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'center',
+                        // justifyContent: 'center',
                         alignItems: 'center',
                       }}>
                       <Text style={styles.cost}>
-                        {formatter.format(
-                          item.productId?.type[0]?.price.$numberDecimal,
-                        )}
+                        {item?.size == 'M'
+                          ? formatter.format(
+                              item.productId?.type[0]?.price.$numberDecimal,
+                            )
+                          : formatter.format(
+                              item.productId?.type[1]?.price.$numberDecimal,
+                            )}
                       </Text>
-                      <Text style={styles.quantity}> X {item.quantity}</Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        // backgroundColor: 'red',
+                      }}>
+                      <View
+                        style={{
+                          width: 50,
+                          height: 30,
+                          backgroundColor: '#f4f4f4',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          borderRadius: 5,
+                          // flex: 1,
+                        }}>
+                        <Text
+                          style={{
+                            color: '#FE724C',
+                            ...styles.itemType,
+                          }}>
+                          {item?.size}
+                        </Text>
+                      </View>
+                      <View style={styles.quantityView}>
+                        <DecreaseButton
+                          action={() => handleChangeQuantity(item, -1)}
+                        />
+                        <Text style={styles.quantityItem}>
+                          {item?.quantity}
+                        </Text>
+                        <IncreaseButton
+                          action={() => handleChangeQuantity(item, 1)}
+                        />
+                      </View>
                     </View>
                   </View>
 
-                  <TouchableOpacity style={styles.close}>
+                  <TouchableOpacity
+                    style={styles.close}
+                    onPress={() => handleRemoveItemCart(item._id)}>
                     <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
                   </TouchableOpacity>
-                  {/* <View style={styles.modify}>
-                    <DecreaseButton action={() => {}} />
-                    <Text style={styles.quantity}>{item.quantity}</Text>
-
-                    <IncreaseButton action={() => {}} />
-                  </View> */}
                 </View>
               );
             })}
@@ -117,24 +235,15 @@ const CartScreen = ({navigation}) => {
         </ScrollView>
       </View>
 
-      {/* <View style={styles.promoCode}>
-        <TextInput
-          style={styles.inputCode}
-          placeholder="Promo Code"
-          placeholderTextColor="#C0C0C0"
-        />
-        <TouchableOpacity style={styles.buttonApply}>
-          <Text style={styles.buttonText}>Apply</Text>
-        </TouchableOpacity>
-      </View> */}
-
       <View style={{backgroundColor: 'white'}}>
         <View style={styles.fees}>
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Subtotal</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>{subTotal}</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>
+                {formatter.format(subTotal)}
+              </Text>
+              {/* <Text style={styles.unit}>USD</Text> */}
             </View>
           </View>
           {/* <View
@@ -142,24 +251,23 @@ const CartScreen = ({navigation}) => {
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Tax and Fees</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$5.30</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}> {formatter.format(0)}</Text>
             </View>
           </View>
 
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Delivery</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$1.00</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>{formatter.format(0)}</Text>
             </View>
           </View>
 
           <View style={styles.cost_info}>
             <Text style={styles.kind_of_fee}>Total</Text>
             <View style={styles.money}>
-              <Text style={styles.cost_of_fee}>$33.60</Text>
-              <Text style={styles.unit}>USD</Text>
+              <Text style={styles.cost_of_fee}>
+                {formatter.format(subTotal)}
+              </Text>
             </View>
           </View>
         </View>
@@ -168,7 +276,12 @@ const CartScreen = ({navigation}) => {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.buttonCheck}
-          onPress={() => navigation.navigate('CheckoutScreen')}>
+          onPress={() =>
+            navigation.navigate('CheckoutScreen', {
+              cartList,
+              subTotal,
+            })
+          }>
           <Text style={styles.buttonText}>CHECKOUT</Text>
         </TouchableOpacity>
       </View>

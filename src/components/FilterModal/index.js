@@ -367,6 +367,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                     size: convertSize(0),
                     rating: -1,
                   });
+                  setShowFilterModal(false);
                 }}
                 style={{
                   marginTop: 15,

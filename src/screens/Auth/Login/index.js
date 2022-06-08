@@ -16,6 +16,8 @@ import Images from 'assets/images';
 import {AuthContext} from 'contexts/AuthProvider';
 
 import styles from './styles';
+import Loading from 'screens/Loading';
+import {showToastWithGravityAndOffset} from 'helper/toast';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -97,7 +99,22 @@ const GreenComponent = ({navigation, redirect}) => {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const {login, googleLogin, user} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
+  const handleSunbmitLogin = async () => {
+    setLoading(true);
+    const res = await login(email, password);
+
+    if (res?.success) {
+      console.log(res.message);
+      showToastWithGravityAndOffset(res.message);
+      setLoading(false);
+    } else {
+      console.log(res.message);
+      showToastWithGravityAndOffset(res.message);
+      setLoading(false);
+    }
+  };
   return (
     <View style={styles.gr1}>
       {/* Login */}
@@ -149,14 +166,8 @@ const GreenComponent = ({navigation, redirect}) => {
         </TouchableOpacity>
       </View>
       {/* Button Login */}
-      <TouchableOpacity
-        style={styles.gr13}
-        onPress={() => {
-          console.log('click login');
-          login(email, password);
-          // redirect.replace('Drawer');
-        }}>
-        <Text style={styles.gr14}>LOGIN</Text>
+      <TouchableOpacity style={styles.gr13} onPress={handleSunbmitLogin}>
+        <Text style={styles.gr14}>{loading ? <Loading /> : 'LOGIN'}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -168,7 +179,22 @@ const RegisterComponent = ({redirect}) => {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const {user, register} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
+  const handleSunbmitRegister = async () => {
+    setLoading(true);
+    const res = await register(fullname, email, password);
+
+    if (res?.success) {
+      console.log(res.message);
+      showToastWithGravityAndOffset(res.message);
+      setLoading(false);
+    } else {
+      console.log(res.message);
+      showToastWithGravityAndOffset(res.message);
+      setLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.gr1}>
       {/* Login */}
@@ -228,13 +254,8 @@ const RegisterComponent = ({redirect}) => {
         </TouchableOpacity>
       </View>
       {/* Button SIGN UP */}
-      <TouchableOpacity
-        style={styles.gr13}
-        onPress={() => {
-          register(fullname, email, password);
-          // redirect.replace('Drawer');
-        }}>
-        <Text style={styles.gr14}>SIGN UP</Text>
+      <TouchableOpacity style={styles.gr13} onPress={handleSunbmitRegister}>
+        <Text style={styles.gr14}>{loading ? <Loading /> : 'SIGN UP'}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

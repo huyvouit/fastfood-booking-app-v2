@@ -20,10 +20,10 @@ const CommonStackScreen = props => {
     props;
   return (
     <CommonStack.Navigator
-      initialRouteName="MainLayout"
+      initialRouteName="MainlayoutScreen"
       screenOptions={{headerShown: false}}>
       <CommonStack.Screen
-        name="Mainlayout"
+        name="MainlayoutScreen"
         options={{
           animationEnabled: false,
         }}>
@@ -48,7 +48,10 @@ const CommonStackScreen = props => {
         name="NewAddressScreen"
         component={NewAddressScreen}
       />
-      <CommonStack.Screen name='OrderSuccessfulScreen' component={OrderSuccessfulScreen}/>
+      <CommonStack.Screen
+        name="OrderSuccessfulScreen"
+        component={OrderSuccessfulScreen}
+      />
       <CommonStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     </CommonStack.Navigator>
   );

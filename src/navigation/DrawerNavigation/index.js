@@ -183,11 +183,9 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
             label="Logout"
             icon={Icons.IconLogout}
             onPress={async () => {
-              // dispatch(setSelectedTab('Contact'));
               logout();
               setAccount(null);
-              await AsyncStorage.clear();
-              // redirect.replace('Login');
+              await AsyncStorage.removeItem('TOKEN_USER');
             }}
           />
         </View>
@@ -350,19 +348,3 @@ export const DrawerScreen = ({redirect}) => {
     </View>
   );
 };
-
-// function mapStateToProps(state) {
-//   return {
-//     selectedTab: state.tabReducer.selectedTab,
-//   };
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     setSelectedTab: selectedTab => {
-//       return dispatch(setSelectedTab(selectedTab));
-//     },
-//   };
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(DrawerScreen);

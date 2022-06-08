@@ -12,6 +12,9 @@ import store from './src/redux/store';
 import {DrawerScreen} from 'navigation/DrawerNavigation';
 import AuthStackScreen from 'navigation/AuthNavigation';
 import userApi from 'api/user_api';
+import Loading from 'screens/Loading';
+import SplashScreen from 'screens/Splash';
+import favoriteApi from 'api/favorite_api';
 
 const Providers = () => {
   return (
@@ -24,26 +27,36 @@ const Providers = () => {
 };
 
 const Routes = () => {
-  const {user, setUser, account, setAccount} = useContext(AuthContext);
+  const {
+    user,
+    setUser,
+    account,
+    setAccount,
+    setFavorite,
+    fetchListFavorite,
+    fetchUserInfo,
+  } = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
-  const fetchUserInfo = async () => {
-    try {
-      const response = await userApi.getUserInfo();
-      // console.log('getUSER:', response.data.data);
-      setAccount(response.data.data);
-    } catch (error) {
-      console.log('Failed to fetch user: ', error);
-    }
-  };
+  // const fetchListFavorite = async () => {
+  //   try {
+  //     const response = await favoriteApi.getListIdFavorite();
+
+  //     setFavorite(response.data.data);
+  //   } catch (error) {
+  //     console.log('Failed to fetch list favorite: ', error.response.data);
+  //   }
+  // };
 
   const onAuthStateChanged = user => {
-    console.log(user);
     if (user?.uid) {
-      fetchUserInfo(user.uid);
+      fetchUserInfo();
+      fetchListFavorite();
     }
     setUser(user);
-    if (initializing) setInitializing(false);
+    setTimeout(() => {
+      if (initializing) setInitializing(false);
+    }, 4000);
   };
 
   useEffect(() => {
@@ -51,14 +64,19 @@ const Routes = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (initializing) return null;
-  // console.log(user, account);
   return (
     <NavigationContainer>
-      {user && account ? <DrawerScreen /> : <AuthStackScreen />}
+      {initializing ? (
+        <SplashScreen />
+      ) : user && account ? (
+        <DrawerScreen />
+      ) : (
+        <AuthStackScreen />
+      )}
     </NavigationContainer>
   );
 };
+
 const App = () => {
   return <Providers />;
 };
