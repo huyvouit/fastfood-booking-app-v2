@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {COLORS} from '../../../constants';
 const styles = StyleSheet.create({
   container: {
@@ -22,34 +22,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textCenter: {
-    // justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     // flex: 1,
     // marginTop: 30,
     // paddingBottom: 30,
+    // backgroundColor: 'red',
     width: '100%',
-
+    height: Dimensions.get('window').height / 2.3,
     position: 'relative',
-    top: -30,
+    top: -50,
   },
   nameProduct: {
     fontSize: 22,
     fontWeight: '700',
     fontFamily: 'Roboto-Bold',
     letterSpacing: 1.4,
-    paddingBottom: 20,
+    // paddingBottom: 20,
     // position: 'relative',
     // top: -50,
-  },
-  desc: {
-    fontSize: 17,
-    fontWeight: '500',
-    fontFamily: 'Roboto-Regular',
-    letterSpacing: 1.1,
-    paddingBottom: 30,
-    // position: 'relative',
-    // top: -50,
-    color: '#9796A1',
   },
 
   info: {
@@ -57,6 +48,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontFamily: 'Roboto-Bold',
     letterSpacing: 1.1,
+    marginTop: 20,
     paddingBottom: 15,
     // position: 'relative',
     // top: -30,
@@ -70,11 +62,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Roboto-Regular',
     width: '100%',
-    height: 150,
+    // height: 150,
     padding: 20,
     // position: 'relative',
     // top: -30,
-    outlineColor: '#9796A1',
+    // outlineColor: '#9796A1',
   },
 });
 

@@ -376,13 +376,16 @@ const MyOrderScreen = ({navigation}) => {
                     </View>
 
                     <View style={styles.part_4}>
-                      {tabSelected != 1 && (
-                        <TouchableOpacity style={styles.buttonActionLeft}>
-                          <Text style={styles.buttonActionLeftText}>
-                            Cancel
-                          </Text>
-                        </TouchableOpacity>
-                      )}
+                      <TouchableOpacity
+                        style={styles.buttonActionLeft}
+                        onPress={() =>
+                          navigation.navigate('ReviewScreen', {
+                            firstItem: item?.products[0],
+                          })
+                        }>
+                        <Text style={styles.buttonActionLeftText}>Review</Text>
+                      </TouchableOpacity>
+
                       <TouchableOpacity
                         style={styles.buttonActionRight}
                         onPress={() => handleViewDetail(item)}>

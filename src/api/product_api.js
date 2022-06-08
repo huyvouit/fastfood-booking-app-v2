@@ -24,6 +24,10 @@ const productApi = {
     const url = `/review`;
     return axiosClient.get(url, {params});
   },
+  postReview: body => {
+    const url = `/review/add`;
+    return axiosClient.post(url, body);
+  },
 };
 
 export default productApi;
