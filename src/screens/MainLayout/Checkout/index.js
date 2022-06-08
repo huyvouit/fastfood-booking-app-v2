@@ -9,9 +9,9 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
-import HeaderPage from '../../../components/Header';
+import HeaderPage from 'components/Header';
 
-import Logo from '../../../assets/images/logo.png';
+import Logo from 'assets/images/logo.png';
 import {SvgXml} from 'react-native-svg';
 
 import {formatter} from 'helper/formatter';
@@ -24,6 +24,7 @@ import voucherApi from 'api/voucher_api';
 import moment from 'moment';
 import {showToastWithGravityAndOffset} from 'helper/toast';
 import Icons from 'assets/icons';
+import orderApi from 'api/order_api';
 const ModalAddress = ({isAddress, setIsAddress}) => {
   const [listAddress, setListAddress] = useState(null);
   const {account, fetchUserInfo} = useContext(AuthContext);
@@ -209,16 +210,30 @@ const CheckoutScreen = ({navigation, route}) => {
     discountPercent: 0,
   });
   console.log(codeVoucher);
-  const handleSubmitOrder = () => {
+  const handleSubmitOrder = async () => {
+    let temp = [...cartList];
+
     try {
-      const params = {
-        userInfo: account?._id,
-        address: ' 897 Nguyen Hue, ward 15, district 1, Thu Duc City',
-        phone: '0123456789',
-        totalCost: subTotal,
+      [...cartList].map((item, index) => {
+        temp[index].productId = item.productId._id;
+      });
+
+      const body = {
+        userInfo,
+        products: temp,
+        totalCost: subTotal - subTotal * codeVoucher.discountPercent,
+        voucherApply: codeVoucher._id,
       };
+      console.log(body);
+      const res = await orderApi.addOrder(body);
+      if (res.data.success) {
+        showToastWithGravityAndOffset(res.data.message);
+        navigation.reset({
+          routes: [{name: 'OrderSuccessfulScreen'}],
+        });
+      }
     } catch (error) {
-      console.log('Failed to fetch cart list: ', error);
+      console.log('Failed to create order failed: ', error);
     }
   };
 
@@ -505,7 +520,9 @@ const CheckoutScreen = ({navigation, route}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() => navigation.navigate('OrderSuccessfulScreen')}>
+              onPress={() => {
+                handleSubmitOrder();
+              }}>
               <Text style={styles.textBtn}>ORDER</Text>
             </TouchableOpacity>
           </View>

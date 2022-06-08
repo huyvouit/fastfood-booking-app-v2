@@ -12,8 +12,6 @@ import {
 import {SvgXml} from 'react-native-svg';
 
 import Icons from 'assets/icons';
-import pizza from '../../../assets/images/Pizza.png';
-import salad from '../../../assets/images/Greek_salad.png';
 
 import styles from './styles';
 import IncreaseButton from 'components/IncreaseButton';
