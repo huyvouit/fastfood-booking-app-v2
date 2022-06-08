@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
 
   content: {
     // paddingHorizontal: 15,
+    height: 570,
   },
 
   textWrapper: {
@@ -46,35 +47,24 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 25,
     borderColor: '#C0C0C0',
+    overflow: 'hidden',
+    padding: 5,
+    marginBottom: 15,
   },
 
-  tabUpcoming: {
-    backgroundColor: '#FE724C',
+  tabUpcoming: (index, id) => ({
+    backgroundColor: index == id ? '#FE724C' : '#fff',
     justifyContent: 'center',
     borderRadius: 25,
     height: 40,
-    width: '47%',
-  },
+    width: '33%',
+  }),
 
-  tabHistory: {
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    borderRadius: 25,
-    height: 40,
-    width: '47%',
-  },
-
-  tabUpcomingText: {
-    color: '#fff',
+  tabUpcomingText: (index, id) => ({
+    color: index == id ? '#fff' : '#FE724C',
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-
-  tabHistoryText: {
-    color: '#FE724C',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
+  }),
 
   presentOrder: {
     // top: 20,
@@ -89,39 +79,35 @@ const styles = StyleSheet.create({
   part_1: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // backgroundColor: 'red',
-    // marginTop: 5,
-    // flex: 1,
-    // width: '100%',
+    alignItems: 'center',
+
     marginBottom: 10,
   },
 
-  image: {
-    top: 5,
-    height: 50,
-    width: 50,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-  },
-
   info: {
-    left: 20,
+    // left: 20,
+    // backgroundColor: 'yellow',
   },
+  infoRight: {},
 
   numberItem: {
     color: '#C0C0C0',
     fontWeight: 'bold',
+    fontSize: 16,
   },
 
   brand: {
-    top: 5,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#323643',
+
+    textAlign: 'right',
   },
 
   code: {
     // marginTop: 10,
     // left: 170,
+    fontSize: 18,
+    textAlign: 'right',
     color: '#FE724C',
   },
 
@@ -181,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     height: 40,
-    width: '41%',
+    width: 100,
     justifyContent: 'center',
   },
 
@@ -195,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FE724C',
     borderRadius: 20,
     height: 40,
-    width: '41%',
+    width: 100,
     justifyContent: 'center',
   },
 
@@ -234,6 +220,77 @@ const styles = StyleSheet.create({
   pastStatus: {
     marginTop: 10,
     color: '#00FF7F',
+  },
+
+  //modal
+  modalView: {
+    margin: 0,
+    width: '90%',
+    height: '70%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    alignSelf: 'center',
+    width: 100,
+  },
+
+  buttonClose: {
+    backgroundColor: '#FE724C',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 20,
+    color: '#FE724C',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
+  },
+
+  foods: {
+    flexDirection: 'row',
+
+    marginBottom: 20,
+  },
+
+  information: {
+    alignItems: 'flex-start',
+    flex: 1,
+  },
+
+  name_food: {
+    color: '#323643',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
+  savour: {
+    color: '#C0C0C0',
+    fontSize: 16,
+    fontWeight: 'normal',
+  },
+
+  cost: {
+    color: '#FE724C',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

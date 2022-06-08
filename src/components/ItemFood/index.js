@@ -20,7 +20,7 @@ const ItemFood = props => {
       const body = {productId};
 
       const result = await favoriteApi.addFavorite(body);
-      console.log(result.data);
+
       if (result.data.success) {
         fetchListFavorite();
         showToastWithGravityAndOffset(result.data.message);

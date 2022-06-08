@@ -224,7 +224,7 @@ const CheckoutScreen = ({navigation, route}) => {
         totalCost: subTotal - subTotal * codeVoucher.discountPercent,
         voucherApply: codeVoucher._id,
       };
-      console.log(body);
+
       const res = await orderApi.addOrder(body);
       if (res.data.success) {
         showToastWithGravityAndOffset(res.data.message);
