@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Modal,
+  Pressable,
 } from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import Icons from '../../../assets/icons';
@@ -24,14 +26,87 @@ import Images from 'assets/images';
 import SelectDropdown from 'react-native-select-dropdown';
 import {LIST_SHORTING} from 'constants/constants';
 import {AuthContext} from 'contexts/AuthProvider';
+import userApi from 'api/user_api';
 
+const ModalAddress = ({modalVisible, setModalVisible}) => {
+  const [listAddress, setListAddress] = useState(null);
+  const {account} = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const params = {
+          userId: account?._id,
+          currentPage: 1,
+          addressPerPage: 5,
+        };
+
+        const res = await userApi.getAllAddress(params);
+
+        if (res.data.success) {
+          setListAddress(res.data.data);
+        }
+      } catch (error) {
+        console.log('error to get address list', error);
+      }
+    })();
+  }, []);
+
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        setModalVisible(!modalVisible);
+      }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+        }}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Select shipping address?</Text>
+          <ScrollView>
+            {listAddress?.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={{marginBottom: 10, ...styles.info}}>
+                  <Text style={styles.textInfo}>{item?.username}</Text>
+                  <Text style={styles.textInfo}>{item?.phone}</Text>
+                  <Text
+                    style={
+                      styles.textInfo
+                    }>{`${item?.address.number}, ${item?.address?.street}, ${item?.address?.ward}, ${item?.address?.district}, ${item?.address?.province}`}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.textStyle}>Hide Modal</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 const CheckoutScreen = ({navigation, route}) => {
   const {cartList, subTotal} = route.params;
   const {account} = useContext(AuthContext);
   const [isChange, setIsChange] = React.useState(false);
   const [payment, setPayment] = React.useState('COD');
   const [convertCart, setConvertCart] = React.useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [formAddress, setFormAddress] = useState({
+    username: '',
+    phone: '',
+    address: '',
+  });
   const handleSubmitOrder = () => {
     try {
       const params = {
@@ -62,7 +137,7 @@ const CheckoutScreen = ({navigation, route}) => {
     });
     setConvertCart(newArr);
   };
-  console.log(convertCart);
+
   useEffect(() => {
     convertCartList();
   }, []);
@@ -83,41 +158,45 @@ const CheckoutScreen = ({navigation, route}) => {
                 <Text style={styles.textAction}>Save</Text>
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity activeOpacity={0.8} onPress={() => {}}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setModalVisible(true)}>
                 <Text style={styles.textAction}>Change</Text>
               </TouchableOpacity>
             )}
           </View>
-
-          {isChange ? (
-            <View style={styles.info}>
-              <TextInput
-                style={styles.textInput}
-                placeholder="Full name"
-                value="Nguyen Van A"
-              />
-              <View style={{}}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Full name"
-                  value={account?.fullname}
-                />
-              </View>
-              <View style={{}}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Full name"
-                  value="Address"
-                />
-              </View>
-            </View>
-          ) : (
+          <ModalAddress
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+          />
+          {account.defaultAddress ? (
             <View style={styles.info}>
               <Text style={styles.textInfo}>{account?.fullname}</Text>
               <Text style={styles.textInfo}>0123456789</Text>
               <Text style={styles.textInfo}>
                 897 Nguyen Hue, ward 15, district 1, Thu Duc City
               </Text>
+            </View>
+          ) : (
+            <View style={styles.info}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Full name"
+                value={account?.fullname}
+              />
+              <View style={{}}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Phone number"
+                  value={account?.phone}
+                />
+              </View>
+              <View style={{}}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Shipping address"
+                />
+              </View>
             </View>
           )}
         </View>
@@ -260,7 +339,6 @@ const CheckoutScreen = ({navigation, route}) => {
                 <Text style={styles.cost_of_fee}>
                   {formatter.format(subTotal)}
                 </Text>
-                {/* <Text style={styles.unit}>USD</Text> */}
               </View>
             </View>
 

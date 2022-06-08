@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
   },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#C0C0C0',
+    borderRadius: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+  },
   textInfo: {
     fontSize: 16,
     fontWeight: '500',
@@ -182,6 +190,48 @@ const styles = StyleSheet.create({
   },
   zalopayText: {
     textAlign: 'center',
+    color: '#FE724C',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '700',
+  },
+
+  //modal
+  modalView: {
+    margin: 0,
+    width: '90%',
+    height: '70%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize: 20,
     color: '#FE724C',
     fontFamily: 'Roboto-Regular',
     fontWeight: '700',
