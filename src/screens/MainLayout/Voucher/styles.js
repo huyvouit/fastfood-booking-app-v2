@@ -3,9 +3,9 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
-  
+
   title: {
     flexDirection: 'row',
     paddingTop: 30,
@@ -54,45 +54,45 @@ const styles = StyleSheet.create({
     color: '#FE724C',
     textAlign: 'center',
   },
-  vouchers:{
-    flexDirection: "column",
+  vouchers: {
+    flexDirection: 'column',
     marginHorizontal: 15,
     marginVertical: 15,
     marginTop: 20,
   },
-  items:{
-    flexDirection: "row",
-    backgroundColor: "#fff",
+  items: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: "#aaaaaa",
-    width: "100%",
+    borderColor: '#aaaaaa',
+    width: '100%',
     borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 20,
   },
-  img_vouchers:{
-    backgroundColor: "#FE724C",
+  img_vouchers: {
+    backgroundColor: '#FE724C',
     width: 100,
-    height: 100,
+    height: 80,
     borderRadius: 10,
     marginHorizontal: 8,
     marginVertical: 8,
-    
   },
-  text_vouchers:{
+  text_vouchers: {
     margin: 10,
   },
-  text_vouchers_id:{
+  text_vouchers_id: {
     fontSize: 16,
-    color: "#000000",
-    fontWeight: "400",
+    color: '#000000',
+    fontWeight: '600',
+    fontFamily: 'Roboto-Bold',
   },
-  text_vouchers_per:{
+  text_vouchers_per: {
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: '400',
   },
-  text_vouchers_date:{
+  text_vouchers_date: {
     fontSize: 14,
-    fontWeight: "400",
+    fontWeight: '400',
   },
 });
 
