@@ -105,9 +105,9 @@ const styles = StyleSheet.create({
   },
 
   Label: {
-    color: '#A9A9A9',
+    color: '#000',
     fontSize: 16,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto-Bold',
     marginBottom: 10,
     paddingStart: 10,
   },
