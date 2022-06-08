@@ -163,11 +163,22 @@ const ModalVoucher = ({isVoucher, setIsVoucher, setCodeVoucher}) => {
             {listVoucher?.map((item, index) => {
               return (
                 <TouchableOpacity
-                  style={styles.items_voucher}
+                  style={{
+                    ...styles.items_voucher,
+                    opacity: item?.quantity > 0 ? 1 : 0.4,
+                  }}
                   key={index}
-                  onPress={() => {
-                    handleApplyVoucher(item);
-                  }}>
+                  onPress={
+                    item?.quantity > 0
+                      ? () => {
+                          handleApplyVoucher(item);
+                        }
+                      : () => {
+                          showToastWithGravityAndOffset(
+                            'Voucher is out of quantity',
+                          );
+                        }
+                  }>
                   <Image style={styles.img_vouchers} source={Logo} />
                   <View style={styles.text_vouchers}>
                     <Text style={styles.text_vouchers_id}>{item?.code}</Text>
