@@ -47,7 +47,7 @@ const Routes = () => {
   //     console.log('Failed to fetch list favorite: ', error.response.data);
   //   }
   // };
-
+  console.log(account);
   const onAuthStateChanged = user => {
     if (user?.uid) {
       fetchUserInfo();
