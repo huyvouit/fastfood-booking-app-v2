@@ -156,7 +156,10 @@ const NewAddressScreen = ({navigation}) => {
     <ScrollView style={styles.container}>
       <View style={styles.title}>
         <HeaderPage
-          returnPage={() => navigation.openDrawer()}
+          returnPage={() => {
+            navigation.goBack();
+            dispatch(setSelectedTab('Home'));
+          }}
           title="New Addres"
         />
       </View>

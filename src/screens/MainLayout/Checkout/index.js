@@ -215,12 +215,17 @@ const CheckoutScreen = ({navigation, route}) => {
   const [isAddress, setIsAddress] = useState(false);
   const [isVoucher, setIsVoucher] = useState(false);
   const [userInfo, setUserInfo] = useState(account?.defaultAddress);
-
+  const [formOrder, setFormOrder] = useState({
+    userId: account?._id,
+    username: account?.fullname,
+    phone: account?.phone,
+    addressText: null,
+  });
   const [codeVoucher, setCodeVoucher] = useState({
     code: '',
     discountPercent: 0,
   });
-  console.log(codeVoucher);
+
   const handleSubmitOrder = async () => {
     let temp = [...cartList];
 
@@ -228,14 +233,66 @@ const CheckoutScreen = ({navigation, route}) => {
       [...cartList].map((item, index) => {
         temp[index].productId = item.productId._id;
       });
+      let body;
+      if (codeVoucher?._id) {
+        body = {
+          userInfo,
+          products: temp,
+          totalCost: subTotal - subTotal * codeVoucher.discountPercent,
+          voucherApply: codeVoucher._id,
+        };
+      } else {
+        body = {
+          userInfo,
+          products: temp,
+          totalCost: subTotal - subTotal * codeVoucher.discountPercent,
+        };
+      }
 
-      const body = {
-        userInfo,
-        products: temp,
-        totalCost: subTotal - subTotal * codeVoucher.discountPercent,
-        voucherApply: codeVoucher._id,
-      };
+      const res = await orderApi.addOrder(body);
+      if (res.data.success) {
+        showToastWithGravityAndOffset(res.data.message);
+        navigation.reset({
+          routes: [{name: 'OrderSuccessfulScreen'}],
+        });
+      }
+    } catch (error) {
+      console.log('Failed to create order failed: ', error);
+    }
+  };
+  const handleSubmitOrderV2 = async () => {
+    let temp = [...cartList];
 
+    try {
+      [...cartList].map((item, index) => {
+        temp[index].productId = item.productId._id;
+      });
+      let body;
+      if (codeVoucher?._id) {
+        body = {
+          userInfo: {
+            userId: formOrder.userId,
+            username: formOrder.username,
+            phone: formOrder.phone,
+          },
+          addressText: formOrder.addressText || '',
+          products: temp,
+          totalCost: subTotal - subTotal * codeVoucher.discountPercent,
+          voucherApply: codeVoucher?._id || '',
+        };
+      } else {
+        body = {
+          userInfo: {
+            userId: formOrder.userId,
+            username: formOrder.username,
+            phone: formOrder.phone,
+          },
+          addressText: formOrder.addressText || '',
+          products: temp,
+          totalCost: subTotal - subTotal * codeVoucher.discountPercent,
+        };
+      }
+      console.log(body);
       const res = await orderApi.addOrder(body);
       if (res.data.success) {
         showToastWithGravityAndOffset(res.data.message);
@@ -312,7 +369,9 @@ const CheckoutScreen = ({navigation, route}) => {
               </TouchableOpacity>
             )}
           </View>
-          <ModalAddress isAddress={isAddress} setIsAddress={setIsAddress} />
+          {isAddress && (
+            <ModalAddress isAddress={isAddress} setIsAddress={setIsAddress} />
+          )}
           {account.defaultAddress ? (
             <View style={styles.info}>
               <Text style={styles.textInfo}>{userInfo?.username}</Text>
@@ -326,19 +385,30 @@ const CheckoutScreen = ({navigation, route}) => {
               <TextInput
                 style={styles.textInput}
                 placeholder="Full name"
-                value={account?.fullname}
+                value={formOrder.username}
+                onChangeText={text =>
+                  setFormOrder({...formOrder, username: text})
+                }
               />
               <View style={{}}>
                 <TextInput
                   style={styles.textInput}
                   placeholder="Phone number"
-                  value={account?.phone}
+                  keyboardType="numeric"
+                  value={formOrder.phone}
+                  onChangeText={text =>
+                    setFormOrder({...formOrder, phone: text})
+                  }
                 />
               </View>
               <View style={{}}>
                 <TextInput
                   style={styles.textInput}
                   placeholder="Shipping address"
+                  value={formOrder.addressText}
+                  onChangeText={text =>
+                    setFormOrder({...formOrder, addressText: text})
+                  }
                 />
               </View>
             </View>
@@ -532,7 +602,11 @@ const CheckoutScreen = ({navigation, route}) => {
                 alignItems: 'center',
               }}
               onPress={() => {
-                handleSubmitOrder();
+                if (formOrder.addressText) {
+                  handleSubmitOrderV2();
+                } else {
+                  handleSubmitOrder();
+                }
               }}>
               <Text style={styles.textBtn}>ORDER</Text>
             </TouchableOpacity>

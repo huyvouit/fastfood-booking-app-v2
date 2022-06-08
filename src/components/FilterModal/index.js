@@ -68,7 +68,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
         return 'All';
 
       case 1:
-        return 'Burger';
+        return 'Hamburger';
 
       case 2:
         return 'Pizza';
@@ -91,7 +91,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
       case 'All':
         return 0;
 
-      case 'Burger':
+      case 'Hamburger':
         return 1;
 
       case 'Pizza':
@@ -233,9 +233,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                 }}>
                 {CATEGORY.map((item, index) => {
                   return (
-                    <View
-                      key={index}
-                      style={{marginRight: 10, marginBottom: 5}}>
+                    <View key={index} style={{marginRight: 5, marginBottom: 5}}>
                       <ItemCategory
                         isActived={category}
                         type={item}

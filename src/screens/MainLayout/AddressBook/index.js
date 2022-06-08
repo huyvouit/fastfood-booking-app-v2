@@ -73,6 +73,7 @@ const AddressBookScreen = ({navigation}) => {
 
       if (res.data.success) {
         await fetchListAddress();
+        await fetchUserInfo();
         showToastWithGravityAndOffset(res.data.message);
         setIsLoading(false);
       }

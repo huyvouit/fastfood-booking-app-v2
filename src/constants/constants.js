@@ -52,7 +52,7 @@ export const CATEGORY = [
   },
   {
     id: 1,
-    category: 'Burger',
+    category: 'Hamburger',
     image: Images.Burger,
   },
   {

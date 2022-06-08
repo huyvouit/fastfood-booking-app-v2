@@ -60,10 +60,15 @@ const ModalDetail = ({isVisible, setIsVisible, item}) => {
             </Text>
             <Text>{item?.userInfo?.username}</Text>
             <Text>{item?.userInfo?.phone}</Text>
-            <Text
-              style={
-                styles.textInfo
-              }>{`${item?.userInfo?.address.number}, ${item?.userInfo?.address?.street}, ${item?.userInfo?.address?.ward}, ${item?.userInfo?.address?.district}, ${item?.userInfo?.address?.province}`}</Text>
+            {item?.userInfo?.address && (
+              <Text
+                style={
+                  styles.textInfo
+                }>{`${item?.userInfo?.address?.number}, ${item?.userInfo?.address?.street}, ${item?.userInfo?.address?.ward}, ${item?.userInfo?.address?.district}, ${item?.userInfo?.address?.province}`}</Text>
+            )}
+            {item?.addressText && (
+              <Text style={styles.textInfo}>{item?.addressText}</Text>
+            )}
             <Text
               style={{
                 ...styles.modalText,
