@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: '100%',
     justifyContent: 'center',
+    marginBottom: 10,
   },
 
   info: {
