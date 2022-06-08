@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     paddingTop: StatusBar.height,
-    paddingHorizontal: 20,
+    //
   },
 
   content: {
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
   },
 
   textWrapper: {
-    paddingTop: 30,
+    // paddingTop: 30,s
     paddingBottom: 30,
+    paddingHorizontal: 20,
   },
 
   title: {
     flexDirection: 'row',
-    paddingTop: 30,
   },
 
   back: {

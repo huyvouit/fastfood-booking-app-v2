@@ -46,10 +46,14 @@ const VoucherScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <TouchableOpacity style={{position: 'absolute', top: 0}}>
+        <HeaderPage
+          returnPage={() => navigation.openDrawer()}
+          title="Voucher"
+        />
+        {/* <TouchableOpacity style={{position: 'absolute', top: 0}}>
           <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Vouchers</Text>
+        <Text style={styles.titleText}>Vouchers</Text> */}
       </View>
       <Text
         style={{

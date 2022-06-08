@@ -17,7 +17,8 @@ import IconMenu from './menu.svg';
 import IconFilter from './filter.svg';
 import IconCamera from './camera.svg';
 import IconCash from './cash.svg';
-
+import IconOrder from './layers.svg';
+import IconVoucher from './smile.svg';
 
 import IconAddress from './address.svg';
 const Icons = {
@@ -41,6 +42,8 @@ const Icons = {
   IconAddress,
   IconCamera,
   IconCash,
+  IconVoucher,
+  IconOrder,
 };
 
 export default Icons;
