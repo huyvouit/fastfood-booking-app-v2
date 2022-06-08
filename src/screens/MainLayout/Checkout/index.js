@@ -6,31 +6,45 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  FlatList,
   Modal,
   Pressable,
 } from 'react-native';
-import Swiper from 'react-native-swiper/src';
-import Icons from '../../../assets/icons';
-
-import BackButton from '../../../components/BackButton';
-import DecreaseButton from '../../../components/DecreaseButton';
 import HeaderPage from '../../../components/Header';
-import IncreaseButton from '../../../components/IncreaseButton';
 
+import Logo from '../../../assets/images/logo.png';
 import {SvgXml} from 'react-native-svg';
-import ChevronLeft from '../../../assets/icons/chevron-left.svg';
+
 import {formatter} from 'helper/formatter';
 import styles from './styles';
 import Images from 'assets/images';
-import SelectDropdown from 'react-native-select-dropdown';
-import {LIST_SHORTING} from 'constants/constants';
+
 import {AuthContext} from 'contexts/AuthProvider';
 import userApi from 'api/user_api';
-
-const ModalAddress = ({modalVisible, setModalVisible}) => {
+import voucherApi from 'api/voucher_api';
+import moment from 'moment';
+import {showToastWithGravityAndOffset} from 'helper/toast';
+import Icons from 'assets/icons';
+const ModalAddress = ({isAddress, setIsAddress}) => {
   const [listAddress, setListAddress] = useState(null);
-  const {account} = useContext(AuthContext);
+  const {account, fetchUserInfo} = useContext(AuthContext);
+
+  const handleAddDefaultAddress = async info => {
+    try {
+      const body = {
+        userId: account?._id,
+        addressId: info._id,
+      };
+
+      const res = await userApi.getDefaultAddress(body);
+
+      if (res.data.success) {
+        await fetchUserInfo();
+        setIsAddress(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -56,9 +70,9 @@ const ModalAddress = ({modalVisible, setModalVisible}) => {
     <Modal
       animationType="slide"
       transparent={true}
-      visible={modalVisible}
+      visible={isAddress}
       onRequestClose={() => {
-        setModalVisible(!modalVisible);
+        setIsAddress(!isAddress);
       }}>
       <View
         style={{
@@ -73,8 +87,10 @@ const ModalAddress = ({modalVisible, setModalVisible}) => {
             {listAddress?.map((item, index) => {
               return (
                 <TouchableOpacity
+                  key={index}
                   activeOpacity={0.5}
-                  style={{marginBottom: 10, ...styles.info}}>
+                  style={{marginBottom: 10, ...styles.info}}
+                  onPress={() => handleAddDefaultAddress(item)}>
                   <Text style={styles.textInfo}>{item?.username}</Text>
                   <Text style={styles.textInfo}>{item?.phone}</Text>
                   <Text
@@ -87,8 +103,91 @@ const ModalAddress = ({modalVisible, setModalVisible}) => {
           </ScrollView>
           <Pressable
             style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            onPress={() => setIsAddress(!isAddress)}>
+            <Text style={styles.textStyle}>Close</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const ModalVoucher = ({isVoucher, setIsVoucher, setCodeVoucher}) => {
+  const [listVoucher, setListVoucher] = useState(null);
+
+  const handleApplyVoucher = async item => {
+    try {
+      const res = await voucherApi.applyVoucher({code: item.code});
+      if (res.data.success) {
+        setCodeVoucher(item);
+        setIsVoucher(!isVoucher);
+        showToastWithGravityAndOffset(res.data.message);
+      }
+    } catch (error) {
+      showToastWithGravityAndOffset(error.response.data.message);
+    }
+  };
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await voucherApi.getUsingVoucher();
+
+        if (res.data.success) {
+          setListVoucher(res.data.data);
+        }
+      } catch (error) {
+        console.log('error to get voucher list', error);
+      }
+    })();
+  }, []);
+
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isVoucher}
+      onRequestClose={() => {
+        setIsVoucher(!isVoucher);
+      }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+        }}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Select voucher?</Text>
+          <ScrollView>
+            {listVoucher?.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  style={styles.items_voucher}
+                  key={index}
+                  onPress={() => {
+                    handleApplyVoucher(item);
+                  }}>
+                  <Image style={styles.img_vouchers} source={Logo} />
+                  <View style={styles.text_vouchers}>
+                    <Text style={styles.text_vouchers_id}>{item?.code}</Text>
+                    <Text style={styles.text_vouchers_per}>
+                      Discount {`${item?.discountPercent * 100}%`}
+                    </Text>
+                    <Text style={styles.text_vouchers_date}>
+                      Start: {moment(item?.beginDate).format('MMMM D, YYYY')}
+                    </Text>
+                    <Text style={styles.text_vouchers_date}>
+                      End: {moment(item?.endDate).format('MMMM D, YYYY')}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setIsVoucher(!isVoucher)}>
+            <Text style={styles.textStyle}>Close</Text>
           </Pressable>
         </View>
       </View>
@@ -97,16 +196,19 @@ const ModalAddress = ({modalVisible, setModalVisible}) => {
 };
 const CheckoutScreen = ({navigation, route}) => {
   const {cartList, subTotal} = route.params;
-  const {account} = useContext(AuthContext);
+  const {account, fetchUserInfo} = useContext(AuthContext);
   const [isChange, setIsChange] = React.useState(false);
   const [payment, setPayment] = React.useState('COD');
   const [convertCart, setConvertCart] = React.useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [formAddress, setFormAddress] = useState({
-    username: '',
-    phone: '',
-    address: '',
+  const [isAddress, setIsAddress] = useState(false);
+  const [isVoucher, setIsVoucher] = useState(false);
+  const [userInfo, setUserInfo] = useState(account?.defaultAddress);
+
+  const [codeVoucher, setCodeVoucher] = useState({
+    code: '',
+    discountPercent: 0,
   });
+  console.log(codeVoucher);
   const handleSubmitOrder = () => {
     try {
       const params = {
@@ -137,6 +239,25 @@ const CheckoutScreen = ({navigation, route}) => {
     });
     setConvertCart(newArr);
   };
+  const handleCancelVoucher = async item => {
+    try {
+      const res = await voucherApi.cancelVoucher({code: item.code});
+      if (res.data.success) {
+        setCodeVoucher({
+          code: '',
+          discountPercent: 0,
+        });
+        // setIsVoucher(!isVoucher);
+        showToastWithGravityAndOffset(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      showToastWithGravityAndOffset(error.response.data.message);
+    }
+  };
+  useEffect(() => {
+    setUserInfo(account?.defaultAddress);
+  }, [account]);
 
   useEffect(() => {
     convertCartList();
@@ -160,21 +281,18 @@ const CheckoutScreen = ({navigation, route}) => {
             ) : (
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => setModalVisible(true)}>
+                onPress={() => setIsAddress(true)}>
                 <Text style={styles.textAction}>Change</Text>
               </TouchableOpacity>
             )}
           </View>
-          <ModalAddress
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-          />
+          <ModalAddress isAddress={isAddress} setIsAddress={setIsAddress} />
           {account.defaultAddress ? (
             <View style={styles.info}>
-              <Text style={styles.textInfo}>{account?.fullname}</Text>
-              <Text style={styles.textInfo}>0123456789</Text>
+              <Text style={styles.textInfo}>{userInfo?.username}</Text>
+              <Text style={styles.textInfo}>{userInfo?.phone}</Text>
               <Text style={styles.textInfo}>
-                897 Nguyen Hue, ward 15, district 1, Thu Duc City
+                {`${userInfo?.address?.number}, ${userInfo?.address?.street}, ${userInfo?.address?.ward}, ${userInfo?.address?.district}, ${userInfo?.address?.province}`}
               </Text>
             </View>
           ) : (
@@ -252,48 +370,36 @@ const CheckoutScreen = ({navigation, route}) => {
           </View>
         </View>
 
-        {/* <View style={styles.section}>
+        <View style={styles.section}>
           <Text style={styles.textHeader}>Voucher</Text>
-          <View style={styles.foods}>
-            <SelectDropdown
-              // style={styles.inputCity}
-              defaultValue={'Default sorting'}
-              buttonStyle={{
-                position: 'relative',
-                left: -25,
-                backgroundColor: 'transparent',
-                elevation: -1,
-                // justifyContent: 'flex-start',
-                padding: 0,
-                borderRadius: 5,
-                borderWidth: 1,
-                borderColor: 'gray',
-                margin: 0,
-
-                // width: 150,
-                height: 40,
-              }}
-              buttonTextStyle={{
-                ...styles.text,
-                fontStyle: 'italic',
-                fontWeight: '400',
-                fontSize: 16,
-                // textAlign: 'left',
-              }}
-              rowStyle={{backgroundColor: 'white'}}
-              data={LIST_SHORTING}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
+          <View style={styles.promoCode}>
+            <TextInput
+              style={styles.inputCode}
+              placeholder="Code voucher"
+              placeholderTextColor="#C0C0C0"
+              // editable={false}
+              value={codeVoucher.code}
+              onTouchStart={() => setIsVoucher(true)}
             />
+            {codeVoucher.code !== '' && (
+              <TouchableOpacity
+                style={styles.close}
+                onPress={() => handleCancelVoucher(codeVoucher)}>
+                <SvgXml xml={Icons.IconClose} size={24} color="#FE724C" />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.buttonApply}
+              onPress={() => setIsVoucher(true)}>
+              <Text style={styles.buttonText}>Select</Text>
+            </TouchableOpacity>
           </View>
-        </View> */}
+          <ModalVoucher
+            isVoucher={isVoucher}
+            setIsVoucher={setIsVoucher}
+            setCodeVoucher={setCodeVoucher}
+          />
+        </View>
         <View style={styles.section}>
           <Text style={styles.textHeader}>Payment</Text>
           <View style={styles.selectPayment}>
@@ -343,6 +449,15 @@ const CheckoutScreen = ({navigation, route}) => {
             </View>
 
             <View style={styles.cost_info}>
+              <Text style={styles.kind_of_fee}>Discount</Text>
+              <View style={styles.money}>
+                <Text style={styles.cost_of_fee}>
+                  {formatter.format(subTotal * codeVoucher.discountPercent)}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.cost_info}>
               <Text style={styles.kind_of_fee}>Tax and Fees</Text>
               <View style={styles.money}>
                 <Text style={styles.cost_of_fee}> {formatter.format(0)}</Text>
@@ -360,7 +475,9 @@ const CheckoutScreen = ({navigation, route}) => {
               <Text style={styles.kind_of_fee}>Total</Text>
               <View style={styles.money}>
                 <Text style={styles.cost_of_fee}>
-                  {formatter.format(subTotal)}
+                  {formatter.format(
+                    subTotal - subTotal * codeVoucher.discountPercent,
+                  )}
                 </Text>
               </View>
             </View>

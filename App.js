@@ -27,33 +27,30 @@ const Providers = () => {
 };
 
 const Routes = () => {
-  const {user, setUser, account, setAccount, setFavorite} =
-    useContext(AuthContext);
+  const {
+    user,
+    setUser,
+    account,
+    setAccount,
+    setFavorite,
+    fetchListFavorite,
+    fetchUserInfo,
+  } = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
-  const fetchUserInfo = async () => {
-    try {
-      const response = await userApi.getUserInfo();
+  // const fetchListFavorite = async () => {
+  //   try {
+  //     const response = await favoriteApi.getListIdFavorite();
 
-      setAccount(response.data.data);
-    } catch (error) {
-      console.log('Failed to fetch user: ', error.response.data);
-    }
-  };
-
-  const fetchListFavorite = async () => {
-    try {
-      const response = await favoriteApi.getListIdFavorite();
-
-      setFavorite(response.data.data);
-    } catch (error) {
-      console.log('Failed to fetch list favorite: ', error.response.data);
-    }
-  };
+  //     setFavorite(response.data.data);
+  //   } catch (error) {
+  //     console.log('Failed to fetch list favorite: ', error.response.data);
+  //   }
+  // };
 
   const onAuthStateChanged = user => {
     if (user?.uid) {
-      fetchUserInfo(user.uid);
+      fetchUserInfo();
       fetchListFavorite();
     }
     setUser(user);

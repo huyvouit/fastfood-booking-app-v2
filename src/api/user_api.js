@@ -18,6 +18,11 @@ const userApi = {
     const url = '/address';
     return axiosClient.get(url, {params});
   },
+
+  getDefaultAddress: body => {
+    const url = '/address/add-default';
+    return axiosClient.post(url, body);
+  },
 };
 
 export default userApi;

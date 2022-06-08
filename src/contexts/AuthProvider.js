@@ -55,6 +55,16 @@ export const AuthProvider = ({children}) => {
     }
   };
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await userApi.getUserInfo();
+
+      setAccount(response.data.data);
+    } catch (error) {
+      console.log('Failed to fetch user: ', error.response.data);
+    }
+  };
+
   const fetchListFavorite = async () => {
     try {
       const response = await favoriteApi.getListIdFavorite();
@@ -76,6 +86,7 @@ export const AuthProvider = ({children}) => {
         favorite,
         setFavorite,
         fetchListFavorite,
+        fetchUserInfo,
         login: async (email, password) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);
