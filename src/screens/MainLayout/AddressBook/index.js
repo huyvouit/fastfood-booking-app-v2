@@ -23,6 +23,7 @@ const AddressBookScreen = ({navigation}) => {
   const {account, fetchUserInfo} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const fetchListAddress = async () => {
+    setIsLoading(true);
     try {
       const params = {
         userId: account?._id,
@@ -51,7 +52,8 @@ const AddressBookScreen = ({navigation}) => {
       const res = await userApi.getDefaultAddress(body);
 
       if (res.data.success) {
-        await fetchListAddress();
+        // await fetchListAddress();
+        await fetchUserInfo();
         showToastWithGravityAndOffset(res.data.message);
       }
     } catch (error) {
@@ -87,6 +89,12 @@ const AddressBookScreen = ({navigation}) => {
     fetchListAddress();
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchListAddress();
+    });
+    return unsubscribe;
+  }, [navigation]);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
@@ -129,7 +137,11 @@ const AddressBookScreen = ({navigation}) => {
                   )}
                   <TouchableOpacity
                     style={{marginLeft: 5}}
-                    onPress={() => console.log('run')}>
+                    onPress={() =>
+                      navigation.navigate('EditProfileScreen', {
+                        info: item,
+                      })
+                    }>
                     <SvgXml
                       xml={Icons.IconEdit}
                       color="#000"
