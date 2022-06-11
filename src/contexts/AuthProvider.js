@@ -246,7 +246,16 @@ export const AuthProvider = ({children}) => {
             };
           }
         },
-        forgotPassword: async () => {},
+        forgotPassword: async (email) => {
+          try {
+            return await auth().sendPasswordResetEmail(email);
+          } catch (error) {
+            return {
+              success: false,
+              message: error.message,
+            };
+          }
+        },
         logout: async () => {
           try {
             await auth()
