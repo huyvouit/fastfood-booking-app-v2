@@ -1,6 +1,7 @@
-import BackButton from 'components/BackButton';
 import React, {useContext, useState} from 'react';
-import Icons from 'assets/icons';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
+import ImagePicker from 'react-native-image-crop-picker';
 import {SvgXml} from 'react-native-svg';
 import {
   Text,
@@ -11,25 +12,33 @@ import {
   SafeAreaView,
   StatusBar,
   TextInput,
+  StyleSheet,
 } from 'react-native';
 import styles from './styles';
 import HeaderPage from 'components/Header';
 import {AuthContext} from 'contexts/AuthProvider';
 import userApi from 'api/user_api';
 import {showToastWithGravityAndOffset} from 'helper/toast';
+import axios from 'axios';
 
 const ProfileScreen = ({navigation}) => {
   const {account, fetchUserInfo} = useContext(AuthContext);
   const [isEditable, setIsEditable] = useState(false);
   // console.log(navigation);
+  // const [image, setImage] = useState(
+  //   'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg',
+  // );
   const [formUser, setFormUser] = useState({
     fullname: account?.fullname,
     phone: account?.phone,
+    avatar:
+      account?.avatar ||
+      'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg',
   });
 
-  const submitUpdate = async () => {
+  const submitUpdate = async data => {
     try {
-      const response = await userApi.updateUserInfo(formUser);
+      const response = await userApi.updateUserInfo(data);
 
       if (response.data.success) {
         showToastWithGravityAndOffset(response.data.message);
@@ -41,25 +50,94 @@ const ProfileScreen = ({navigation}) => {
       if (error.response.data) return error.response.data;
     }
   };
+
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      compressImageMaxWidth: 300,
+      compressImageMaxHeight: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(image => {
+      setFormUser({...formUser, avatar: image.path});
+      submitUpdate({avatar: image.path});
+      this.bs.current.snapTo(1);
+    });
+  };
+
+  const choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(image => {
+      setFormUser({...formUser, avatar: image.path});
+      submitUpdate({avatar: image.path});
+      this.bs.current.snapTo(1);
+    });
+  };
+
+  renderInner = () => (
+    <View style={styles.panel}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={takePhotoFromCamera}>
+        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={choosePhotoFromLibrary}>
+        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={() => this.bs.current.snapTo(1)}>
+        <Text style={styles.panelButtonTitle}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle} />
+      </View>
+    </View>
+  );
+  bs = React.createRef();
+  fall = new Animated.Value(1);
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
       <View style={styles.title}>
         <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
           <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
         <Text style={styles.titleText}>Profile</Text>
       </View>
+
+      <BottomSheet
+        ref={this.bs}
+        snapPoints={[330, 0]}
+        renderContent={this.renderInner}
+        renderHeader={this.renderHeader}
+        initialSnap={1}
+        callbackNode={this.fall}
+        enabledGestureInteraction={true}
+      />
+      {/* </View> */}
       <ScrollView style={styles.content}>
         <View style={styles.textWrapper}>
-          <View style={styles.profile}>
+          <TouchableOpacity
+            style={styles.profile}
+            onPress={() => this.bs.current.snapTo(0)}>
             <View style={styles.avatar}>
-              <Image
-                source={require('../../assets/images/Avatar.png')}
-                style={styles.image}
-              />
+              <Image source={{uri: formUser.avatar}} style={styles.image} />
             </View>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.edit}>
             <Text style={styles.name}>{account?.fullname}</Text>
@@ -67,7 +145,7 @@ const ProfileScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.editProfile}
                 onPress={() => {
-                  submitUpdate();
+                  submitUpdate(formUser);
                 }}>
                 <Text style={{...styles.editProfileText, color: '#ff724c'}}>
                   Save Profile

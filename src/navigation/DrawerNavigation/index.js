@@ -56,7 +56,12 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
               dispatch(setSelectedTab('Profile'));
               navigation.navigate('ProfileScreen');
             }}>
-            <View
+            <Image
+              source={{
+                uri:
+                  account?.avatar ||
+                  'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg',
+              }}
               style={{
                 width: 50,
                 height: 50,
@@ -65,13 +70,13 @@ const CustomDrawerContent = ({navigation, selectedTab, dispatch, redirect}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <SvgXml
+              {/* <SvgXml
                 xml={Icons.IconUser}
                 color="black"
                 width={30}
                 height={30}
-              />
-            </View>
+              /> */}
+            </Image>
             <View style={{marginLeft: 12}}>
               <Text
                 numberOfLines={1}
