@@ -94,7 +94,7 @@ const HomeScreen = ({navigation}) => {
         // contentContainerStyle={styles.scrollview}
         // onContentSizeChange={onContentSizeChange}
         style={{height: 300}}>
-        <Text style={styles.textIntro}>What would you like to order</Text>
+        <Text style={styles.textIntro}>What would you like to order ?</Text>
         <View style={styles.fieldInputSearch}>
           <TextInput
             // onAccessibilityTap={() => navigation.navigate('Search')}
@@ -155,7 +155,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.ortherItem}>
             <TouchableOpacity style={styles.ortherItem_1}>
               <View style={styles.text_2}>
-                <Text style={styles.textTitle}>LAAARGE DISCOUNTS</Text>
+                <Text style={styles.textTitle}>LARGE DISCOUNTS</Text>
                 <Text style={styles.textNote}>Upto 120 OFF</Text>
                 <Text style={styles.textContent}>No upper limit</Text>
               </View>
@@ -183,7 +183,7 @@ const HomeScreen = ({navigation}) => {
 
         <View style={styles.voucher}>
           <Text style={styles.textMenu}>Exclusively on FastFood</Text>
-          <Text style={styles.note}>Deal-icious offers from top brands!</Text>
+          <Text style={styles.note}>Delicious offers from top brands!</Text>
           <FlatGrid
             itemDimension={150}
             data={items}
