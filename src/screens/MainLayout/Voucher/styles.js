@@ -62,25 +62,27 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#ff882d',
     borderWidth: 1,
     borderColor: '#aaaaaa',
     width: '100%',
+    height: 110,
     borderRadius: 10,
     marginBottom: 20,
   },
   img_vouchers: {
-    backgroundColor: '#FE724C',
-    width: 100,
-    height: 80,
-    borderRadius: 10,
+    backgroundColor: '#fff',
+    width: 90,
+    height: 90,
+    borderRadius: 9,
     marginHorizontal: 8,
-    marginVertical: 8,
+    marginVertical: 8
   },
   text_vouchers: {
     margin: 10,
   },
   text_vouchers_id: {
+    marginBottom: 5,
     fontSize: 16,
     color: '#000000',
     fontWeight: '600',
