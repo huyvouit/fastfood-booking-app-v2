@@ -161,8 +161,10 @@ const GreenComponent = ({navigation, redirect}) => {
       </View>
       {/* ForgetPassword */}
       <View style={styles.gr10}>
-        <TouchableOpacity style={styles.gr11}>
-          <Text style={styles.gr12}>Forget Password ? </Text>
+        <TouchableOpacity
+          style={styles.gr11}
+          onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.gr12}>Forgot Password ? </Text>
         </TouchableOpacity>
       </View>
       {/* Button Login */}

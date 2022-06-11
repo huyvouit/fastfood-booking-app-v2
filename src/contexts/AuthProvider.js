@@ -246,6 +246,7 @@ export const AuthProvider = ({children}) => {
             };
           }
         },
+        forgotPassword: async () => {},
         logout: async () => {
           try {
             await auth()

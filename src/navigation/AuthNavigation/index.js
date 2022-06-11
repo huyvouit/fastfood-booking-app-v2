@@ -11,6 +11,7 @@ import DetailScreen from 'screens/MainLayout/Detail';
 import ReviewScreen from 'screens/MainLayout/Review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin} from '@react-native-community/google-signin';
+import ForgotPasswordScreen from 'screens/Auth/ResetPass';
 const AuthStack = createNativeStackNavigator();
 
 const AuthStackScreen = () => {
@@ -51,8 +52,12 @@ const AuthStackScreen = () => {
       <AuthStack.Screen name="Login">
         {props => <LoginScreen {...props} redirect={props.navigation} />}
       </AuthStack.Screen>
+      <AuthStack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+      />
       {/* <AuthStack.Screen name="Register" component={RegisterScreen} /> */}
-      {/* <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      {/* 
     <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} /> */}
 
       {/* temp */}
