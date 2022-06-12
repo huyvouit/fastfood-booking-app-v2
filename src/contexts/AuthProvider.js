@@ -2,7 +2,7 @@ import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-community/google-signin';
-// import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 import userApi from 'api/user_api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {showToastWithGravityAndOffset} from 'helper/toast';
@@ -141,54 +141,78 @@ export const AuthProvider = ({children}) => {
             console.log({error});
           }
         },
-        // fbLogin: async () => {
-        //   try {
-        //     // Attempt login with permissions
-        //     const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+        fbLogin: async () => {
+          try {
+            // Attempt login with permissions
+            const result = await LoginManager.logInWithPermissions([
+              'public_profile',
+              'email',
+            ]);
 
-        //     if (result.isCancelled) {
-        //       throw 'User cancelled the login process';
-        //     }
+            if (result.isCancelled) {
+              throw 'User cancelled the login process';
+            }
 
-        //     // Once signed in, get the users AccesToken
-        //     const data = await AccessToken.getCurrentAccessToken();
+            // Once signed in, get the users AccesToken
+            const data = await AccessToken.getCurrentAccessToken();
 
-        //     if (!data) {
-        //       throw 'Something went wrong obtaining access token';
-        //     }
+            if (!data) {
+              throw 'Something went wrong obtaining access token';
+            }
 
-        //     // Create a Firebase credential with the AccessToken
-        //     const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+            // Create a Firebase credential with the AccessToken
+            const facebookCredential = auth.FacebookAuthProvider.credential(
+              data.accessToken,
+            );
 
-        //     // Sign-in the user with the credential
-        //     await auth().signInWithCredential(facebookCredential)
-        //     // Use it only when user Sign's up,
-        //     // so create different social signup function
-        //     // .then(() => {
-        //     //   //Once the user creation has happened successfully, we can add the currentUser into firestore
-        //     //   //with the appropriate details.
-        //     //   console.log('current User', auth().currentUser);
-        //     //   firestore().collection('users').doc(auth().currentUser.uid)
-        //     //   .set({
-        //     //       fname: '',
-        //     //       lname: '',
-        //     //       email: auth().currentUser.email,
-        //     //       createdAt: firestore.Timestamp.fromDate(new Date()),
-        //     //       userImg: null,
-        //     //   })
-        //     //   //ensure we catch any errors at this stage to advise us if something does go wrong
-        //     //   .catch(error => {
-        //     //       console.log('Something went wrong with added user to firestore: ', error);
-        //     //   })
-        //     // })
-        //     //we need to catch the whole sign up process if it fails too.
-        //     .catch(error => {
-        //         console.log('Something went wrong with sign up: ', error);
-        //     });
-        //   } catch(error) {
-        //     console.log({error});
-        //   }
-        // },
+            // Sign-in the user with the credential
+            const res = await auth()
+              .signInWithCredential(facebookCredential)
+              // Use it only when user Sign's up,
+              // so create different social signup function
+              .then(async () => {
+                //Once the user creation has happened successfully, we can add the currentUser into firestore
+                //with the appropriate details.
+                console.log('current User', auth().currentUser);
+                firestore()
+                  .collection('users')
+                  .doc(auth().currentUser.uid)
+                  .set({
+                    fname: '',
+                    lname: '',
+                    email: auth().currentUser.email,
+                    createdAt: firestore.Timestamp.fromDate(new Date()),
+                    userImg: null,
+                  })
+                  //ensure we catch any errors at this stage to advise us if something does go wrong
+                  .catch(error => {
+                    console.log(
+                      'Something went wrong with added user to firestore: ',
+                      error,
+                    );
+                  });
+                if (auth().currentUser.uid) {
+                  const response = await createUser(
+                    auth().currentUser.displayName,
+                    auth().currentUser.email,
+                    auth().currentUser.uid,
+                  );
+                  return response;
+                }
+              })
+              //we need to catch the whole sign up process if it fails too.
+              .catch(error => {
+                console.log('Something went wrong with sign up: ', error);
+                return {
+                  success: false,
+                  message: error.message,
+                };
+              });
+            return res;
+          } catch (error) {
+            console.log({error});
+          }
+        },
         register: async (fullname, email, password) => {
           try {
             const res = await auth()

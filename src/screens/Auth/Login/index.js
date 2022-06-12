@@ -264,7 +264,26 @@ const RegisterComponent = ({redirect}) => {
 };
 
 const BlueComponent = () => {
-  const {googleLogin} = useContext(AuthContext);
+  const {googleLogin, fbLogin} = useContext(AuthContext);
+  const handleSunbmitLoginGG = async () => {
+    const res = await googleLogin();
+
+    if (res?.success) {
+      showToastWithGravityAndOffset(res.message);
+    } else {
+      showToastWithGravityAndOffset(res.message);
+    }
+  };
+
+  const handleSunbmitLoginFB = async () => {
+    const res = await fbLogin();
+
+    if (res?.success) {
+      showToastWithGravityAndOffset(res.message);
+    } else {
+      showToastWithGravityAndOffset(res.message);
+    }
+  };
   return (
     <View style={styles.bl1}>
       <View style={styles.bl2}>
@@ -273,14 +292,14 @@ const BlueComponent = () => {
         {/* <View style={styles.bl4}></View> */}
       </View>
       <View style={styles.bl5}>
-        <TouchableOpacity onPress={() => googleLogin()}>
+        <TouchableOpacity onPress={handleSunbmitLoginGG}>
           <Image
             source={Images.logoGG}
             resizeMode="contain"
             style={styles.bl6}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSunbmitLoginFB}>
           <Image
             source={Images.logoFb}
             resizeMode="contain"
