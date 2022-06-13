@@ -18,6 +18,9 @@ import Loading from 'screens/Loading';
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLazyLoad, setIsLazyLoad] = useState(false);
+  const [maxPage, setMaxPage] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState(0);
   const [productList, setProductList] = useState([]);
@@ -37,7 +40,7 @@ const ProductScreen = ({navigation}) => {
   };
 
   const fetchProductList = async currentPage => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const params = {
         currentPage,
@@ -49,19 +52,21 @@ const ProductScreen = ({navigation}) => {
         size: filter.size == 'All' ? '' : filter.size,
         rating: filter.rating,
       };
-
+      console.log(params);
       const response = await productApi.getByFilter(params);
       // console.log(response.data.filteredProducts);
       setProductList([...productList, ...response.data.filteredProducts.data]);
-      setIsLoading(false);
+      setMaxPage(response.data.filteredProducts.maxPage);
     } catch (error) {
-      console.log('Failed to fetch product list: ', error);
+      console.log('Failed to fetch product list: ', error, currentPage);
     }
   };
 
   const handleLoadMore = async () => {
-    fetchProductList(currentPage + 1);
+    setIsLazyLoad(true);
+    await fetchProductList(currentPage + 1);
     setCurrentPage(currentPage + 1);
+    setIsLazyLoad(false);
   };
   useEffect(() => {
     fetchProductList(currentPage);
@@ -77,15 +82,17 @@ const ProductScreen = ({navigation}) => {
       <ScrollView
         style={{height: 300}}
         // onMomentumScrollEnd
-        onMomentumScrollEnd={({nativeEvent}) => {
-          var windowHeight = Dimensions.get('window').height,
-            height = nativeEvent.contentSize.height,
-            offset = nativeEvent.contentOffset.y;
-          console.log(windowHeight, height, offset);
-          if (windowHeight + offset >= height + 190) {
-            setTimeout(() => {
-              console.log('end');
-            }, 0);
+        onMomentumScrollEnd={e => {
+          var windowHeight = e.nativeEvent.layoutMeasurement.height,
+            height = e.nativeEvent.contentSize.height,
+            offset = e.nativeEvent.contentOffset.y;
+
+          if (
+            windowHeight + offset >= height - 100 &&
+            currentPage <= maxPage &&
+            currentPage < 5
+          ) {
+            handleLoadMore();
           }
         }}>
         <View style={{height: 300, flexDirection: 'row'}}>
@@ -113,7 +120,15 @@ const ProductScreen = ({navigation}) => {
             onClose={() => setShowFilterModal(false)}
             setFilter={setFilter}
             filter={filter}
-            action={fetchProductList}
+            action={() => {
+              if (currentPage !== 1) {
+                setCurrentPage(1);
+                // setProductList([]);
+                fetchProductList(1);
+              } else {
+                fetchProductList(currentPage);
+              }
+            }}
           />
         )}
         <View style={styles.title}>
@@ -168,11 +183,9 @@ const ProductScreen = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <View style={{paddingHorizontal: 20}}>
-            {/* <FlatList
+
+        <View style={{paddingHorizontal: 20}}>
+          {/* <FlatList
               data={productList}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => {
@@ -188,62 +201,16 @@ const ProductScreen = ({navigation}) => {
             
             /> */}
 
-            {productList.map((item, index) => (
-              <ItemFood
-                key={index}
-                navigation={navigation}
-                product={item}
-                size={filter.size}
-              />
-            ))}
-          </View>
-        )}
-        {/* <View style={styles.items}>
-          <Image source={Pizza} style={styles.img_container} />
-
-          <Text style={styles.price}>
-            <Text style={{color: 'red'}}>$</Text>
-            10.35
-          </Text>
-
-          <View style={styles.iconHeart}>
-            <SvgXml
-              xml={Icons.IconFavourite}
-              fill="white"
-              width={30}
-              height={30}
+          {productList.map((item, index) => (
+            <ItemFood
+              key={index}
+              navigation={navigation}
+              product={item}
+              size={filter.size}
             />
-          </View>
-
-          <View style={styles.rate}>
-            <Text style={styles.rateText}>4.5 </Text>
-            <View style={styles.iconStar}>
-              <SvgXml
-                xml={Icons.IconStar}
-                fill="yellow"
-                width={16}
-                height={16}
-              />
-            </View>
-            <Text style={{color: '#9796A1'}}> (25+)</Text>
-          </View>
-
-          <Text
-            style={{
-              color: '#323643',
-              fontWeight: 'bold',
-              fontSize: 20,
-              marginTop: 10,
-              marginLeft: 15,
-            }}>
-            Chicken greys
-          </Text>
-          <Text style={{color: '#323643', marginTop: 5, marginLeft: 15}}>
-            Brown the beef better. Lean ground beef . I like to use 85% lean
-            angus. Garlic . use fresh chopped. Spices . chili powder, cumin,
-            onion powder.
-          </Text>
-        </View> */}
+          ))}
+        </View>
+        {isLazyLoad && <Loading />}
       </ScrollView>
     </View>
   );
