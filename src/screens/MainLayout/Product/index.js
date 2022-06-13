@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
-import {TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import {TouchableOpacity, ActivityIndicator, FlatList} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {SvgXml} from 'react-native-svg';
 
@@ -18,6 +18,7 @@ import Loading from 'screens/Loading';
 const ProductScreen = ({navigation}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState(0);
   const [productList, setProductList] = useState([]);
   const [filter, setFilter] = useState({
@@ -27,11 +28,19 @@ const ProductScreen = ({navigation}) => {
     size: null,
     rating: null,
   });
-  const fetchProductList = async () => {
+  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 140;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
+  const fetchProductList = async currentPage => {
     setIsLoading(true);
     try {
       const params = {
-        currentPage: 1,
+        currentPage,
         productPerPage: 10,
         sortType,
         category: filter.category == 'All' ? '' : filter.category,
@@ -43,23 +52,42 @@ const ProductScreen = ({navigation}) => {
 
       const response = await productApi.getByFilter(params);
       // console.log(response.data.filteredProducts);
-      setProductList(response.data.filteredProducts.data);
+      setProductList([...productList, ...response.data.filteredProducts.data]);
       setIsLoading(false);
     } catch (error) {
       console.log('Failed to fetch product list: ', error);
     }
   };
+
+  const handleLoadMore = async () => {
+    fetchProductList(currentPage + 1);
+    setCurrentPage(currentPage + 1);
+  };
   useEffect(() => {
-    fetchProductList();
+    fetchProductList(currentPage);
   }, [filter, sortType]);
 
   // if (isLoading) {
   //   return <Loading />;
   // }
   // console.log(filter);
+  console.log(productList.length);
   return (
     <View style={styles.container}>
-      <ScrollView style={{height: 300}}>
+      <ScrollView
+        style={{height: 300}}
+        // onMomentumScrollEnd
+        onMomentumScrollEnd={({nativeEvent}) => {
+          var windowHeight = Dimensions.get('window').height,
+            height = nativeEvent.contentSize.height,
+            offset = nativeEvent.contentOffset.y;
+          console.log(windowHeight, height, offset);
+          if (windowHeight + offset >= height + 190) {
+            setTimeout(() => {
+              console.log('end');
+            }, 0);
+          }
+        }}>
         <View style={{height: 300, flexDirection: 'row'}}>
           <Text
             style={{
@@ -144,6 +172,22 @@ const ProductScreen = ({navigation}) => {
           <Loading />
         ) : (
           <View style={{paddingHorizontal: 20}}>
+            {/* <FlatList
+              data={productList}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item, index}) => {
+                return (
+                  <ItemFood
+                    key={index}
+                    navigation={navigation}
+                    product={item}
+                    size={filter.size}
+                  />
+                );
+              }}
+            
+            /> */}
+
             {productList.map((item, index) => (
               <ItemFood
                 key={index}

@@ -268,11 +268,11 @@ const BlueComponent = () => {
   const handleSunbmitLoginGG = async () => {
     const res = await googleLogin();
 
-    if (res?.success) {
-      showToastWithGravityAndOffset(res.message);
-    } else {
-      showToastWithGravityAndOffset(res.message);
-    }
+    // if (res?.success) {
+    //   showToastWithGravityAndOffset(res.message);
+    // } else {
+    //   showToastWithGravityAndOffset(res.message);
+    // }
   };
 
   const handleSunbmitLoginFB = async () => {

@@ -18,11 +18,11 @@ import favoriteApi from 'api/favorite_api';
 
 const Providers = () => {
   return (
-    <AuthProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
         <Routes />
-      </Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   );
 };
 
