@@ -6,7 +6,8 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import { AuthContext } from 'contexts/AuthProvider';
+import React, {useContext, useRef, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,6 +29,15 @@ const SignUp = 'SIGNUP';
 
 export default function ForgotPasswordScreen() {
   const [page, setpage] = useState('');
+
+  const emailRef = useRef();
+  const psRef = useRef();
+  const { login, forgotPassword} = useContext(AuthContext);
+
+  const forgotPasswordHandle = () => {
+    const email = emailRef.current.value;
+    if(email) forgotPassword(email).then(()=>(emailRef.current.value = ""));
+  }
   return (
     <ScrollView style={styles.main1}>
       <SafeAreaView style={styles.main2}>

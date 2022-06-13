@@ -7,6 +7,7 @@ import userApi from 'api/user_api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {showToastWithGravityAndOffset} from 'helper/toast';
 import favoriteApi from 'api/favorite_api';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
@@ -270,7 +271,13 @@ export const AuthProvider = ({children}) => {
             };
           }
         },
-        forgotPassword: async () => {},
+        forgotPassword: async (email) => {
+          try {
+            return await auth().sendPasswordResetEmail(email);
+          } catch (e) {
+            console.log(e);
+          }
+        },
         logout: async () => {
           try {
             await auth()
