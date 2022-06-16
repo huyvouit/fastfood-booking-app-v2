@@ -16,9 +16,12 @@ import provinceApi from 'api/province_api';
 import userApi from 'api/user_api';
 import {showToastWithGravityAndOffset} from 'helper/toast';
 import {AuthContext} from 'contexts/AuthProvider';
+import {useDispatch} from 'react-redux';
+import {setSelectedTab} from 'redux/actions';
 
 const NewAddressScreen = ({navigation, route}) => {
   const {info} = route.params;
+  const dispatch = useDispatch();
   const {account} = useContext(AuthContext);
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
@@ -206,7 +209,10 @@ const NewAddressScreen = ({navigation, route}) => {
     <ScrollView style={styles.container}>
       <View style={styles.title}>
         <HeaderPage
-          returnPage={() => navigation.openDrawer()}
+          returnPage={() => {
+            navigation.goBack();
+            dispatch(setSelectedTab('Home'));
+          }}
           title="Edit Address"
         />
       </View>

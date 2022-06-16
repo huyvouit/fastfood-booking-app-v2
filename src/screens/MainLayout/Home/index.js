@@ -36,7 +36,7 @@ const HomeScreen = ({navigation}) => {
     setIsLoading(true);
     try {
       const params = {
-        currentPage: 2,
+        currentPage: 5,
         productPerPage: 4,
       };
 
