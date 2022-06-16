@@ -23,6 +23,11 @@ const orderApi = {
     const url = '/order/cancel-order';
     return axiosClient.post(url, body);
   },
+
+  bookAgainOrder: body => {
+    const url = '/order/again-order';
+    return axiosClient.post(url, body);
+  },
 };
 
 export default orderApi;

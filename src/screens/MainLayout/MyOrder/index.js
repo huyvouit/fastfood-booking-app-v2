@@ -235,6 +235,23 @@ const MyOrderScreen = ({navigation}) => {
       showToastWithGravityAndOffset(error);
     }
   };
+
+  const handleBookAgainOrder = async item => {
+    try {
+      const response = await orderApi.bookAgainOrder({orderId: item._id});
+      if (response.data.success) {
+        await fetchCancelList();
+        await fetchUpComingList();
+
+        setIsLoading(false);
+        showToastWithGravityAndOffset(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      showToastWithGravityAndOffset(error);
+    }
+  };
   const onRefresh = async tabSelected => {
     if (tabSelected == 0) {
       await fetchUpComingList();
@@ -438,7 +455,9 @@ const MyOrderScreen = ({navigation}) => {
 
                     <View style={styles.part_4}>
                       {tabSelected != 1 && (
-                        <TouchableOpacity style={styles.buttonActionLeft}>
+                        <TouchableOpacity
+                          style={styles.buttonActionLeft}
+                          onPress={() => handleBookAgainOrder(item)}>
                           <Text style={styles.buttonActionLeftText}>
                             Order Again
                           </Text>
