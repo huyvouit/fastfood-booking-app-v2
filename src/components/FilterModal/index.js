@@ -39,7 +39,7 @@ const Section = ({containerStyle, title, children}) => {
 const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
   const [showFilterModal, setShowFilterModal] = React.useState(isVisible);
   const [category, setCategory] = React.useState(filter?.category || 0);
-  const [lowerPrice, setLower] = React.useState(filter?.lowerPrice || 150000);
+  const [lowerPrice, setLower] = React.useState(filter?.lowerPrice || 200000);
   const [higherPrice, setHigher] = React.useState(filter?.higherPrice || 0);
   const [size, setSize] = React.useState(filter?.size || 0);
   const [rating, setRating] = React.useState(filter?.rating || -1);
@@ -245,11 +245,16 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
               </View>
             </Section>
             <Section title="Price">
-              <View style={{alignItems: 'center'}}>
+              <View
+                style={{
+                  alignItems: 'center',
+                  // backgroundColor: 'red',
+                  // width: '96%',
+                }}>
                 <TwoPointSider
                   values={[higherPrice, lowerPrice]}
                   min={0}
-                  max={150000}
+                  max={200000}
                   postfix="VND"
                   onValuesChange={values => {
                     console.log(values);
@@ -361,7 +366,7 @@ const FilterModal = ({isVisible, onClose, filter, setFilter, action}) => {
                   setFilter({
                     category: convertCategory(0),
                     higherPrice: 0,
-                    lowerPrice: 150000,
+                    lowerPrice: 200000,
                     size: convertSize(0),
                     rating: -1,
                   });

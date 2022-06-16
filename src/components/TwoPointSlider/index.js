@@ -11,7 +11,7 @@ const TwoPointSider = props => {
   return (
     <MultiSlider
       values={values}
-      sliderLength={screenWidth - 68}
+      sliderLength={screenWidth - 85}
       min={min}
       max={max}
       step={1000}
