@@ -6,7 +6,9 @@
  * @flow strict-local
  */
 
-import { AuthContext } from 'contexts/AuthProvider';
+import Images from 'assets/images';
+import HeaderPage from 'components/Header';
+import {AuthContext} from 'contexts/AuthProvider';
 import React, {useContext, useRef, useState} from 'react';
 import {
   SafeAreaView,
@@ -27,51 +29,31 @@ const windowHeight = Dimensions.get('window').height;
 const SignIn = 'SIGNIN';
 const SignUp = 'SIGNUP';
 
-export default function ForgotPasswordScreen() {
+export default function ForgotPasswordScreen({navigation}) {
   const [page, setpage] = useState('');
 
-  const emailRef = useRef();
-  const psRef = useRef();
-  const { login, forgotPassword} = useContext(AuthContext);
-
-  const forgotPasswordHandle = () => {
-    const email = emailRef.current.value;
-    if(email) forgotPassword(email).then(()=>(emailRef.current.value = ""));
-  }
   return (
-    <ScrollView style={styles.main1}>
-      <SafeAreaView style={styles.main2}>
-        <RedComponent page={page} setpage={setpage} />
-      </SafeAreaView>
-      <SafeAreaView style={styles.main3}>
-        <GreenComponent />
-      </SafeAreaView>
-      <ScrollView style={styles.main4}>
-        <GreenComponent />
-      </ScrollView>
-    </ScrollView>
-  );
-}
-const RedComponent = ({page, setpage}) => {
-  return (
-    <View style={{flex: 1}}>
-      <StatusBar barstyle="light-content" />
-      <View style={styles.red1}>
-        <View style={styles.red2}>
-          <Text style={styles.red3}>FASTFOOD</Text>
-        </View>
+    <View style={styles.main1}>
+      <View style={{position: 'absolute', top: 0, zIndex: 10}}>
+        <HeaderPage returnPage={() => navigation.goBack()} />
       </View>
+      <View style={{height: 300}}>
+        <Image source={Images.Logo} />
+      </View>
+      <GreenComponent navigation={navigation} />
     </View>
   );
-};
-const GreenComponent = () => {
+}
+
+const GreenComponent = ({navigation}) => {
+  const {forgotPassword} = useContext(AuthContext);
+
   const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
-  const [passwordHidden, setpasswordHidden] = useState(true);
+
   return (
     <View style={styles.gr1}>
       {/* Reset */}
-      <Text style={styles.gr2}>RESET PASSWORD</Text>
+      <Text style={styles.gr2}>FORGOT PASSWORD?</Text>
       {/* text */}
       <View style={styles.gr3}>
         <Text style={styles.gr4}>
@@ -91,11 +73,15 @@ const GreenComponent = () => {
           style={styles.gr8}
           autoCapitalize={null}
           placeholder="E-mail"
+          value={email}
+          onChangeText={text => setemail(text)}
         />
       </View>
       {/* Button*/}
-      <TouchableOpacity style={styles.gr9}>
-        <Text style={styles.gr10}>SEND NEW PASSWORD</Text>
+      <TouchableOpacity
+        style={styles.gr9}
+        onPress={() => forgotPassword(email, () => navigation.goBack())}>
+        <Text style={styles.gr10}>SEND REQUEST</Text>
       </TouchableOpacity>
     </View>
   );

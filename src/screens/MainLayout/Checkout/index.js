@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useContext, useState, useLayoutEffect} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TextInput,
   Modal,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import HeaderPage from 'components/Header';
 
@@ -25,6 +26,14 @@ import moment from 'moment';
 import {showToastWithGravityAndOffset} from 'helper/toast';
 import Icons from 'assets/icons';
 import orderApi from 'api/order_api';
+import {
+  Platform,
+  DeviceEventEmitter,
+  NativeModules,
+  NativeEventEmitter,
+} from 'react-native';
+import RNMomosdk from 'react-native-momosdk';
+
 const ModalAddress = ({isAddress, setIsAddress}) => {
   const [listAddress, setListAddress] = useState(null);
   const {account, fetchUserInfo} = useContext(AuthContext);
@@ -207,6 +216,7 @@ const ModalVoucher = ({isVoucher, setIsVoucher, setCodeVoucher}) => {
   );
 };
 const CheckoutScreen = ({navigation, route}) => {
+  const EventEmitter = new NativeEventEmitter(NativeModules.RNMomosdk);
   const {cartList, subTotal} = route.params;
   const {account, fetchUserInfo} = useContext(AuthContext);
   const [isChange, setIsChange] = React.useState(false);
@@ -225,6 +235,77 @@ const CheckoutScreen = ({navigation, route}) => {
     code: '',
     discountPercent: 0,
   });
+  //=====
+  const merchantname = 'Fast Food';
+  const merchantcode = 'CGV01';
+  const merchantNameLabel = 'Nhà cung cấp';
+  const billdescription = 'Fast Food Order';
+  const amount = 50000;
+  const enviroment = '0';
+
+  const formatNumberToMoney = (number, defaultNum, predicate) => {
+    predicate = !predicate ? '' : '' + predicate;
+    if (
+      number == 0 ||
+      number == '' ||
+      number == null ||
+      number == 'undefined' ||
+      isNaN(number) === true ||
+      number == '0' ||
+      number == '00' ||
+      number == '000'
+    )
+      return '0' + predicate;
+
+    var array = [];
+    var result = '';
+    var count = 0;
+
+    if (!number) {
+      return defaultNum ? defaultNum : '' + predicate;
+    }
+
+    let flag1 = false;
+    if (number < 0) {
+      number = -number;
+      flag1 = true;
+    }
+
+    var numberString = number.toString();
+    if (numberString.length < 3) {
+      return numberString + predicate;
+    }
+
+    for (let i = numberString.length - 1; i >= 0; i--) {
+      count += 1;
+      if (numberString[i] == '.' || numberString[i] == ',') {
+        array.push(',');
+        count = 0;
+      } else {
+        array.push(numberString[i]);
+      }
+      if (count == 3 && i >= 1) {
+        array.push('.');
+        count = 0;
+      }
+    }
+
+    for (let i = array.length - 1; i >= 0; i--) {
+      result += array[i];
+    }
+
+    if (flag1) result = '-' + result;
+
+    return result + predicate;
+  };
+
+  const [textAmount, setTextAmount] = useState(
+    formatNumberToMoney(amount, null, ''),
+  );
+  const [description, setDescription] = useState('');
+  const [processing, setProcessing] = useState(false);
+
+  ///===
 
   const handleSubmitOrder = async () => {
     let temp = [...cartList];
@@ -338,6 +419,99 @@ const CheckoutScreen = ({navigation, route}) => {
       showToastWithGravityAndOffset(error.response.data.message);
     }
   };
+
+  //===momo
+  useEffect(() => {
+    // let me = this;
+    console.log('run listener');
+    EventEmitter.addListener(
+      'RCTMoMoNoficationCenterRequestTokenReceived',
+      response => {
+        console.log('<MoMoPay>Listen.Event::' + JSON.stringify(response));
+        try {
+          if (response && response.status == 0) {
+            console.log('run here...');
+            let fromapp = response.fromapp; //ALWAYS:: fromapp==momotransfer
+            setDescription(JSON.stringify(response));
+            setProcessing(false);
+
+            let momoToken = response.data;
+            let phonenumber = response.phonenumber;
+            let message = response.message;
+            let orderId = response.refOrderId; //your orderId
+            let requestId = response.refRequestId; //your requestId
+            //continue to submit momoToken,phonenumber to server
+          } else {
+            setDescription('message: Get token fail');
+            setProcessing(false);
+          }
+        } catch (ex) {}
+      },
+    );
+
+    //OPTIONAL
+    EventEmitter.addListener(
+      'RCTMoMoNoficationCenterRequestTokenState',
+      response => {
+        console.log('<MoMoPay>Listen.RequestTokenState:: ' + response.status);
+        // status = 1: Parameters valid & ready to open MoMo app.
+        // status = 2: canOpenURL failed for URL MoMo app
+        // status = 3: Parameters invalid
+      },
+    );
+  });
+
+  const momoHandleResponse = async response => {
+    console.log('run handle response:', response, response?.status);
+    try {
+      if (response && response.status == 0) {
+        console.log('run here 1');
+        setProcessing(false);
+        setDescription(response?.message);
+      } else {
+        console.log('run here 2');
+        setDescription('message: Get token fail');
+        setProcessing(false);
+      }
+    } catch (error) {
+      console.log('run here 3');
+      console.log('error:', error);
+      setDescription('message: Get token fail...');
+      setProcessing(false);
+    }
+  };
+
+  const onPress = async () => {
+    let jsonData = {};
+    jsonData.enviroment = '0'; //"0": SANBOX , "1": PRODUCTION
+    jsonData.action = 'gettoken';
+    jsonData.isDev = true; //SANBOX only , remove this key on PRODUCTION
+    jsonData.merchantname = merchantname;
+    jsonData.merchantcode = merchantcode;
+    jsonData.merchantnamelabel = merchantNameLabel;
+    jsonData.description = billdescription;
+    (jsonData.amount = subTotal - subTotal * codeVoucher.discountPercent),
+      (jsonData.orderId = 'bill234284290348');
+    jsonData.requestId = 'ABCXYZ123456';
+    jsonData.orderLabel = 'Ma don hang';
+    jsonData.appScheme = 'momocgv20170101'; //
+    console.log('data_request_payment ' + JSON.stringify(jsonData));
+    if (Platform.OS === 'android') {
+      let dataPayment = await RNMomosdk.requestPayment(jsonData);
+      await momoHandleResponse(dataPayment);
+      console.log(
+        'data_request_payment ' + dataPayment.toString(),
+        dataPayment.status,
+      );
+    } else {
+      RNMomosdk.requestPayment(JSON.stringify(jsonData));
+    }
+    // setDescription('');
+    // setProcessing(true);
+  };
+
+  //====
+  console.log('desc:', description, 'processing:', processing);
   useEffect(() => {
     setUserInfo(account?.defaultAddress);
   }, [account]);
@@ -448,9 +622,13 @@ const CheckoutScreen = ({navigation, route}) => {
                             alignItems: 'center',
                           }}>
                           <Text style={styles.cost}>
-                            {formatter.format(
-                              item.productId?.type[0]?.price.$numberDecimal,
-                            )}
+                            {item?.size == 'M'
+                              ? formatter.format(
+                                  item.productId?.type[0]?.price.$numberDecimal,
+                                )
+                              : formatter.format(
+                                  item.productId?.type[1]?.price.$numberDecimal,
+                                )}
                           </Text>
                           <Text style={styles.quantity}>
                             {' '}
@@ -514,22 +692,35 @@ const CheckoutScreen = ({navigation, route}) => {
                 Cash
               </Text>
             </TouchableOpacity>
+            {/* <TouchableOpacity onPress={onPress} style={{...styles.zalopay}}>
+              {processing ? (
+                <Text style={styles.textGrey}>
+                  Waiting response from MoMo App
+                </Text>
+              ) : (
+                <Text style={styles.text}>Confirm Payment</Text>
+              )}
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={{
                 ...styles.zalopay,
-                backgroundColor: payment == 'ZaloPay' ? '#FE724C' : '#fff',
+                // backgroundColor: payment == 'ZaloPay' ? '#FE724C' : '#fff',
               }}
-              onPress={() => setPayment('ZaloPay')}>
-              <Image source={Images.ZaloPay} style={styles.zalopayImage} />
-              <Text
+              onPress={onPress}>
+              <Image source={Images.Momo} style={styles.zalopayImage} />
+              {/* <Text
                 style={{
                   ...styles.zalopayText,
                   color: payment == 'ZaloPay' ? '#fff' : '#FE724C',
                 }}>
-                Zalopay
-              </Text>
+                Momo
+              </Text> */}
             </TouchableOpacity>
           </View>
+          {processing ? <ActivityIndicator size="small" color="#000" /> : null}
+          {description != '' ? (
+            <Text style={{color: 'red'}}>{description}</Text>
+          ) : null}
         </View>
 
         <View style={styles.section}>

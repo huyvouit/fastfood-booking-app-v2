@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
 
   title: {
     flexDirection: 'row',
-    paddingTop: 30,
   },
 
   titleText: {

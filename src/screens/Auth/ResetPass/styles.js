@@ -4,56 +4,64 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   main1: {
-    width: '100%',
-    height: '100%',
-  },
-  main2: {
-    height: '30%',
-    width: '100%',
-  },
-  main3: {
-    top: 15,
-    height: '55%',
-    width: '100%',
-    backgroundColor: 'F5F5F5',
+    // width: '100%',
+    // height: '100%',
     flex: 1,
-  },
-  main4: {
-    top: 500,
-    flex: 1,
-  },
-  red2: {
-    width: '100%',
-    flex: 1,
-    height: '25%',
-    backgroundColor: '#FE724C',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
+    backgroundColor: '#ffff',
   },
-  red3: {
-    fontSize: 50,
-    fontWeight: '600',
-    color: '#FFFFFF',
+  // main2: {
+  //   height: '25%',
+  //   width: '100%',
+  // },
+  // main3: {
+  //   height: '45%',
+  //   width: '100%',
+  //   // paddingTop: 25,
+  // },
+  // main4: {
+  //   height: '30%',
+  // },
+  // main5: {
+  //   flex: 1,
+  //   height: '30%',
+  //   top: 30,
+  // },
+  main4: {
+    // top: 500,
+    height: 500,
+    // backgroundColor: 'red',
+    // flex: 1,
   },
-  red1: {
-    width: '100%',
-    height: 170,
-  },
-  gr1: {
-    height: '100%',
-    width: '100%',
-    alignContent: 'center',
-  },
+  // red2: {
+  //   width: '100%',
+  //   flex: 1,
+  //   height: '25%',
+  //   backgroundColor: '#FE724C',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   borderWidth: 1,
+  // },
+  // red3: {
+  //   fontSize: 50,
+  //   fontWeight: '600',
+  //   color: '#FFFFFF',
+  // },
+  // red1: {
+  //   width: '100%',
+  //   height: 170,
+  // },
+  gr1: {},
   gr2: {
     fontSize: 30,
-    marginLeft: 30,
+    fontFamily: 'Roboto-Bold',
     fontWeight: '600',
     color: 'black',
   },
   gr3: {
     width: windowWidth - 60,
-    marginLeft: 30,
+
     height: 50,
     marginTop: 10,
     flexDirection: 'row',
@@ -65,12 +73,13 @@ const styles = StyleSheet.create({
   gr5: {
     color: 'black',
     position: 'relative',
-    right: 0,
-    fontSize: 16,
+    fontFamily: 'Roboto-Regular',
+
+    fontSize: 17,
   },
   gr6: {
     width: windowWidth - 60,
-    marginLeft: 30,
+
     backgroundColor: 'white',
     height: 45,
     marginTop: 10,
@@ -83,7 +92,7 @@ const styles = StyleSheet.create({
   gr7: {
     width: 30,
     height: 30,
-    marginLeft: 15,
+
     marginTop: 8,
     justifyContent: 'center',
     alignContent: 'center',
@@ -96,10 +105,10 @@ const styles = StyleSheet.create({
   },
   gr9: {
     top: 10,
-    width: windowWidth - 60,
+    // width: windowWidth - 60,
     height: 50,
     backgroundColor: '#FE724C',
-    marginLeft: 30,
+
     marginTop: 10,
     borderRadius: 100,
     justifyContent: 'center',

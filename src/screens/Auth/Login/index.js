@@ -18,6 +18,8 @@ import {AuthContext} from 'contexts/AuthProvider';
 import styles from './styles';
 import Loading from 'screens/Loading';
 import {showToastWithGravityAndOffset} from 'helper/toast';
+import {useDispatch} from 'react-redux';
+import {setSelectedTab} from 'redux/actions';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -95,6 +97,7 @@ const RedComponent = ({page, setpage}) => {
 };
 
 const GreenComponent = ({navigation, redirect}) => {
+  // const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -107,6 +110,7 @@ const GreenComponent = ({navigation, redirect}) => {
 
     if (res?.success) {
       console.log(res.message);
+      // dispatch(setSelectedTab('Home'));
       showToastWithGravityAndOffset(res.message);
       setLoading(false);
     } else {

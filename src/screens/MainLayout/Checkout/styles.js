@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     color: '#323643',
     fontSize: 18,
     fontWeight: 'bold',
+    paddingRight: 30,
   },
 
   savour: {
@@ -254,9 +255,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   zalopayImage: {
-    width: 50,
-    height: 30,
+    width: 80,
+    height: '100%',
     alignSelf: 'center',
+    borderRadius: 15,
   },
   zalopayText: {
     textAlign: 'center',

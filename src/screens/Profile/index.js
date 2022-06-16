@@ -113,11 +113,17 @@ const ProfileScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.title}>
+        <HeaderPage
+          returnPage={() => navigation.openDrawer()}
+          title={'Checkout'}
+        />
+      </View>
+      {/* <View >
         <TouchableOpacity style={{position: 'absolute', top: 0, left: -10}}>
           <HeaderPage returnPage={() => navigation.openDrawer()} />
         </TouchableOpacity>
         <Text style={styles.titleText}>Profile</Text>
-      </View>
+      </View> */}
 
       <BottomSheet
         ref={this.bs}
@@ -165,7 +171,7 @@ const ProfileScreen = ({navigation}) => {
               <TextInput
                 style={styles.infoText}
                 value={account?.email}
-                editable={isEditable}
+                editable={false}
               />
             </View>
           </View>

@@ -33,6 +33,7 @@
     "react-native-gesture-handler": "^2.4.1",
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-momosdk": "^1.4.3",
     "react-native-paper": "^4.12.1",
     "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "^2.8.0",

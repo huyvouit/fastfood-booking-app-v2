@@ -260,7 +260,7 @@ export const DrawerScreen = ({redirect}) => {
   const animatedStyle = {borderRadius, transform: [{scale}]};
 
   return (
-    <View style={{flex: 1, backgroundColor: '#FE724C'}}>
+    <View style={{flex: 1, backgroundColor: '#FF724C'}}>
       <Drawer.Navigator
         initialRoutName="MainLayout"
         screenOptions={{

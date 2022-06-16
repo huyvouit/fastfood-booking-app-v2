@@ -21,6 +21,8 @@ target 'FastfoodAppV2' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'RNMomosdk', :path => '../node_modules/react-native-momosdk'
+
   target 'FastfoodAppV2Tests' do
     inherit! :complete
     # Pods for testing

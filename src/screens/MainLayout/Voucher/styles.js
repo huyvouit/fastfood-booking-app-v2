@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   items: {
     flexDirection: 'row',
-    backgroundColor: '#ff882d',
+    backgroundColor: '#ff724c',
     borderWidth: 1,
     borderColor: '#aaaaaa',
     width: '100%',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 9,
     marginHorizontal: 8,
-    marginVertical: 8
+    marginVertical: 8,
   },
   text_vouchers: {
     margin: 10,

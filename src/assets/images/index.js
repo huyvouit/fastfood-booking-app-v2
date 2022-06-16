@@ -18,6 +18,7 @@ import Cash from './cash.png';
 import ZaloPay from './ZaloPay-ngang.png';
 import Tick from './tick.png';
 import Logo from './logo.png';
+import Momo from './momo.jpg';
 const Images = {
   Burger,
   Chicken,
@@ -38,6 +39,7 @@ const Images = {
   Cash,
   ZaloPay,
   Tick,
+  Momo,
 };
 
 export default Images;

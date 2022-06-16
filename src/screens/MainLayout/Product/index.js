@@ -31,13 +31,13 @@ const ProductScreen = ({navigation}) => {
     size: null,
     rating: null,
   });
-  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 140;
-    return (
-      layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-    );
-  };
+  // const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+  //   const paddingToBottom = 140;
+  //   return (
+  //     layoutMeasurement.height + contentOffset.y >=
+  //     contentSize.height - paddingToBottom
+  //   );
+  // };
 
   const fetchProductList = async currentPage => {
     // setIsLoading(true);
@@ -55,19 +55,19 @@ const ProductScreen = ({navigation}) => {
       console.log(params);
       const response = await productApi.getByFilter(params);
       // console.log(response.data.filteredProducts);
-      setProductList([...productList, ...response.data.filteredProducts.data]);
-      setMaxPage(response.data.filteredProducts.maxPage);
+      setProductList(response.data.filteredProducts.data);
+      // setMaxPage(response.data.filteredProducts.maxPage);
     } catch (error) {
       console.log('Failed to fetch product list: ', error, currentPage);
     }
   };
 
-  const handleLoadMore = async () => {
-    setIsLazyLoad(true);
-    await fetchProductList(currentPage + 1);
-    setCurrentPage(currentPage + 1);
-    setIsLazyLoad(false);
-  };
+  // const handleLoadMore = async () => {
+  //   setIsLazyLoad(true);
+  //   await fetchProductList(currentPage + 1);
+  //   setCurrentPage(currentPage + 1);
+  //   setIsLazyLoad(false);
+  // };
   useEffect(() => {
     fetchProductList(currentPage);
   }, [filter, sortType]);
@@ -82,19 +82,20 @@ const ProductScreen = ({navigation}) => {
       <ScrollView
         style={{height: 300}}
         // onMomentumScrollEnd
-        onMomentumScrollEnd={e => {
-          var windowHeight = e.nativeEvent.layoutMeasurement.height,
-            height = e.nativeEvent.contentSize.height,
-            offset = e.nativeEvent.contentOffset.y;
+        // onMomentumScrollEnd={e => {
+        //   var windowHeight = e.nativeEvent.layoutMeasurement.height,
+        //     height = e.nativeEvent.contentSize.height,
+        //     offset = e.nativeEvent.contentOffset.y;
 
-          if (
-            windowHeight + offset >= height - 100 &&
-            currentPage <= maxPage &&
-            currentPage < 5
-          ) {
-            handleLoadMore();
-          }
-        }}>
+        //   if (
+        //     windowHeight + offset >= height - 100 &&
+        //     currentPage <= maxPage &&
+        //     currentPage < 5
+        //   ) {
+        //     handleLoadMore();
+        //   }
+        // }}
+      >
         <View style={{height: 300, flexDirection: 'row'}}>
           <Text
             style={{
@@ -121,13 +122,7 @@ const ProductScreen = ({navigation}) => {
             setFilter={setFilter}
             filter={filter}
             action={() => {
-              if (currentPage !== 1) {
-                setCurrentPage(1);
-                // setProductList([]);
-                fetchProductList(1);
-              } else {
-                fetchProductList(currentPage);
-              }
+              fetchProductList(currentPage);
             }}
           />
         )}
