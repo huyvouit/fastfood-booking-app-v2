@@ -342,7 +342,11 @@ const DetailScreen = ({navigation, route}) => {
                             height: 50,
                           }}>
                           <Image
-                            source={require('../../../assets/images/splash-screen.jpg')}
+                            source={{
+                              uri:
+                                item?.userId?.avatar ||
+                                'https://ict-imgs.vgcloud.vn/2020/09/01/19/huong-dan-tao-facebook-avatar.jpg',
+                            }}
                             style={{borderRadius: 50, width: 50, height: 50}}
                           />
                           {/* <View style={styles.rating}>

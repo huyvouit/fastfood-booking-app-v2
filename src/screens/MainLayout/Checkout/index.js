@@ -216,7 +216,7 @@ const ModalVoucher = ({isVoucher, setIsVoucher, setCodeVoucher}) => {
   );
 };
 const CheckoutScreen = ({navigation, route}) => {
-  const EventEmitter = new NativeEventEmitter(NativeModules.RNMomosdk);
+  // const EventEmitter = new NativeEventEmitter(NativeModules.RNMomosdk);
   const {cartList, subTotal} = route.params;
   const {account, fetchUserInfo} = useContext(AuthContext);
   const [isChange, setIsChange] = React.useState(false);
@@ -421,45 +421,45 @@ const CheckoutScreen = ({navigation, route}) => {
   };
 
   //===momo
-  useEffect(() => {
-    // let me = this;
-    console.log('run listener');
-    EventEmitter.addListener(
-      'RCTMoMoNoficationCenterRequestTokenReceived',
-      response => {
-        console.log('<MoMoPay>Listen.Event::' + JSON.stringify(response));
-        try {
-          if (response && response.status == 0) {
-            console.log('run here...');
-            let fromapp = response.fromapp; //ALWAYS:: fromapp==momotransfer
-            setDescription(JSON.stringify(response));
-            setProcessing(false);
+  // useEffect(() => {
+  //   // let me = this;
+  //   console.log('run listener');
+  //   EventEmitter.addListener(
+  //     'RCTMoMoNoficationCenterRequestTokenReceived',
+  //     response => {
+  //       console.log('<MoMoPay>Listen.Event::' + JSON.stringify(response));
+  //       try {
+  //         if (response && response.status == 0) {
+  //           console.log('run here...');
+  //           let fromapp = response.fromapp; //ALWAYS:: fromapp==momotransfer
+  //           setDescription(JSON.stringify(response));
+  //           setProcessing(false);
 
-            let momoToken = response.data;
-            let phonenumber = response.phonenumber;
-            let message = response.message;
-            let orderId = response.refOrderId; //your orderId
-            let requestId = response.refRequestId; //your requestId
-            //continue to submit momoToken,phonenumber to server
-          } else {
-            setDescription('message: Get token fail');
-            setProcessing(false);
-          }
-        } catch (ex) {}
-      },
-    );
+  //           let momoToken = response.data;
+  //           let phonenumber = response.phonenumber;
+  //           let message = response.message;
+  //           let orderId = response.refOrderId; //your orderId
+  //           let requestId = response.refRequestId; //your requestId
+  //           //continue to submit momoToken,phonenumber to server
+  //         } else {
+  //           setDescription('message: Get token fail');
+  //           setProcessing(false);
+  //         }
+  //       } catch (ex) {}
+  //     },
+  //   );
 
-    //OPTIONAL
-    EventEmitter.addListener(
-      'RCTMoMoNoficationCenterRequestTokenState',
-      response => {
-        console.log('<MoMoPay>Listen.RequestTokenState:: ' + response.status);
-        // status = 1: Parameters valid & ready to open MoMo app.
-        // status = 2: canOpenURL failed for URL MoMo app
-        // status = 3: Parameters invalid
-      },
-    );
-  });
+  //   //OPTIONAL
+  //   EventEmitter.addListener(
+  //     'RCTMoMoNoficationCenterRequestTokenState',
+  //     response => {
+  //       console.log('<MoMoPay>Listen.RequestTokenState:: ' + response.status);
+  //       // status = 1: Parameters valid & ready to open MoMo app.
+  //       // status = 2: canOpenURL failed for URL MoMo app
+  //       // status = 3: Parameters invalid
+  //     },
+  //   );
+  // });
 
   const momoHandleResponse = async response => {
     console.log('run handle response:', response, response?.status);
@@ -717,10 +717,10 @@ const CheckoutScreen = ({navigation, route}) => {
               </Text> */}
             </TouchableOpacity>
           </View>
-          {processing ? <ActivityIndicator size="small" color="#000" /> : null}
+          {/* {processing ? <ActivityIndicator size="small" color="#000" /> : null}
           {description != '' ? (
             <Text style={{color: 'red'}}>{description}</Text>
-          ) : null}
+          ) : null} */}
         </View>
 
         <View style={styles.section}>

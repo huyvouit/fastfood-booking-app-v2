@@ -115,7 +115,7 @@ const ProfileScreen = ({navigation}) => {
       <View style={styles.title}>
         <HeaderPage
           returnPage={() => navigation.openDrawer()}
-          title={'Checkout'}
+          title={'My Profile'}
         />
       </View>
       {/* <View >
